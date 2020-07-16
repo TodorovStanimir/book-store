@@ -63,7 +63,7 @@ const userValidator = [
 
     body('phone')
         .custom((value, { req }) => {
-            if (!/^[A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+$/g.test(value)) {
+            if (!/^[+]{1}\d{10,}$/g.test(value)) {
                 throw new Error('Phone number should consists country code and at least 7 digits!');
             }
             return true;
@@ -71,10 +71,11 @@ const userValidator = [
     ,
 
     body('occupation')
-        .custom((value, { rew }) => {
-            if (!/(^[A-Za-z ]+$)|(^[А-Яа-я ]+$)/g.test(value)) {
-                throw new Error('Occupation field should consists only letters!')
+        .custom((value, { req }) => {
+            if (!/(^[A-Za-z ]+$)|(^[А-Яа-я ]+$)/.test(value)) {
+                throw new Error('Occupation field should consists only letters!');
             }
+            return true;
         })
     ,
 
