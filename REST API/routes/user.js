@@ -5,6 +5,8 @@ const { userValidator, auth } = require('../utils');
 
 router.get('/', controllers.user.get);
 
+router.get('/:id', controllers.user.get);
+
 router.post('/register', userValidator, controllers.user.post.register);
 
 router.post('/login', userValidator, controllers.user.post.login);
