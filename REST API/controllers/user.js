@@ -7,7 +7,9 @@ const config = require('../config/config');
 module.exports = {
     get: async (req, res, next) => {
         try {
-            const users = await User.find().populate('books');
+            const search = req.params.id ? { _id: req.params.id } : {}
+
+            const users = await User.find(search).populate('books').select('-password').lean();
             res.status(200).send(users);
         } catch (error) {
             next(error)
@@ -86,7 +88,7 @@ module.exports = {
     delete: async (req, res, next) => {
         const id = req.params.id;
         try {
-            const removedUser = await User.deleteOne({ _id: id });
+            const removedUser = await User.deleteOne({ _id: id }).lean();
             res.send(removedUser)
         } catch (error) {
             next(error)
