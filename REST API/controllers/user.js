@@ -16,10 +16,10 @@ module.exports = {
 
     post: {
         login: async function (req, res, next) {
-            const { username, password } = req.body;
+            const { email, password } = req.body;
 
             try {
-                const user = await User.findOne({ username }).select('-password');
+                const user = await User.findOne({ email });
                 const match = user ? await user.matchPassword(password) : false;
 
                 if (!match) {
@@ -47,7 +47,7 @@ module.exports = {
             const { username, password, email, phone, occupation, imageUrl } = req.body;
 
             try {
-                const user = await User.findOne({ email });
+                const user = await User.findOne({ email }).lean();
 
                 if (user) {
                     return res.status(400).send({ errors: [{ msg: 'User already exists' }] });
