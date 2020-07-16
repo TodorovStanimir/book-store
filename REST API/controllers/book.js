@@ -5,7 +5,7 @@ const { Book, User } = require('../models');
 module.exports = {
     get: async (req, res, next) => {
         try {
-            const books = await Book.find().popupale('creator');
+            const books = await Book.find().populate('creator');
             res.send(books)
         } catch (error) {
             next(error)
