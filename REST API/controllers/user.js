@@ -71,25 +71,25 @@ module.exports = {
                 .catch(next);
         },
 
-        put: async (req, res, next) => {
-            try {
-                const id = req.params.id;
-                const { username, phone, occupation, imageUrl } = req.body;
-                const updatedUser = await User.update({ _id: id }, { username, phone, occupation, imageUrl });
-                res.status(200).send(updatedUser)
-            } catch (error) {
-                next(error)
-            }
-        },
-
-        delete: async (req, res, next) => {
+    },
+    put: async (req, res, next) => {
+        try {
             const id = req.params.id;
-            try {
-                const removedUser = await User.deleteOne({ _id: id });
-                res.send(removedUser)
-            } catch (error) {
-                next(error)
-            }
+            const { username, phone, occupation, imageUrl } = req.body;
+            const updatedUser = await User.update({ _id: id }, { username, phone, occupation, imageUrl });
+            res.status(200).send(updatedUser)
+        } catch (error) {
+            next(error)
         }
     },
+
+    delete: async (req, res, next) => {
+        const id = req.params.id;
+        try {
+            const removedUser = await User.deleteOne({ _id: id });
+            res.send(removedUser)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
