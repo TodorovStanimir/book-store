@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 const { Book, User } = require('../models');
 
 module.exports = {
@@ -11,6 +13,15 @@ module.exports = {
     },
 
     post: async (req, res, next) => {
+        const errors = validationResult(req);
+
+        console.log(errors);
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).send({ errors: errors.array() });
+        }
+
         const { title, author, description, genres, year, publisher, price, imageUrl } = req.body;
         const { _id } = req.user;
 
@@ -25,6 +36,14 @@ module.exports = {
     },
 
     put: async (req, res, next) => {
+        const errors = validationResult(req);
+
+        console.log(errors);
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).send({ errors: errors.array() });
+        }
         const id = req.params.id;
         const { title, author, description, genres, year, publisher, price, imageUrl } = req.body;
         try {
