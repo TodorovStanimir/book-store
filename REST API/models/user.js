@@ -34,7 +34,7 @@ const userSchema = new Schema({
         required: true
     },
 
-    phone: {
+    imageUrl: {
         type: String,
         required: true
     },
