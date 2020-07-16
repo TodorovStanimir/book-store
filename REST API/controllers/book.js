@@ -5,7 +5,7 @@ const { Book, User } = require('../models');
 module.exports = {
     get: async (req, res, next) => {
         try {
-            const books = await Book.find().populate('creator');
+            const books = await Book.find().populate({ path: 'creator', select: '-password' }).lean();
             res.send(books)
         } catch (error) {
             next(error)
@@ -45,9 +45,9 @@ module.exports = {
             return res.status(400).send({ errors: errors.array() });
         }
         const id = req.params.id;
-        const { title, author, description, genres, year, publisher, price, imageUrl } = req.body;
+        const { title, author, description, genres, year, publisher, price, imageUrl, likes, dislikes } = req.body;
         try {
-            const updatedBook = await Book.updateOne({ _id: id }, { title, author, description, genres, year, publisher, price, imageUrl });
+            const updatedBook = await Book.updateOne({ _id: id }, { title, author, description, genres, year, publisher, price, imageUrl, likes, dislikes });
             res.status(200).send(updatedBook)
         } catch (error) {
             next(error);
@@ -58,7 +58,10 @@ module.exports = {
         const id = req.params.id;
 
         try {
+            const book = await Book.findById(id).populate('creator');
+            const { _id } = book.creator;
             const removedBoook = await Book.deleteOne({ _id: id });
+            const updatedUser = await User.updateOne({ _id }, { $pull: { books: id } })
             res.status(204).send(removedBoook);
         } catch (error) {
             next(error)
