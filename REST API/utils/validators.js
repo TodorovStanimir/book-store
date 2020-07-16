@@ -88,7 +88,14 @@ const userValidator = [
         })
 ];
 
+const commentValidator = [
+    body('subject')
+        .isLength({ min: 2 }).withMessage('Subject shoud contain at least 2 signs')
+    ,
+];
+
 module.exports = {
     bookValidator,
-    userValidator
+    userValidator,
+    commentValidator
 };
