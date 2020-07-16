@@ -25,7 +25,7 @@ const bookValidator = [
         .isLength(4).withMessage('Publishers should contain at least {0} signs')
     ,
     body('price')
-        .isFloat({ min: 0.01 }.withMessage('Price should be at least 0.01'))
+        .isFloat({ min: 0.01 }).withMessage('Price should be at least 0.01')
     ,
     body('imageUrl')
         .custom((value, { req }) => {
