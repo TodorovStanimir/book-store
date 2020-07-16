@@ -21,22 +21,22 @@ const userSchema = new Schema({
 
     password: {
         type: String,
-        require: true
+        required: true
     },
 
     phone: {
         type: String,
-        require: true
+        required: true
     },
 
     occupation: {
         type: String,
-        require: true
+        required: true
     },
 
     phone: {
         type: String,
-        require: true
+        required: true
     },
 
     books: [{ type: ObjectId, ref: "Book" }]
