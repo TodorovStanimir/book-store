@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+  display: block;
+  width: auto;
+  height: auto;
+  background-image: url('./images/home.png');
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} 
