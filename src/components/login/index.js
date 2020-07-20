@@ -26,7 +26,7 @@ const Login = () => {
 
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>
+                                    <div className={styles['info-field']}>
                                         This field is required!
                                     </div>
                                     <div className={styles['info-field']}>
@@ -50,7 +50,7 @@ const Login = () => {
                             </div>
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>
+                                    <div className={styles['info-field']}>
                                         This field is required!
                             </div>
                                     <div className={styles['info-field']}>
