@@ -26,7 +26,7 @@ const Register = () => {
                             </div>
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>This field is required!</div>
+                                    <div className={styles['info-field']}>This field is required!</div>
                                     <div className={styles['info-field']}>Shoud be in format Xxxxx Xxxxx</div>
                                 </div>
                                 : null
@@ -46,7 +46,7 @@ const Register = () => {
                             </div>
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>This field is required!</div>
+                                    <div className={styles['info-field']}>This field is required!</div>
                                     <div className={styles['info-field']}>Shoud be in format Xxxxx Xxxxx</div>
                                 </div>
                                 : null
@@ -66,7 +66,7 @@ const Register = () => {
                             </div>
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>This field is required!</div>
+                                    <div className={styles['info-field']}>This field is required!</div>
                                     <div className={styles['info-field']}>Phone number should consists country code and at least 7 digits!</div>
                                 </div>
                                 : null
@@ -86,7 +86,7 @@ const Register = () => {
                             </div>
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>This field is required!</div>
+                                    <div className={styles['info-field']}>This field is required!</div>
                                     <div className={styles['info-field']}>Occupation field should consists only letters!</div>
                                 </div>
                                 : null
@@ -107,7 +107,7 @@ const Register = () => {
                                 </div>
                                 {!isValid
                                     ? <div>
-                                        <div className={styles['req-field']}>This field is required!</div>
+                                        <div className={styles['info-field']}>This field is required!</div>
                                         <div className={styles['info-field']}>Password shoud consists between 3 and 16 symbols: letters and digits!</div>
                                     </div>
                                     : null
@@ -127,7 +127,7 @@ const Register = () => {
                                 </div>
                                 {!isValid
                                     ? <div>
-                                        <div className={styles['req-field']}>This field is required!</div>
+                                        <div className={styles['info-field']}>This field is required!</div>
                                         <div className={styles['info-field']}>Passwords do not match!</div>
                                     </div>
                                     : null
@@ -148,7 +148,7 @@ const Register = () => {
                             </div>
                             {!isValid
                                 ? <div>
-                                    <div className={styles['req-field']}>This field is required!</div>
+                                    <div className={styles['info-field']}>This field is required!</div>
                                     <div className={styles['info-field']}>Image URL must start with http:// or https://!</div>
                                 </div>
                                 : null
