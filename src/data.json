@@ -1,0 +1,132 @@
+[
+    {
+        "_id": "5f15e79b8f765d213007657b",
+        "likes": 0,
+        "dislikes": 0,
+        "comments": [],
+        "title": "Before We Were Yours",
+        "author": "Lisa Wingate",
+        "description": "Soon to be a major television event from Pascal Pictures, starring Tom Holland. Based on the true story of a forgotten hero, the USA Today and #1 Amazon Charts bestseller Beneath a Scarlet Sky is the triumphant, epic tale of one young man’s incredible courage and resilience during one of history’s darkest hours. Pino Lella wants nothing to do with the war or the Nazis. He’s a normal Italian teenager—obsessed with music, food, and girls—but his days of innocence are numbered. When his family home in Milan is destroyed by Allied bombs, Pino joins an underground railroad helping Jews escape over the Alps, and falls for Anna, a beautiful widow six years his senior. In an attempt to protect him, Pino’s parents force him to enlist as a German soldier—a move they think will keep him out of combat. But after Pino is injured, he is recruited at the tender age of eighteen to become the personal driver for Adolf Hitler’s left hand in Italy, General Hans Leyers, one of the Third Reich’s most mysterious and powerful commanders. Now, with the opportunity to spy for the Allies inside the German High Command, Pino endures the horrors of the war and the Nazi occupation by fighting in secret, his courage bolstered by his love for Anna and for the life he dreams they will one day share. Fans of All the Light We Cannot See, The Nightingale, and Unbroken will enjoy this riveting saga of history, suspense, and love.",
+        "genres": "Sisters, Fiction, American literature",
+        "year": 2019,
+        "publisher": "Ballantine Books",
+        "price": 15.95,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/513yA7tojNL._SX320_BO1,204,203,200_.jpg",
+        "creator": {
+            "_id": "5f10cdf4b0595728d4d2c940",
+            "books": [
+                "5f10ce76b0595728d4d2c942",
+                "5f15e5878f765d2130076579",
+                "5f15e6e38f765d213007657a",
+                "5f15e79b8f765d213007657b"
+            ],
+            "username": "Yana Todorov",
+            "email": "test@test.bg",
+            "phone": "+359888053596",
+            "occupation": "Accountant",
+            "imageUrl": "https://scontent.fsof10-1.fna.fbcdn.net/v/t1.0-1/p160x160/99133591_10207883060111930_4206622563205382144_n.jpg?_nc_cat=107&_nc_sid=dbb9e7&_nc_ohc=WTBdOLeSdQAAX9jC9Gz&_nc_ht=scontent.fsof10-1.fna&_nc_tp=6&oh=ef1465a8c8bfee90706d0f15536503ea&oe=5F23A8F3",
+            "__v": 0
+        },
+        "__v": 0
+    },
+    {
+        "_id": "5f15e6e38f765d213007657a",
+        "likes": 0,
+        "dislikes": 0,
+        "comments": [],
+        "title": "Sold on a Monday",
+        "author": "Kristina McMorris",
+        "description": "A NEW YORK TIMES BESTSELLER A USA TODAY BESTSELLER A PUBLISHERS WEEKLY BESTSELLER A NATIONAL INDIEBOUND BESTSELLER An unforgettable historical fiction novel by Kristina McMorris, inspired by a stunning piece of history from Depression-Era America. 2 CHILDREN FOR SALE The sign is a last resort. It sits on a farmhouse porch in 1931, but could be found anywhere in an era of breadlines, bank runs and broken dreams. It could have been written by any mother facing impossible choices. For struggling reporter Ellis Reed, the gut-wrenching scene evokes memories of his family's dark past. He snaps a photograph of the children, not meant for publication. But when it leads to his big break, the consequences are more devastating than he ever imagined. Inspired by an actual newspaper photograph that stunned the nation, Sold on a Monday is a powerful novel of love, redemption, and the unexpected paths that bring us home. Kristina McMorris's poignant historical novel will capture fans of Before We Were Yours by Lisa Wingate and The Lilac Girls by Martha Hall Kelly and inspire any book club.",
+        "genres": "Family, Life, Fiction, Historical Fiction",
+        "year": 2018,
+        "publisher": "Sourcebooks Landmark",
+        "price": 21.54,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41oSSR2M7iL._SX331_BO1,204,203,200_.jpg",
+        "creator": {
+            "_id": "5f10cdf4b0595728d4d2c940",
+            "books": [
+                "5f10ce76b0595728d4d2c942",
+                "5f15e5878f765d2130076579",
+                "5f15e6e38f765d213007657a",
+                "5f15e79b8f765d213007657b"
+            ],
+            "username": "Yana Todorov",
+            "email": "test@test.bg",
+            "phone": "+359888053596",
+            "occupation": "Accountant",
+            "imageUrl": "https://scontent.fsof10-1.fna.fbcdn.net/v/t1.0-1/p160x160/99133591_10207883060111930_4206622563205382144_n.jpg?_nc_cat=107&_nc_sid=dbb9e7&_nc_ohc=WTBdOLeSdQAAX9jC9Gz&_nc_ht=scontent.fsof10-1.fna&_nc_tp=6&oh=ef1465a8c8bfee90706d0f15536503ea&oe=5F23A8F3",
+            "__v": 0
+        },
+        "__v": 0
+    },
+    {
+        "_id": "5f15e5878f765d2130076579",
+        "likes": 0,
+        "dislikes": 0,
+        "comments": [],
+        "title": "Beneath a Scarlet Sky",
+        "author": "Mark Sullivan",
+        "description": "Soon to be a major television event from Pascal Pictures, starring Tom Holland.\n Based on the true story of a forgotten hero, the USA Today and #1 Amazon Charts bestseller Beneath a Scarlet Sky is the triumphant, epic tale of one young man’s incredible courage and resilience during one of history’s darkest hours.\n Pino Lella wants nothing to do with the war or the Nazis. He’s a normal Italian teenager—obsessed with music, food, and girls—but his days of innocence are numbered. When his family home in Milan is destroyed by Allied bombs, Pino joins an underground railroad helping Jews escape over the Alps, and falls for Anna, a beautiful widow six years his senior.\n In an attempt to protect him, Pino’s parents force him to enlist as a German soldier—a move they think will keep him out of combat. But after Pino is injured, he is recruited at the tender age of eighteen to become the personal driver for Adolf Hitler’s left hand in Italy, General Hans Leyers, one of the Third Reich’s most mysterious and powerful commanders.\n Now, with the opportunity to spy for the Allies inside the German High Command, Pino endures the horrors of the war and the Nazi occupation by fighting in secret, his courage bolstered by his love for Anna and for the life he dreams they will one day share.\n Fans of All the Light We Cannot See, The Nightingale, and Unbroken will enjoy this riveting saga of history, suspense, and love.",
+        "genres": "Biographical, Historical Fiction",
+        "year": 2017,
+        "publisher": "Lake Union Publishing",
+        "price": 24.99,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41UYLwYUH5L._SX310_BO1,204,203,200_.jpg",
+        "creator": {
+            "_id": "5f10cdf4b0595728d4d2c940",
+            "books": [
+                "5f10ce76b0595728d4d2c942",
+                "5f15e5878f765d2130076579",
+                "5f15e6e38f765d213007657a",
+                "5f15e79b8f765d213007657b"
+            ],
+            "username": "Yana Todorov",
+            "email": "test@test.bg",
+            "phone": "+359888053596",
+            "occupation": "Accountant",
+            "imageUrl": "https://scontent.fsof10-1.fna.fbcdn.net/v/t1.0-1/p160x160/99133591_10207883060111930_4206622563205382144_n.jpg?_nc_cat=107&_nc_sid=dbb9e7&_nc_ohc=WTBdOLeSdQAAX9jC9Gz&_nc_ht=scontent.fsof10-1.fna&_nc_tp=6&oh=ef1465a8c8bfee90706d0f15536503ea&oe=5F23A8F3",
+            "__v": 0
+        },
+        "__v": 0
+    },
+    {
+        "_id": "5f10ce76b0595728d4d2c942",
+        "likes": 0,
+        "dislikes": 0,
+        "comments": [
+            {
+                "_id": "5f10d1b5ed11d82398eaad3d",
+                "subject": "The best book for 2020",
+                "book": "5f10ce76b0595728d4d2c942",
+                "creator": "5f10cdf4b0595728d4d2c940",
+                "createdAt": "2020-07-16T22:16:21.285Z",
+                "updatedAt": "2020-07-16T22:16:21.285Z",
+                "__v": 0
+            }
+        ],
+        "title": "Proba",
+        "author": "Ivancho Ivanov",
+        "description": "0123456789012345678901234567890123456789",
+        "genres": "fision, biographi",
+        "year": 1995,
+        "publisher": "Me and You",
+        "price": 19.5,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41UYLwYUH5L._SX310_BO1,204,203,200_.jpg",
+        "creator": {
+            "_id": "5f10cdf4b0595728d4d2c940",
+            "books": [
+                "5f10ce76b0595728d4d2c942",
+                "5f15e5878f765d2130076579",
+                "5f15e6e38f765d213007657a",
+                "5f15e79b8f765d213007657b"
+            ],
+            "username": "Yana Todorov",
+            "email": "test@test.bg",
+            "phone": "+359888053596",
+            "occupation": "Accountant",
+            "imageUrl": "https://scontent.fsof10-1.fna.fbcdn.net/v/t1.0-1/p160x160/99133591_10207883060111930_4206622563205382144_n.jpg?_nc_cat=107&_nc_sid=dbb9e7&_nc_ohc=WTBdOLeSdQAAX9jC9Gz&_nc_ht=scontent.fsof10-1.fna&_nc_tp=6&oh=ef1465a8c8bfee90706d0f15536503ea&oe=5F23A8F3",
+            "__v": 0
+        },
+        "__v": 0
+    }
+]
