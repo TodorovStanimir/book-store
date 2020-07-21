@@ -6,7 +6,8 @@ import Footer from './components/footer';
 // import Register from './components/register';
 // import Login from './components/login';
 // import CreateBook from './components/book-create';
-import Books from './components/book-all';
+// import Books from './components/book-all';
+import BookDetails from './components/book-details';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       {/* <Register /> */}
       {/* <Login/> */}
       {/* <CreateBook/> */}
-      <Books />
+      {/* <Books /> */}
+      <BookDetails />
       <Footer />
     </div>
   );
