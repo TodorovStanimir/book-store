@@ -33,7 +33,6 @@ const CommentDetails = ({ bookId, creatorId }) => {
                 </article >))
                 : null
             }
-
         </div >
     )
 }
