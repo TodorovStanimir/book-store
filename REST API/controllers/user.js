@@ -10,7 +10,7 @@ module.exports = {
             const search = req.params.id ? { _id: req.params.id } : {}
 
             const users = await User.find(search).populate('books').select('-password').lean();
-            res.status(200).send(users);
+            res.status(200).send(req.params && req.params.id ? users[0] : users);
         } catch (error) {
             next(error)
         }
