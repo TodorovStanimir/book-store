@@ -4,7 +4,7 @@ import CommentCreate from '../comment-create';
 import CommentDetails from '../comment-details'
 import styles from './index.module.css';
 
-import data from '../../data.json';
+import data from '../../books.json';
 
 class BookDetails extends Component {
     constructor(props) {
@@ -122,7 +122,7 @@ class BookDetails extends Component {
 
                     <div className={styles['grid-item']}>
                         <CommentCreate book={book} createComment={(book, newComment) => this.createComment(book, newComment)} />
-                        <CommentDetails comments={book.comments} />
+                        <CommentDetails bookId={book._id} creatorId={book.creator._id} />
                     </div >
                 </div >
             </div >

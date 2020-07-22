@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './index.module.css';
-import data from '../../data.json'
+import data from '../../books.json'
 import Book from '../book';
 
 class Books extends Component {
