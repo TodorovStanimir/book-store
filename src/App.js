@@ -7,7 +7,8 @@ import Footer from './components/footer';
 // import Login from './components/login';
 // import CreateBook from './components/book-create';
 // import Books from './components/book-all';
-import BookDetails from './components/book-details';
+// import BookDetails from './components/book-details';
+import Profile from './components/profile';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
       {/* <Login/> */}
       {/* <CreateBook/> */}
       {/* <Books /> */}
-      <BookDetails />
+      {/* <BookDetails /> */}
+      <Profile/>
       <Footer />
     </div>
   );
