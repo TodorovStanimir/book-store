@@ -6,6 +6,8 @@ const { commentValidator } = require('../utils/validators');
 
 router.get('/', controllers.comment.get);
 
+router.get('/:id', controllers.comment.get);
+
 router.post('/', auth(), commentValidator, controllers.comment.post);
 
 router.put('/:id', auth(), commentValidator, controllers.comment.put);

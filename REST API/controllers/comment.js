@@ -5,10 +5,11 @@ const { Comment, User, Book } = require('../models');
 module.exports = {
 
     get: async (req, res, next) => {
+        const search = req.params.id && { _id: req.params.id }
         try {
-            const comments = await Comment.find()
-            .populate({ path: 'creator', select: '-password' })
-            .populate({ path: 'book'}).lean();
+            const comments = await Comment.find(search ? { book: search } : {})
+                .populate({ path: 'creator', select: '-password' })
+                .populate({ path: 'book' }).lean();
             res.send(comments)
         } catch (error) {
             next(error)
