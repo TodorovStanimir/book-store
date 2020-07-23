@@ -9,7 +9,8 @@ import Footer from './components/footer';
 // import Books from './components/book-all';
 // import BookDetails from './components/book-details';
 // import Profile from './components/profile';
-import NotFound from './components/not-found/index';
+// import NotFound from './components/not-found/index';
+import Navigation from './components/navigation'
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       {/* <Books /> */}
       {/* <BookDetails /> */}
       {/* <Profile/> */}
-      <NotFound />
+      {/* <NotFound /> */}
+      <Navigation/>
       <Footer />
     </div>
   );
