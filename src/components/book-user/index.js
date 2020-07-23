@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './index.module.css';
+import { Link } from 'react-router-dom';
 
 const BookUser = ({ book, handleDeleteBook }) => {
 
@@ -26,19 +27,19 @@ const BookUser = ({ book, handleDeleteBook }) => {
                 </div>
                 <div className={styles['buttons-container']}>
                     <div className={styles.buttons}>
-                        <a href={`/books/details/${book._id}`}>
+                        <Link to={`/books/details/${book._id}`}>
                             <button className="btn">
                                 <i className="fa fa-info-circle"></i>
                             </button>
-                        </a>
+                        </Link>
                         <button onClick={() => handleDeleteBook(book._id)} className="btn">
                             <i className="fa fa-trash-alt"></i>
                         </button>
-                        <a href={`/books/edit/${book._id}`}>
+                        <Link to={`/books/edit/${book._id}`}>
                             <button className="btn">
                                 <i className="fa fa-edit"></i>
                             </button>
-                        </a>
+                        </Link>
                     </div>
                 </div >
             </div >

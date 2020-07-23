@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './index.module.css';
 import logo from '../../images/logo.png'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -8,25 +9,25 @@ const Header = () => {
             <div className={styles.navbar}>
                 <img className={styles['nav-image']} src={logo} alt="BookStore" />
                 <li className={styles['nav-item']}>
-                    <a href="/profile/profile" className={styles['nav-link']}>Hello, user</a>
+                    <Link to="/profile/profile" className={styles['nav-link']}>Hello, user</Link>
                 </li>
                 <li className={styles['nav-item']}>
-                    <a href="/profile/register" className={styles['nav-link']}>Register</a>
+                    <Link to="/profile/register" className={styles['nav-link']}>Register</Link>
                 </li>
                 <li className={styles['nav-item']}>
-                    <a href="/profile/login" className={styles['nav-link']}>Login</a>
+                    <Link to="/profile/login" className={styles['nav-link']}>Login</Link>
                 </li >
                 <li className={styles['nav-item']}>
-                    <a href="/profile/logout" className={styles['nav-link']}>Logout</a>
+                    <Link to="/profile/logout" className={styles['nav-link']}>Logout</Link>
                 </li >
                 <li className={styles['nav-item']}>
-                    <a href="/profile/profile" className={styles['nav-link']}>Profile</a>
+                    <Link to="/profile/profile" className={styles['nav-link']}>Profile</Link>
                 </li >
                 <li className={styles['nav-item']}>
-                    <a href="/books/create" className={styles['nav-link']}>Create book</a>
+                    <Link to="/books/create" className={styles['nav-link']}>Create book</Link>
                 </li >
                 <li className={styles['nav-item']}>
-                    <a href="/books/user" className={styles['nav-link']}>My books</a>
+                    <Link to="/books/user" className={styles['nav-link']}>My books</Link>
                 </li >
             </div >
         </div >

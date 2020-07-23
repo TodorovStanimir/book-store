@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './index.module.css';
 
 import { substr } from '../../services/filters';
+import { Link } from 'react-router-dom';
 
 const Book = (props) => {
     const book = props.book;
@@ -24,11 +25,11 @@ const Book = (props) => {
                     <div className={styles['buttons-container']}>
                         <div className={styles.buttons}>
                             <li>
-                                <a href={`/books/details/${book._id}`}>
+                                <Link to={`/books/details/${book._id}`}>
                                     <button className={styles.button}>
                                         <i className="fa fa-info-circle"></i>
                                     </button>
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
@@ -37,11 +38,11 @@ const Book = (props) => {
                                 </button>
                             </li>
                             <li>
-                                <a href={`/books/edit/${book._id}`}>
+                                <Link to={`/books/edit/${book._id}`}>
                                     <button className={styles.button}>
                                         <i className="fa fa-edit"></i>
                                     </button>
-                                </a>
+                                </Link>
                             </li>
 
                         </div>
