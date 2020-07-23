@@ -25,23 +25,29 @@ const Book = (props) => {
                     <div className={styles['buttons-container']}>
                         <div className={styles.buttons}>
                             <li>
-                                <Link to={`/books/details/${book._id}`}>
-                                    <button className={styles.button}>
-                                        <i className="fa fa-info-circle"></i>
-                                    </button>
-                                </Link>
+                                <div className={styles.black}>
+                                    <Link to={`/books/details/${book._id}`}>
+                                        <button className={styles.button}>
+                                            <i className="fa fa-info-circle"></i>
+                                        </button>
+                                    </Link>
+                                </div>
                             </li>
 
                             <li>
-                                <button className={styles.button} onClick={deleteBook(book['_id'])}>
-                                    <i className="fa fa-trash-alt"></i>
-                                </button>
+                                <div className={styles.black}>
+                                    <button className={styles.button} onClick={deleteBook(book['_id'])}>
+                                        <i className="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
                             </li>
                             <li>
                                 <Link to={`/books/edit/${book._id}`}>
-                                    <button className={styles.button}>
-                                        <i className="fa fa-edit"></i>
-                                    </button>
+                                    <div className={styles.black}>
+                                        <button className={styles.button}>
+                                            <i className="fa fa-edit"></i>
+                                        </button>
+                                    </div>
                                 </Link>
                             </li>
 

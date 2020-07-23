@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageLayout from '../../page-layout';
+import PageLayout from '../../components/page-layout/page-layout';
 import styles from './index.module.css';
 import { Link } from 'react-router-dom';
 

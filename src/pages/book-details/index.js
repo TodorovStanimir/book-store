@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
-import PageLayout from '../../page-layout';
-import CommentCreate from '../comment-create';
-import CommentDetails from '../comment-details'
+import PageLayout from '../../components/page-layout/page-layout';
+import CommentCreate from '../../components/comment-create';
+import CommentDetails from '../../components/comment-details'
 import styles from './index.module.css';
 
 import data from '../../books.json';

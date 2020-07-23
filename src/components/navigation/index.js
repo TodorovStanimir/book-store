@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
-import Books from '../book-all';
-import CreateBook from '../book-create';
-import BookDetails from '../book-details';
-import Login from '../login';
-import Register from '../register';
-import Profile from '../profile';
-import NotFoundRoute from '../not-found'
+import Books from '../../pages/book-all';
+import CreateBook from '../../pages/book-create';
+import BookDetails from '../../pages/book-details';
+import Login from '../../pages/login';
+import Register from '../../pages/register';
+import Profile from '../../pages/profile';
+import NotFoundRoute from '../../pages/not-found'
 
 const Navigation = () => {
     return (

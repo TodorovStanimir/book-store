@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PageLayout from '../../page-layout';
+import PageLayout from '../../components/page-layout/page-layout';
 
 import styles from './index.module.css';
 import data from '../../books.json'
-import Book from '../book';
+import Book from '../../components/book';
 
 class Books extends Component {
 

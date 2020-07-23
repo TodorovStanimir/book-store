@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import PageLayout from '../../page-layout';
-import BookUser from '../book-user';
+import PageLayout from '../../components/page-layout/page-layout';
+import BookUser from '../../components/book-user';
 import styles from './index.module.css';
 
 import bookss from '../../books.json';
@@ -127,7 +127,7 @@ const Profile = () => {
                                 : <div className={styles['info-field']}>Image Url should start wth http:// or https://</div>
                             }
                             <div className="form-group">
-                                <img claasName={styles.img} src={editedUser.imageUrl} alt={editedUser.username} width="120" height="160" />
+                                <img className={styles.img} src={editedUser.imageUrl} alt={editedUser.username} width="120" height="160" />
                             </div>
                             <div className="form-group">
                                 <button
