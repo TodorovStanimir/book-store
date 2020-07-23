@@ -4,6 +4,7 @@ import styles from './index.module.css';
 
 import bookss from '../../books.json';
 import users from '../../users.json';
+import BookUser from '../book-user';
 
 const Profile = () => {
     const [editedUser, setState] = useState(users[0]);
@@ -40,6 +41,8 @@ const Profile = () => {
 
     const { email, phone, occupation, imageUrl } = editedUser;
     const { email: correctEmail, phone: correctPhone, occupation: correctOccupation, imageUrl: correctImageUrl } = controls;
+
+    const booksUser = books.map(book => <BookUser key={book._id} book={book} handleDeleteBook={handleDeleteBook} />)
     return (
         <div className={styles['grid-container']}>
             <div className={styles.grid}>
@@ -137,44 +140,7 @@ const Profile = () => {
                     <div className={styles['book-summary']}>
                         <p>You have {editedUser.books.length} books and {editedUser.books.reduce((acc, cur) => acc += cur.comments.length, 0)} comments</p>
                     </div>
-                    {books.map(book => <div key={book._id} className={styles['book-row']}>
-                        <div className={styles['book-title']}>
-                            <div className="inside-book-info">{book.title.toUpperCase()}</div>
-                        </div>
-                        <div className={styles['book-likes-buttons']}>
-                            <div className={styles['book-likes']}>
-                                <div className={styles['inside-book-info']}>{book.likes}</div>
-                                <div className={styles['inside-book-info']}>
-                                    <div className={styles.blue}><i className="fa fa-thumbs-up book"></i></div>
-                                </div>
-                                <div className={styles['inside-book-info']}>{book.dislikes}</div>
-                                <div className={styles['inside-book-info']}>
-                                    <div className={styles.red}><i className="fa fa-thumbs-down book"></i></div>
-                                </div>
-                                <div className={styles['inside-book-info']}>{book.comments.length}</div>
-                                <div className={styles['inside-book-info']}>
-                                    <div className={styles.green}><i className="fa fa-comments book"></i></div>
-                                </div>
-                            </div>
-                            <div className={styles['"buttons-container']}>
-                                <div className={styles.buttons}>
-                                    <a href={`/books/details/${book._id}`}>
-                                        <button className="btn">
-                                            <i className="fa fa-info-circle"></i>
-                                        </button>
-                                    </a>
-                                    <button onClick={() => handleDeleteBook(book._id)} className="btn">
-                                        <i className="fa fa-trash-alt"></i>
-                                    </button>
-                                    <a href={`/books/edit/${book._id}`}>
-                                        <button className="btn">
-                                            <i className="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                            </div >
-                        </div >
-                    </div >)}
+                    {booksUser}
                 </div >
             </div >
         </div >

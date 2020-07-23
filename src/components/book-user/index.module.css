@@ -1,0 +1,69 @@
+.book-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid green;
+  border-radius: 4px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.book-title {
+  display: flex;
+  flex-direction: row;
+  margin-right: 0px;
+}
+.book-likes-buttons {
+  display: flex;
+  flex-direction: row;
+}
+.book-likes {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  width: max-content;
+}
+.buttons button {
+  height: 30px;
+  width: 58px;
+  border: 1px solid black;
+  color: black;
+  margin: 2px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+.buttons i {
+  color: black;
+}
+.inside-book-info {
+  margin-right: 13px;
+  text-align: left;
+}
+.blue i {
+  color: blue;
+}
+.red i {
+  color: red;
+}
+.green i {
+  color: green;
+}
+@media only screen and (max-width: 560px) {
+  .book-row {
+    flex-direction: column;
+  }
+  .buttons button {
+    width: 45px;
+  }
+  .inside-book-info {
+    margin-right: 10px;
+  }
+}
