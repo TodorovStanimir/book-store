@@ -8,7 +8,8 @@ import Footer from './components/footer';
 // import CreateBook from './components/book-create';
 // import Books from './components/book-all';
 // import BookDetails from './components/book-details';
-import Profile from './components/profile';
+// import Profile from './components/profile';
+import NotFound from './components/not-found/index';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       {/* <CreateBook/> */}
       {/* <Books /> */}
       {/* <BookDetails /> */}
-      <Profile/>
+      {/* <Profile/> */}
+      <NotFound />
       <Footer />
     </div>
   );

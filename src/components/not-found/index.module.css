@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: -450px;
+}
+.not-found-image {
+  margin-top: 100px;
+  display: flex;
+  border-radius: 5px;
+  opacity: 0.5;
+}
