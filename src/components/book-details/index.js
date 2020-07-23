@@ -56,7 +56,7 @@ class BookDetails extends Component {
                         <div className={styles['grid-item-fr']}>
                             <div className={styles['grid-item-fr-fc']}>
                                 <p>
-                                    <img src={book.imageUrl} alt={book.title} />
+                                    <img class={styles['img']} src={book.imageUrl} alt={book.title} />
                                 </p>
                             </div>
                             <div className={styles['grid-item-fr-sc']}>

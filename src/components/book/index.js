@@ -13,7 +13,7 @@ const Book = (props) => {
         <div className={styles['grid-item']}>
             <div className={styles['grid-item-fr']}>
                 <div className={styles['grid-item-fr-fc']}>
-                    <img src={book.imageUrl} alt={book.title} />
+                    <img className={styles.img} src={book.imageUrl} alt={book.title} />
                 </div>
                 <div className={styles['grid-item-fr-sc']}>
                     <p className={styles.title}>{book.title.toUpperCase()}</p>

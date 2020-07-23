@@ -125,7 +125,7 @@ const Profile = () => {
                             : <div className={styles['info-field']}>Image Url should start wth http:// or https://</div>
                         }
                         <div className="form-group">
-                            <img src={editedUser.imageUrl} alt={editedUser.username} width="120" height="160" />
+                            <img claasName={styles.img} src={editedUser.imageUrl} alt={editedUser.username} width="120" height="160" />
                         </div>
                         <div className="form-group">
                             <button
