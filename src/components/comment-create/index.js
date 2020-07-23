@@ -43,9 +43,11 @@ const CommentCreate = (props) => {
                             onChange={onChange}
                         ></textarea>
                     </div>
-                    <button onClick={e => handleCreateComment(e)} className={styles['button-user']} disabled={btnDisabled}>
-                        <i className="fa fa-save"></i>
-                    </button>
+                    <div className={styles.black}>
+                        <button onClick={e => handleCreateComment(e)} className={styles['button-user']} disabled={btnDisabled}>
+                            <i className="fa fa-save"></i>
+                        </button>
+                    </div>
                 </form >
             </div >
         </div >

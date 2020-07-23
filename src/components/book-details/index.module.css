@@ -83,6 +83,12 @@
   background-color: blue;
   color: white;
 }
+.blue i{
+  color: blue;
+}
+.blue:hover i{
+  color: white;
+}
 .grid-item-sr-b-d {
   width: 80px;
   height: 30px;
@@ -93,6 +99,12 @@
 }
 .grid-item-sr-b-d:hover {
   background-color: red;
+  color: white;
+}
+.red i{
+  color: red;
+}
+.red:hover i{
   color: white;
 }
 .button-user {
@@ -107,6 +119,12 @@
 }
 .button-user:hover {
   background-color: black;
+  color: white;
+}
+.black i {
+  color: black;
+}
+.black:hover i {
   color: white;
 }
 .owner-info {

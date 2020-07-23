@@ -7,9 +7,16 @@
     color: black;
     border-radius: 5px;
     margin-bottom: 0px;
+    cursor: pointer;
   }
   .button-user:hover {
     background-color: black;
+    color: white;
+  }
+  .black i {
+    color: black;
+  }
+  .black:hover i {
     color: white;
   }
   .comment-header {

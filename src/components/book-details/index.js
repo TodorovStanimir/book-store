@@ -18,7 +18,8 @@ class BookDetails extends Component {
     }
 
     componentDidMount() {
-        const book = data[0];
+
+        const book = data.find(book => book._id ===this.props.match.params.id);
         this.setState({ book, isCreator: book.creator._id === '6f10cdf4b0595728d4d2c940' })
     }
 
@@ -56,7 +57,7 @@ class BookDetails extends Component {
                         <div className={styles['grid-item-fr']}>
                             <div className={styles['grid-item-fr-fc']}>
                                 <p>
-                                    <img class={styles['img']} src={book.imageUrl} alt={book.title} />
+                                    <img className={styles['img']} src={book.imageUrl} alt={book.title} />
                                 </p>
                             </div>
                             <div className={styles['grid-item-fr-sc']}>
@@ -71,7 +72,7 @@ class BookDetails extends Component {
                             </div>
                         </div>
                         <div className={styles['grid-item-sr']}>
-                            <div>
+                            <div className={styles.blue}>
                                 <button
                                     disabled={isCreator | voted}
                                     onClick={() => this.rateBook(book, 'likes')}
@@ -83,12 +84,12 @@ class BookDetails extends Component {
                             </div>
                             {isCreator
                                 ? <Fragment>
-                                    <div>
+                                    <div className={styles.black}>
                                         <button onChange={this.handleDeleteBook(book._id)} className={styles['button-user']}>
                                             <i className="fa fa-trash-alt"></i>
                                         </button>
                                     </div>
-                                    <div>
+                                    <div className={styles.black}>
                                         <a href={`/books/edit/${book._id}`}>
                                             <button className={styles['button-user']}>
                                                 <i className="fa fa-edit"></i>
@@ -96,12 +97,12 @@ class BookDetails extends Component {
                                         </a>
                                     </div>
                                 </Fragment>
-                                : <div>
+                                : <div className={styles.black}>
                                     <button className={styles['button-user']} onClick={() => this.toggleShowContact(showContact)}>
                                         <i className="fa fa-user"></i>
                                     </button>
                                 </div>}
-                            <div>
+                            <div className={styles.red}>
                                 <button
                                     disabled={isCreator | voted}
                                     onClick={() => this.rateBook(book, 'dislikes')}
@@ -110,7 +111,7 @@ class BookDetails extends Component {
                                     <b>{book.dislikes}  </b>
                                     <i className="fa fa-thumbs-down"></i>
                                 </button>
-                            </div >
+                            </div>
                         </div >
                         {showContact ? <div>
                             <p className={styles['owner-info']}>
@@ -122,7 +123,7 @@ class BookDetails extends Component {
 
                     <div className={styles['grid-item']}>
                         <CommentCreate book={book} createComment={(book, newComment) => this.createComment(book, newComment)} />
-                        <CommentDetails bookId={book._id} creatorId={book.creator._id} />
+                        <CommentDetails bookId={book._id} book={book} creatorId={book.creator._id} />
                     </div >
                 </div >
             </div >

@@ -14,7 +14,9 @@ const Register = () => {
                             <div className={styles['input-group']}>
                                 <div className="input-group-prepend">
                                     <span className={styles['span-el']}>
+                                        <div classNa>
                                         <i className="fa fa-user"></i>
+                                        </div>
                                     </span>
                                 </div>
                                 <input
