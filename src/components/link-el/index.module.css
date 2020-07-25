@@ -1,0 +1,11 @@
+.login-link {
+  font-style: italic;
+  color: #1034a6;
+}
+
+.login-link:hover {
+  font-style: italic;
+  font-weight: bold;
+  color: #1034a6;
+  text-decoration: none;
+}
