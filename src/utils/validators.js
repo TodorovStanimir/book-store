@@ -4,6 +4,13 @@ module.exports = {
     phoneValidator: /^[+]{1}\d{10,}$/,
     occupationValidator: /(^[A-Za-z ]+$)|(^[А-Яа-я ]+$)/,
     passwordValidator: /(^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,16}$)|(^(?=.*[А-Яа-я])(?=.*\d)[А-Яа-я\d]{3,16}$)/,
-    imageUrlValidator: /^(https:\/\/|http:\/\/).+/
+    imageUrlValidator: /^(https:\/\/|http:\/\/).+/,
+    titleValidator: /^[\w\W]{2,}$/,
+    authorValidator: /^[\w\W]{5,}$/,
+    descriptionValidator: /^[\w\W]{40,}$/,
+    genresValidator: /^[\w\W]{2,}$/,
+    yearValidator: /^[1-2]{1}[0-9]{1}[0-9]{1}[0-9]{1}$/,
+    publisherValidator: /^[\w\W]{6,}$/,
+    priceValidator: /^[+]?\d+(\.\d{1,2})?$/
 }
 
