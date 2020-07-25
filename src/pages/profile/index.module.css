@@ -23,61 +23,21 @@
   border-radius: 4px;
   border: 1px solid white;
 }
-.valid {
-    border: 2px solid #42a948; /* green */
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    height: calc(1.5em + .75rem + 2px);
-    width: 89%;
-    padding: 10px;
-}
-.invalid {
-    border: 2px solid #a94442; /* red */
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    height: calc(1.5em + .75rem + 2px);
-    padding: 10px;
-    width: 89%;
-}
-.info-field {
-  background-color: #ffffff;
-  color: #a94442;
-  height: auto;
-  margin-top: -10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  text-align: center;
-  width: auto;
-}
 i {
   color: #42a948;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-.span-el {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 2px solid #42a948;
-    border-top: 2px solid #42a948;
-    border-bottom: 2px solid #42a948;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    width: 43px;
-    background-color: white;
-}
+
 .img {
+  margin-top: 20px;
   border-radius: 10px;
   border: 2px solid grey;
+  max-width: 120px;
+  max-height: 160px;
+  
 }
-.user-info-form-group {
-  display: flex;
-  margin-bottom: 1rem;
-}
+
 .book-info {
   display: flex;
   padding: 15px;

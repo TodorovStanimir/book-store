@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 
-import PageLayout from '../../components/page-layout/page-layout';
+import PageLayout from '../../components/page-layout';
 import BookUser from '../../components/book-user';
 import styles from './index.module.css';
 
 import bookss from '../../books.json';
 import users from '../../users.json';
+import InputEl from '../../components/input-el';
+import { emailValidator, phoneValidator, occupationValidator, imageUrlValidator } from '../../utils/validators';
+import ValidatorEl from '../../components/validator-el';
+import SubmitButton from '../../components/submit-button';
 
 const Profile = () => {
     const [editedUser, setState] = useState(users[0]);
-    const [controls, setControls] = useState({
+    const [validators, setValidators] = useState({
         email: true,
         phone: true,
         occupation: true,
@@ -17,11 +21,10 @@ const Profile = () => {
     });
 
     const books = bookss.filter(book => book.creator._id === editedUser._id);
-    const isValid = true;
 
     const handleEditUser = (e) => {
         e.preventDefault();
-        console.log(editedUser, controls);
+        console.log(editedUser, validators);
     }
 
     const handleDeleteBook = (bookId) => {
@@ -30,19 +33,21 @@ const Profile = () => {
 
     const onChange = (e) => {
         const currentControl = {
-            email: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-            phone: /^[+]{1}\d{10,}$/,
-            occupation: /(^[A-Za-z ]+$)|(^[А-Яа-я ]+$)/,
-            imageUrl: /^(https:\/\/|http:\/\/).+/
+            email: emailValidator,
+            phone: phoneValidator,
+            occupation: occupationValidator,
+            imageUrl: imageUrlValidator
         }[e.target.name].test(e.target.value)
 
         setState({ ...editedUser, [e.target.name]: e.target.value })
-        setControls({ ...controls, [e.target.name]: currentControl })
+        setValidators({ ...validators, [e.target.name]: currentControl })
     }
 
     const { email, phone, occupation, imageUrl } = editedUser;
-    const { email: correctEmail, phone: correctPhone, occupation: correctOccupation, imageUrl: correctImageUrl } = controls;
+    const { email: correctEmail, phone: correctPhone, occupation: correctOccupation, imageUrl: correctImageUrl } = validators;
 
+    const btnDisabled = Object.values(validators).includes(false) || Object.values(editedUser).includes('');
+     
     const booksUser = books.map(book => <BookUser key={book._id} book={book} handleDeleteBook={handleDeleteBook} />)
     return (
         <PageLayout>
@@ -50,92 +55,73 @@ const Profile = () => {
                 <div className={styles.grid}>
                     <div className={styles['user-info']}>
                         <form onSubmit={(e) => handleEditUser(e)}>
-                            <div className={styles['user-info-form-group']}>
-                                <div className="input-group-prepend">
-                                    <span className={styles['span-el']}>
-                                        <i className="fa fa-envelope"></i>
-                                    </span>
-                                </div>
-                                <input
-                                    type="email"
-                                    className={isValid ? styles.valid : styles.invalid}
-                                    placeholder="Email Address"
-                                    name="email"
-                                    value={email}
-                                    onChange={e => onChange(e)}
-                                />
-                            </div>
-                            {correctEmail
-                                ? null
-                                : <div className={styles['info-field']}>Email shoud be a valid email address, like example@example.extension!</div>
-                            }
-                            <div className={styles['user-info-form-group']}>
-                                <div className="input-group-prepend">
-                                    <span className={styles['span-el']}>
-                                        <i className="fa fa-phone"></i>
-                                    </span>
-                                </div>
-                                <input
-                                    type="text"
-                                    className={isValid ? styles.valid : styles.invalid}
-                                    placeholder="Phone number"
-                                    name="phone"
-                                    value={phone}
-                                    onChange={e => onChange(e)}
-                                />
-                            </div>
-                            {correctPhone
-                                ? null
-                                : <div className={styles['info-field']}>Phone number should consists country code and at least 7 digits!</div>
-                            }
-                            <div className={styles['user-info-form-group']}>
-                                <div className="input-group-prepend">
-                                    <span className={styles['span-el']}>
-                                        <i className="fa fa-building"></i>
-                                    </span>
-                                </div>
-                                <input
-                                    type="text"
-                                    className={isValid ? styles.valid : styles.invalid}
-                                    placeholder="Occupation"
-                                    name="occupation"
-                                    value={occupation}
-                                    onChange={e => onChange(e)}
-                                />
-                            </div>
-                            {correctOccupation
-                                ? null
-                                : <div className={styles['info-field']}>Occupation field should consists only letters!</div>
-                            }
-                            <div className={styles['user-info-form-group']}>
-                                <div className="input-group-prepend">
-                                    <span className={styles['span-el']}>
-                                        <i className="fa fa-image"></i>
-                                    </span>
-                                </div>
-                                <input
-                                    type="url"
-                                    className={isValid ? styles.valid : styles.invalid}
-                                    placeholder="userImageUrl"
-                                    name="imageUrl"
-                                    value={imageUrl}
-                                    onChange={e => onChange(e)}
-                                />
-                            </div>
-                            {correctImageUrl
-                                ? null
-                                : <div className={styles['info-field']}>Image Url should start wth http:// or https://</div>
-                            }
-                            <div className="form-group">
-                                <img className={styles.img} src={editedUser.imageUrl} alt={editedUser.username} width="120" height="160" />
-                            </div>
-                            <div className="form-group">
-                                <button
-                                    type="submit"
-                                    className="btn btn-success text-center"
-                                    disabled={!isValid}
-                                >Change your profile</button>
-                            </div>
+                            <ValidatorEl
+                                validator={correctEmail}
+                                message={'Email shoud be a valid email address'}
+                            />
+                            <InputEl
+                                classNameDivEl='input-group'
+                                classNameSpanEl='span-el'
+                                classNameIEl='fa fa-envelope'
+                                type='email'
+                                name='email'
+                                placeholder='E-mail'
+                                isValid={correctEmail}
+                                value={email}
+                                onChange={onChange}
+                            />
+                            <ValidatorEl
+                                validator={correctPhone}
+                                message={'Phone should consists country code and at least 7 digits'}
+                            />
+                            <InputEl
+                                classNameDivEl='input-group'
+                                classNameSpanEl='span-el'
+                                classNameIEl='fa fa-phone'
+                                type='text'
+                                name='phone'
+                                placeholder='Phone number'
+                                isValid={correctPhone}
+                                value={phone}
+                                onChange={onChange}
+                            />
+                            <ValidatorEl
+                                validator={correctOccupation}
+                                message={'Occupation field should consists only letters'}
+                            />
+                            <InputEl
+                                classNameDivEl='input-group'
+                                classNameSpanEl='span-el'
+                                classNameIEl='fa fa-building'
+                                type='text'
+                                name='occupation'
+                                placeholder='Phone number'
+                                isValid={correctOccupation}
+                                value={occupation}
+                                onChange={e => onChange(e)}
+                            />
+                            <ValidatorEl
+                                validator={correctImageUrl}
+                                message={'Image URL must start with http:// or https://'}
+                            />
+                            <InputEl
+                                classNameDivEl='input-group'
+                                classNameSpanEl='span-el'
+                                classNameIEl='fa fa-image'
+                                type='url'
+                                name='imageUrl'
+                                placeholder='userImageUrl'
+                                isValid={correctImageUrl}
+                                value={imageUrl}
+                                onChange={e => onChange(e)}
+                            />
+                          
+                                <img className={styles.img} src={editedUser.imageUrl} alt={editedUser.username} />
+                            
+                            <SubmitButton 
+                            className={'submit-button-userprofile'}
+                            btnText={'Change your profile'} 
+                            disabled={btnDisabled} />
                         </form>
                     </div>
                     <div className={styles['book-info']}>
