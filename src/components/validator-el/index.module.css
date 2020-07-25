@@ -1,11 +1,13 @@
 .info-field {
     /* background-color: #ffffff; */
     color: #a94442;
-    height: auto;
+    height: 20px;
     /* margin-top: -10px;
     margin-bottom: 10px; */
     /* border-radius: 5px; */
-    text-align: center;
+    text-align: left;
     font-style: italic;
+    font-size: small;
+    /* font-weight: bold; */
     width: auto;
 }

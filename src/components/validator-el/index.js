@@ -5,11 +5,9 @@ import styles from './index.module.css';
 const ValidatorEl = ({ validator, message }) => {
 
     return (
-        !validator
-            ? <div className={styles['info-field']}>
-                {message}
-            </div>
-            : null
+        <div className={styles['info-field']}>
+            {!validator ? message : ''}
+        </div>
     )
 }
 
