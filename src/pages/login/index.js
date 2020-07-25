@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './index.module.css'
-import PageLayout from '../../components/page-layout/page-layout'
+import styles from './index.module.css';
+import PageLayout from '../../components/page-layout';
 import InputEl from '../../components/input-el';
 import ValidatorEl from '../../components/validator-el';
-import { emailValidator, passwordValidator } from '../../utils/validators'
+import SubmitButton from '../../components/submit-button';
+import LinkEl from '../../components/link-el';
+import { emailValidator, passwordValidator } from '../../utils/validators';
 
 const Login = (props) => {
-    const [inputData, setInputState] = useState({ email: '', password: '' });
+    const [inputData, setInputState] = useState({
+        email: '',
+        password: ''
+    });
 
     const [validators, setValidators] = useState({
         email: true,
@@ -18,10 +22,10 @@ const Login = (props) => {
         const currentValidator = {
             email: emailValidator,
             password: passwordValidator
-        }[e.target.name].test(e.target.value)
+        }[e.target.name].test(e.target.value);
 
-        setInputState({ ...inputData, [e.target.name]: e.target.value })
-        setValidators({ ...validators, [e.target.name]: currentValidator })
+        setInputState({ ...inputData, [e.target.name]: e.target.value });
+        setValidators({ ...validators, [e.target.name]: currentValidator });
     }
 
     const { email, password } = inputData;
@@ -29,8 +33,10 @@ const Login = (props) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log(email, password);
+        console.log(inputData);
     }
+
+    const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
 
     return (
         <PageLayout>
@@ -70,14 +76,12 @@ const Login = (props) => {
                                     isValid={correctPassword}
                                     onChange={onChange}
                                 />
-                                <div className="form-group">
-                                    <button type="submit" className={styles['submit-button']}>
-                                        Login in Your account
-                                    </button>
-                                </div>
-                                <Link className={styles['register-link']} to="/profile/register">
-                                    <p>Have not an account? Register here</p>
-                                </Link>
+                                <SubmitButton btnText={'Login in Your account'} disabled={btnDisabled} />
+                                <LinkEl
+                                    className={'login-link'}
+                                    to={'/profile/register'}
+                                    linkText={'Have not an account? Register here'}
+                                />
                             </form>
                         </div>
                     </div>
