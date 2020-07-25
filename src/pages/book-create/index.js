@@ -1,217 +1,246 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom'
 import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
+import InputEl from '../../components/input-el';
+import ValidatorEl from '../../components/validator-el';
+import TextareaEl from '../../components/textarea-el';
+import SubmitButton from '../../components/submit-button';
+import { titleValidator, authorValidator, descriptionValidator, genresValidator } from '../../utils/validators';
+import { yearValidator, publisherValidator, priceValidator, imageUrlValidator } from '../../utils/validators';
+import books from '../../books.json'
 
-const CreateBook = (props) => {
-    const isValid = true;
-    const isEdittingMode = true;
+
+const CreateBook = () => {
+
+    const bookId = useParams().id;
+
+    const book = books.find(book => book._id === bookId);
+
+    const isEdittingMode = book ? true : false;
+
+    const [inputData, setInputData] = useState(book
+        ? { ...book }
+        : {
+            title: '',
+            author: '',
+            description: '',
+            genres: '',
+            year: '',
+            publisher: '',
+            price: '',
+            imageUrl: ''
+        });
+
+    const [validators, setValidators] = useState({
+        title: true,
+        author: true,
+        description: true,
+        genres: true,
+        year: true,
+        publisher: true,
+        price: true,
+        imageUrl: true
+    })
+
+    const onChange = (e) => {
+        const currentValidator = {
+            title: titleValidator,
+            author: authorValidator,
+            description: descriptionValidator,
+            genres: genresValidator,
+            year: yearValidator,
+            publisher: publisherValidator,
+            price: priceValidator,
+            imageUrl: imageUrlValidator
+        }[e.target.name].test(e.target.value);
+
+        setInputData({ ...inputData, [e.target.name]: e.target.value });
+        setValidators({ ...validators, [e.target.name]: currentValidator })
+        console.log(currentValidator)
+    }
+
+    const {
+        title: correctTitle,
+        author: correctAuthor,
+        description: correctDescription,
+        genres: correctGenres,
+        year: correctYear,
+        publisher: correctPublisher,
+        price: correctPrice,
+        imageUrl: correctImageUrl
+    } = validators
+
+    const { title, author, description, genres, year, publisher, price, imageUrl } = inputData;
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(inputData)
+    }
     return (
         <PageLayout>
             <div className={styles['grid-container']}>
                 <div className={styles.grid}>
                     <div className={styles['grid-item']}>
-                        <form>
+                        <form onSubmit={onSubmit}>
                             <div className={styles.firstr}>
                                 <div className={styles['firstr-firstc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-book"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Book title"
-                                            name="title"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Title shoud contain at least 2 signs</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctTitle}
+                                        message={'Title shoud contain at least 2 signs'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-book'}
+                                        type='text'
+                                        name='title'
+                                        placeholder='Book title'
+                                        isValid={correctTitle}
+                                        value={title}
+                                        onChange={onChange}
+                                    />
                                 </div>
                                 <div className={styles['firstr-secondc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-user-tie"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Book\'s author"
-                                            name="author"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Name should contain at least 5 signs</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctAuthor}
+                                        message={'Author name should contain at least 5 signs'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-user-tie'}
+                                        type='text'
+                                        name='author'
+                                        placeholder="Book's author"
+                                        isValid={correctAuthor}
+                                        value={author}
+                                        onChange={onChange}
+                                    />
                                 </div>
                             </div>
                             <div>
                                 <div>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-edit"></i>
-                                            </span>
-                                        </div>
-                                        <textarea
-                                            type="text"
-                                            rows="3"
-                                            className={isValid ? styles['valid-textarea'] : styles['invalid-textarea']}
-                                            placeholder="Description"
-                                            name="description"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Description should contain at least 40 signs</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctDescription}
+                                        message={'Description should contain at least 40 signs'}
+                                    />
+                                    <TextareaEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-edit'}
+                                        type='text'
+                                        name='description'
+                                        rows='3'
+                                        placeholder="Description"
+                                        isValid={correctDescription}
+                                        value={description}
+                                        onChange={onChange}
+                                    />
                                 </div>
                             </div>
                             <div className={styles['thirdr']}>
                                 <div className={styles['thirdr-firstc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-folder"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Genres"
-                                            name="genres"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Genres should contain genres of book separeted by comma and space!</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctGenres}
+                                        message={'Genres should contain genres of book separeted by comma and space'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-folder'}
+                                        type='text'
+                                        name='genres'
+                                        placeholder="Genres book"
+                                        isValid={correctGenres}
+                                        value={genres}
+                                        onChange={onChange}
+                                    />
                                 </div>
                                 <div className={styles['thirdr-secondc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-calendar-alt"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="number"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Year issue"
-                                            min="1000"
-                                            name="year"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Year should contain exactly 4 digits!</div>
-                                            <div className={styles['info-field']}>Year can not be less then 1500 year!</div>
-                                            <div className={styles['info-field']}>Year can not be bigger then current year!</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctYear}
+                                        message={'Year should contain exactly 4 digits'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-calendar-alt'}
+                                        type='number'
+                                        name='year'
+                                        placeholder="Year issue"
+                                        isValid={correctYear}
+                                        value={year}
+                                        onChange={onChange}
+                                    />
                                 </div>
                             </div>
                             <div className={styles.fourthr}>
                                 <div className={styles['fourthr-firstc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-user-tie"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Publisher"
-                                            name="publisher"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Publishers should contain at least 6 signs</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctPublisher}
+                                        message={'Publishers should contain at least 6 signs'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-user-tie'}
+                                        type='text'
+                                        name='publisher'
+                                        placeholder="Publisher"
+                                        isValid={correctPublisher}
+                                        value={publisher}
+                                        onChange={onChange}
+                                    />
                                 </div>
                                 <div className={styles['fourthr-secondc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-dollar-sign"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="number"
-                                            step="0.01"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Price"
-                                            name="price"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Price should be at least 0.01</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctPrice}
+                                        message={'Price should be at least 0.01'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-dollar-sign'}
+                                        type='number'
+                                        name='price'
+                                        placeholder="Price"
+                                        isValid={correctPrice}
+                                        value={price}
+                                        onChange={onChange}
+                                    />
                                 </div>
                             </div>
                             <div className={styles.fifthr}>
                                 <div className={styles['fifthr-firstc']}>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-image"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="ImageUrl"
-                                            name="imageUrl"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Image Url should start wth http:// or https://</div>
-                                        </div>
-                                        : null
-                                    }
+                                    <ValidatorEl
+                                        validator={correctImageUrl}
+                                        message={'Image Url should start wth http:// or https://'}
+                                    />
+                                    <InputEl
+                                        classNameDivEl={'input-group'}
+                                        classNameSpanEl={'span-el'}
+                                        classNameIEl={'fa fa-image'}
+                                        type='text'
+                                        name='imageUrl'
+                                        placeholder="ImageUrl"
+                                        isValid={correctImageUrl}
+                                        value={imageUrl}
+                                        onChange={onChange}
+                                    />
                                 </div>
                                 <div className={styles['fifthr-secondc']}>
                                     <div className="form-group">
-                                        {!isEdittingMode
-                                            ? <button
-                                                type="submit"
-                                                className={"btn btn-success btn-block"}
-                                            >Create your book!</button>
-                                            : <button
-                                                type="submit"
-                                                className="btn btn-success btn-block"
-                                            >Edit your book!</button>}
+                                        {isEdittingMode
+                                            ? <SubmitButton
+                                                btnText={'Edit your book!'}
+                                                disabled={false}
+                                            />
+                                            : <SubmitButton
+                                                btnText={'Create your book!'}
+                                                disabled={false}
+                                            />
+                                        }
                                     </div>
                                 </div>
                             </div>
