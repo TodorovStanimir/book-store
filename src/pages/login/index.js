@@ -40,6 +40,10 @@ const Login = (props) => {
                     <div className="col-lg-4">
                         <div className={styles['form-container']}>
                             <form onSubmit={onSubmit}>
+                                <ValidatorEl
+                                    validator={correctEmail}
+                                    message='Email shoud be a valid email address, like example@example.extension!'
+                                />
                                 <InputEl
                                     classNameDivEl='input-group'
                                     classNameSpanEl='span-el'
@@ -52,8 +56,8 @@ const Login = (props) => {
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
-                                    validator={correctEmail}
-                                    message='Email shoud be a valid email address, like example@example.extension!'
+                                    validator={correctPassword}
+                                    message='Password shoud consists between 3 and 16 symbols: letters and digits!'
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -65,10 +69,6 @@ const Login = (props) => {
                                     value={password}
                                     isValid={correctPassword}
                                     onChange={onChange}
-                                />
-                                <ValidatorEl
-                                    validator={correctPassword}
-                                    message='Password shoud consists between 3 and 16 symbols: letters and digits!'
                                 />
                                 <div className="form-group">
                                     <button type="submit" className={styles['submit-button']}>
