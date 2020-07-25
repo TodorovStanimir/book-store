@@ -6,6 +6,8 @@ import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
 import { emailValidator, passwordValidator } from '../../utils/validators';
+import userService from '../../services/user-service';
+import Notification from '../../components/notification';
 
 const Login = (props) => {
     const [inputData, setInputState] = useState({
@@ -16,6 +18,11 @@ const Login = (props) => {
     const [validators, setValidators] = useState({
         email: true,
         password: true
+    });
+
+    const [notification, setNotification] = useState({
+        message: '',
+        show: false
     });
 
     const onChange = (e) => {
@@ -30,10 +37,16 @@ const Login = (props) => {
 
     const { email, password } = inputData;
     const { email: correctEmail, password: correctPassword } = validators;
+    const { message, show } = notification;
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
-        console.log(inputData);
+        try {
+            const user = await userService.loginUser(email, password);   
+        } catch (error) {
+            setNotification({ ...notification, message: error.statusText, show: true })
+            setTimeout(() => { setNotification({ ...notification, message: '', show: false }) }, 3000)
+        }
     }
 
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
@@ -48,7 +61,7 @@ const Login = (props) => {
                             <form onSubmit={onSubmit}>
                                 <ValidatorEl
                                     validator={correctEmail}
-                                    message='Email shoud be a valid email address, like example@example.extension!'
+                                    message='Email shoud be a valid email address'
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -63,7 +76,7 @@ const Login = (props) => {
                                 />
                                 <ValidatorEl
                                     validator={correctPassword}
-                                    message='Password shoud consists between 3 and 16 symbols: letters and digits!'
+                                    message='Password shoud be between 3 and 16 symbols: letters and digits'
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -87,6 +100,7 @@ const Login = (props) => {
                     </div>
                     <div className="col-lg-4"></div>
                 </div >
+                <Notification show={show} message={message} />
             </div >
         </PageLayout>
     )
