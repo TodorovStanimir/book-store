@@ -27,7 +27,7 @@ i {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     height: calc(1.5em + .75rem + 2px);
-    width: 89%;
+    width: 100%;
     padding: 10px;
 }
 .invalid {
@@ -38,5 +38,5 @@ i {
     border-bottom-right-radius: 5px;
     height: calc(1.5em + .75rem + 2px);
     padding: 10px;
-    width: 89%;
+    width: 100%;
 }
