@@ -1,11 +1,69 @@
-import React from 'react';
-
-import PageLayout from '../../components/page-layout/page-layout';
+import React, { useState } from 'react';
 import styles from './index.module.css';
-import { Link } from 'react-router-dom';
+import PageLayout from '../../components/page-layout/page-layout';
+import InputEl from '../../components/input-el';
+import ValidatorEl from '../../components/validator-el';
+import SubmitButton from '../../components/submit-button';
+import LinkEl from '../../components/link-el';
+import { emailValidator, usernameValidator, phoneValidator, } from '../../utils/validators';
+import { occupationValidator, imageUrlValidator, passwordValidator } from '../../utils/validators';
 
-const Register = () => {
-    const isValid = true;
+const Register = (props) => {
+    const [inputData, setInputState] = useState({
+        email: '',
+        username: '',
+        phone: '',
+        occupation: '',
+        password: '',
+        rePassword: '',
+        imageUrl: ''
+    });
+
+    const [validators, setValidators] = useState({
+        email: true,
+        username: true,
+        phone: true,
+        occupation: true,
+        password: true,
+        rePassword: true,
+        imageUrl: true
+    });
+
+    const onChange = (e) => {
+        const currentValidator = {
+            email: emailValidator,
+            username: usernameValidator,
+            phone: phoneValidator,
+            occupation: occupationValidator,
+            password: passwordValidator,
+            rePassword: new RegExp(`^${inputData.password}$`),
+            imageUrl: imageUrlValidator
+        }[e.target.name].test(e.target.value)
+
+        const rePassword = e.target.name === 'password'
+            ? e.target.value === inputData.rePassword
+            : e.target.name === 'rePassword' ? currentValidator : validators.rePassword;
+
+        setInputState({ ...inputData, [e.target.name]: e.target.value })
+        setValidators({ ...validators, [e.target.name]: currentValidator, rePassword: rePassword })
+    }
+
+    const {
+        email: correctEmail,
+        username: correctUsername,
+        phone: correctPhone,
+        occupation: correctOccupation,
+        password: correctPassword,
+        rePassword: correctRePassword,
+        imageUrl: correctImageUrl
+    } = validators;
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(inputData)
+    }
+    const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
+
     return (
         <PageLayout>
             <div className={styles.container}>
@@ -13,158 +71,112 @@ const Register = () => {
                     <div className="col-lg-4"></div>
                     <div className="col-lg-4">
                         <div className={styles['form-container']}>
-                            <form>
-                                <div className={styles['input-group']}>
-                                    <div className="input-group-prepend">
-                                        <span className={styles['span-el']}>
-                                            <div classNa>
-                                                <i className="fa fa-user"></i>
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="email"
-                                        className={isValid ? styles.valid : styles.invalid}
-                                        placeholder="E-mail"
-                                        name="email"
-                                    />
-                                </div>
-                                {!isValid
-                                    ? <div>
-                                        <div className={styles['info-field']}>This field is required!</div>
-                                        <div className={styles['info-field']}>Shoud be in format Xxxxx Xxxxx</div>
-                                    </div>
-                                    : null
-                                }
-                                <div className={styles['input-group']}>
-                                    <div className="input-group-prepend">
-                                        <span className={styles['span-el']}>
-                                            <i className="fa fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="username"
-                                        className={isValid ? styles.valid : styles.invalid}
-                                        placeholder="Username"
-                                        name="username"
-                                    />
-                                </div>
-                                {!isValid
-                                    ? <div>
-                                        <div className={styles['info-field']}>This field is required!</div>
-                                        <div className={styles['info-field']}>Shoud be in format Xxxxx Xxxxx</div>
-                                    </div>
-                                    : null
-                                }
-                                <div className={styles['input-group']}>
-                                    <div className="input-group-prepend">
-                                        <span className={styles['span-el']}>
-                                            <i className="fa fa-phone"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        className={isValid ? styles.valid : styles.invalid}
-                                        placeholder="Phone number"
-                                        name="phoneNumber"
-                                    />
-                                </div>
-                                {!isValid
-                                    ? <div>
-                                        <div className={styles['info-field']}>This field is required!</div>
-                                        <div className={styles['info-field']}>Phone number should consists country code and at least 7 digits!</div>
-                                    </div>
-                                    : null
-                                }
-                                <div className={styles['input-group']}>
-                                    <div className="input-group-prepend">
-                                        <span className={styles['span-el']}>
-                                            <i className="fa fa-building"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        className={isValid ? styles.valid : styles.invalid}
-                                        placeholder="Occupation"
-                                        name="occupation"
-                                    />
-                                </div>
-                                {!isValid
-                                    ? <div>
-                                        <div className={styles['info-field']}>This field is required!</div>
-                                        <div className={styles['info-field']}>Occupation field should consists only letters!</div>
-                                    </div>
-                                    : null
-                                }
-                                <div>
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-lock"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="password"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Password"
-                                            name="password"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Password shoud consists between 3 and 16 symbols: letters and digits!</div>
-                                        </div>
-                                        : null
-                                    }
-                                    <div className={styles['input-group']}>
-                                        <div className="input-group-prepend">
-                                            <span className={styles['span-el']}>
-                                                <i className="fa fa-lock"></i>
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="password"
-                                            className={isValid ? styles.valid : styles.invalid}
-                                            placeholder="Repeat password"
-                                            v-name="rePassword"
-                                        />
-                                    </div>
-                                    {!isValid
-                                        ? <div>
-                                            <div className={styles['info-field']}>This field is required!</div>
-                                            <div className={styles['info-field']}>Passwords do not match!</div>
-                                        </div>
-                                        : null
-                                    }
-                                </div>
-                                <div className={styles['input-group']}>
-                                    <div className="input-group-prepend">
-                                        <span className={styles['span-el']}>
-                                            <i className="fa fa-image"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="url"
-                                        className={isValid ? styles.valid : styles.invalid}
-                                        placeholder="image Url"
-                                        name="imageUrl"
-                                    />
-                                </div>
-                                {!isValid
-                                    ? <div>
-                                        <div className={styles['info-field']}>This field is required!</div>
-                                        <div className={styles['info-field']}>Image URL must start with http:// or https://!</div>
-                                    </div>
-                                    : null
-                                }
-                                <div className="form-group">
-                                    <button type="submit" className={styles['submit-button']}
-                                    >Create an Account</button>
-                                </div>
-                                <Link className={styles['login-link']} to="/profile/login">
-                                    <p>Have an account? Log In</p>
-                                </Link>
+                            <form onSubmit={onSubmit}>
+                                <ValidatorEl
+                                    validator={correctEmail}
+                                    message={'Email shoud be a valid email address'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-envelope'
+                                    type='email'
+                                    name='email'
+                                    placeholder='E-mail'
+                                    isValid={correctEmail}
+                                    onChange={onChange}
+                                />
+                                <ValidatorEl
+                                    validator={correctUsername}
+                                    message={'Username shoud be in format Xxxxx Xxxxx'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-user'
+                                    type='text  '
+                                    name='username'
+                                    placeholder='Username'
+                                    isValid={correctUsername}
+                                    onChange={onChange}
+                                />
+                                <ValidatorEl
+                                    validator={correctPhone}
+                                    message={'Phone should consists country code and at least 7 digits'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-phone'
+                                    type='text'
+                                    name='phone'
+                                    placeholder='Phone number'
+                                    isValid={correctPhone}
+                                    onChange={onChange}
+                                />
+                                <ValidatorEl
+                                    validator={correctOccupation}
+                                    message={'Occupation field should consists only letters'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-building'
+                                    type='text'
+                                    name='occupation'
+                                    placeholder='Occupation'
+                                    isValid={correctOccupation}
+                                    onChange={onChange}
+                                />
+                                <ValidatorEl
+                                    validator={correctPassword}
+                                    message={'Password shoud be between 3 and 16 symbols: letters and digits'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-lock'
+                                    type='password'
+                                    name='password'
+                                    placeholder='Password'
+                                    isValid={correctPassword}
+                                    onChange={onChange}
+                                />
+                                <ValidatorEl
+                                    validator={correctRePassword}
+                                    message={'Passwords do not match'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-lock'
+                                    type='password'
+                                    name='rePassword'
+                                    placeholder='Repeat password'
+                                    isValid={correctRePassword}
+                                    onChange={onChange}
+                                />
+                                <ValidatorEl
+                                    validator={correctImageUrl}
+                                    message={'Image URL must start with http:// or https://'}
+                                />
+                                <InputEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-image'
+                                    type='url'
+                                    name='imageUrl'
+                                    placeholder='image Url'
+                                    isValid={correctImageUrl}
+                                    onChange={onChange}
+                                />
+                                <SubmitButton btnText={'Create an Account'} disabled={btnDisabled} />
+                                <LinkEl className='login-link'
+                                    to='/profile/login'
+                                    linkText='Have an account? Log in here' />
+                                {/* <Link className={styles['login-link']} to="/profile/login">
+                                    <p>Have an account? Log in here</p>
+                                </Link> */}
                             </form>
                         </div>
                     </div >
