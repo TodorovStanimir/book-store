@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './index.module.css';
-import PageLayout from '../../components/page-layout/page-layout';
+import PageLayout from '../../components/page-layout';
 import InputEl from '../../components/input-el';
 import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';

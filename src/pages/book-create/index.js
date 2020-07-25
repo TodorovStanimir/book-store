@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.module.css';
-import PageLayout from '../../components/page-layout/page-layout';
+import PageLayout from '../../components/page-layout';
 
 const CreateBook = (props) => {
     const isValid = true;

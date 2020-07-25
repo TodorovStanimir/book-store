@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import PageLayout from '../../components/page-layout/page-layout';
+import PageLayout from '../../components/page-layout';
 import CommentCreate from '../../components/comment-create';
 import CommentDetails from '../../components/comment-details'
 import styles from './index.module.css';

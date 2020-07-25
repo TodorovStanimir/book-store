@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PageLayout from '../../components/page-layout/page-layout';
+import PageLayout from '../../components/page-layout';
 
 import styles from './index.module.css';
 import data from '../../books.json'
