@@ -4,7 +4,6 @@ import styles from './index.module.css'
 
 const Footer = () => {
     const today = moment(new Date()).format("dddd DD-MMMM-YYYY");
-    console.log(today.toString())
     return (
         <footer className={styles.footer}>
             <p>
