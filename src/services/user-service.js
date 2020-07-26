@@ -19,7 +19,19 @@ const userService = {
         }
         const loggedUser = await response.json();
         return loggedUser;
-    }
+    },
+    createUser: async (newUser) => {
+        const user = await fetch(`${basicUrl}register`, {
+            method: "post",
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...newUser })
+        })
+        const registeredUser = await user.json();
+        return registeredUser;
+    },
 }
 
 export default userService

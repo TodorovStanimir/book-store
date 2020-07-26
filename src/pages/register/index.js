@@ -7,6 +7,8 @@ import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
 import { emailValidator, usernameValidator, phoneValidator, } from '../../utils/validators';
 import { occupationValidator, imageUrlValidator, passwordValidator } from '../../utils/validators';
+import userService from '../../services/user-service';
+import Notification from '../../components/notification';
 
 const Register = (props) => {
     const [inputData, setInputState] = useState({
@@ -58,9 +60,14 @@ const Register = (props) => {
         imageUrl: correctImageUrl
     } = validators;
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(inputData)
+        try {
+            const registeredUser = await userService.createUser({ ...inputData });
+            console.log(registeredUser)
+        } catch (e) {
+            console.log(e)
+        }
     }
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
 
