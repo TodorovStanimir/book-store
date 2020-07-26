@@ -30,7 +30,9 @@ module.exports = {
                 };
                 const token = jwt.createToken({ id: user._id, username: user.username });
 
-                res.cookie(config.cookieSecret, token, { maxAge: 3600000 }).send(user);
+                const userForSend = user.toObject();
+                delete userForSend.password;
+                res.cookie(config.cookieSecret, token, { maxAge: 3600000 }).send(userForSend);
             } catch (err) {
                 next(err);
             }
