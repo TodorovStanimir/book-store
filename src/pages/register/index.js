@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import InputEl from '../../components/input-el';
@@ -31,6 +32,13 @@ const Register = (props) => {
         imageUrl: true
     });
 
+    const [notification, setNotification] = useState({
+        message: '',
+        show: false
+    })
+
+    const history = useHistory();
+
     const onChange = (e) => {
         const currentValidator = {
             email: emailValidator,
@@ -60,13 +68,18 @@ const Register = (props) => {
         imageUrl: correctImageUrl
     } = validators;
 
+    const { message, show } = notification;
+
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const registeredUser = await userService.createUser({ ...inputData });
+            const registeredUser = await userService.authenticate('register', inputData);
+
+            history.push('/books/all')
             console.log(registeredUser)
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            setNotification({ ...notification, message: error, show: true })
+            setTimeout(() => { setNotification({ ...notification, message: '', show: false }) }, 3000)
         }
     }
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
@@ -189,6 +202,7 @@ const Register = (props) => {
                     </div >
                     <div className="col-lg-4"></div>
                 </div >
+                <Notification show={show} message={message} />
             </div >
         </PageLayout>
     )

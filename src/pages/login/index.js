@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import InputEl from '../../components/input-el';
@@ -25,6 +26,8 @@ const Login = (props) => {
         show: false
     });
 
+    const history = useHistory();
+
     const onChange = (e) => {
         const currentValidator = {
             email: emailValidator,
@@ -42,9 +45,12 @@ const Login = (props) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            const user = await userService.loginUser(email, password);   
+            const user = await userService.authenticate('login', inputData);
+
+            history.push('/books/all')
+            console.log(user)
         } catch (error) {
-            setNotification({ ...notification, message: error.statusText, show: true })
+            setNotification({ ...notification, message: error, show: true })
             setTimeout(() => { setNotification({ ...notification, message: '', show: false }) }, 3000)
         }
     }
@@ -76,7 +82,7 @@ const Login = (props) => {
                                 />
                                 <ValidatorEl
                                     validator={correctPassword}
-                                    message='Password shoud be between 3 and 16 symbols: letters and digits'
+                                    message='Password shoud be between 3 and 16 letters and digits'
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'

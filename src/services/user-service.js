@@ -1,37 +1,71 @@
 const basicUrl = 'http://localhost:4000/api/user/'
 const userService = {
-    loginUser: async (email, password) => {
-        const response = await fetch(`${basicUrl}login`, {
+    authenticate: async (url, data) => {
+        const promise = await fetch(`${basicUrl}${url}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...data })
+        })
+        const token = promise.headers.get('Authorization');
+        const result = await promise.json();
+
+        if (result.username && token) {
+            document.cookie = `x-auth-token=${token}`
+        }
+
+        if (result.errors) {
+            throw result.errors;
+        }
+        return result;
+    },
+    // createUser: async (newUser) => {
+    //     const response = await fetch(`${basicUrl}register`, {
+    //         method: "post",
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ ...newUser })
+    //     })
+    //     const token = response.headers.get('Authorization');
+    //     const registeredUser = await response.json();
+
+    //     if (registeredUser.username && token) {
+    //         document.cookie = `x-auth-token=${token}`
+    //     }
+
+    //     if (registeredUser.errors) {
+    //         throw registeredUser.errors;
+    //     }
+    //     return registeredUser;
+    // },
+    getUser: async (userId) => {
+        try {
+            const rawUsers = await fetch(basicUrl);
+            const users = await rawUsers.json();
+            const user = users.find(user => user._id === userId)
+            return user;
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    logoutUser: async (token) => {
+        const response = await fetch(`${basicUrl}logout`, {
             method: "POST",
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        })
+            // 'headers': {
+            //     'Content-Type': 'application/json',
+            //     'Cookie': `x-auth-token=${token}`
+            //   },
 
+        })
         if (response.status !== 200) {
-            // const error = {
-            //     status: response.status,
-            //     message: response.statusText
-            // }
             throw response
         }
-        const loggedUser = await response.json();
-        return loggedUser;
-    },
-    createUser: async (newUser) => {
-        const user = await fetch(`${basicUrl}register`, {
-            method: "post",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ...newUser })
-        })
-        const registeredUser = await user.json();
-        return registeredUser;
-    },
+        const result = await response.json();
+        return result;
+    }
 }
 
 export default userService
