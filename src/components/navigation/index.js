@@ -14,6 +14,7 @@ const Navigation = () => {
     return (
         <Router>
             <Switch>
+                <Route path="/" exact component={Books} />
                 <Route path="/books/all" component={Books} />
                 <Route path="/books/create" component={CreateBook} />
                 <Route path="/books/edit/:id" component={CreateBook} />

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import styles from './index.module.css';
 
 import { substr } from '../../services/filters';
 import { Link } from 'react-router-dom';
+import UserContext from '../../Context';
 
 const Book = (props) => {
+    const { isLoggedIn, user } = useContext(UserContext);
     const book = props.book;
     const deleteBook = (bookId) => {
         // have to implement book delete
@@ -23,7 +25,7 @@ const Book = (props) => {
                         <span>{book.genres.split(',').filter(el => el !== '').map(el => el[0].toUpperCase().concat(el.slice(1))).join(', ')}</span>
                     </p>
                     <div className={styles['buttons-container']}>
-                        <div className={styles.buttons}>
+                        {isLoggedIn ? <div className={styles.buttons}>
                             <li>
                                 <div className={styles.black}>
                                     <Link to={`/books/details/${book._id}`}>
@@ -50,6 +52,7 @@ const Book = (props) => {
                                 </Link>
                             </li>
                         </div>
+                            : null}
                     </div>
                 </div >
             </div >
