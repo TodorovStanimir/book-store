@@ -24,7 +24,7 @@ module.exports = {
                 const user = await User.findOne({ email });
                 const match = user ? await user.matchPassword(password) : false;
 
-                if (!match) {             
+                if (!match) {
                     res.status(401).send({ errors: [{ msg: 'Invalid user e-mail or password! Please try again!' }] });
                     return;
                 };
@@ -78,6 +78,23 @@ module.exports = {
                 })
                 .catch(next);
         },
+
+        verifyLogin: async (req, res, next) => {
+            try {
+                const token = req.body.token || '';
+                const decodetToken = jwt.verifyToken(token);
+                const blacklistedToken = await TokenBlackList.findOne({ token });
+
+                if (blacklistedToken) {
+                    throw new Error('blacklisted token');
+                }
+
+                const user = await User.findById(decodetToken.id).select('-password').lean();
+                res.send({ status: true, user });
+            } catch (error) {
+                res.send({ status: false });
+            }
+        }
 
     },
     put: async (req, res, next) => {
