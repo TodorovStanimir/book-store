@@ -57,7 +57,11 @@ module.exports = {
                     return res.status(400).send({ errors: [{ msg: 'User already exists' }] });
                 }
                 const createdUser = await User.create({ username, password, email, phone, occupation, imageUrl });
-                res.status(201).send(createdUser)
+                const token = jwt.createToken({ id: createdUser._id, username: createdUser.username });
+
+                const userForSend = createdUser.toObject();
+                delete userForSend.password;
+                res.status(201).cookie(config.cookieSecret, token, { maxAge: 3600000 }).send(userForSend);
             } catch (err) {
                 next(err);
             }
