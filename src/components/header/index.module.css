@@ -23,6 +23,7 @@
     font-size: 17.6px;
     margin: 7px;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .nav-link:hover {

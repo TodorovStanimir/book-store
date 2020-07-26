@@ -1,23 +1,30 @@
 import React, { useContext, Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import logo from '../../images/logo.png'
 import { Link } from 'react-router-dom';
 import UserContext from '../../Context';
 
 const Header = () => {
-    const { isLoggedIn, user } = useContext(UserContext);
+    const { isLoggedIn, user, logOut } = useContext(UserContext);
+    const history = useHistory();
+
+    const onClick = () => {
+        logOut();
+        history.push('/');
+    }
+    
     return (
         <div className={styles.sticky}>
             <div className={styles.navbar}>
                 <img className={styles['nav-image']} src={logo} alt="BookStore" />
-
                 {isLoggedIn
                     ? <Fragment>
                         <li className={styles['nav-item']}>
                             <Link to="/profile/profile" className={styles['nav-link']}>Hello, {user && user.username}</Link>
                         </li>
                         <li className={styles['nav-item']}>
-                            <Link to="/profile/logout" className={styles['nav-link']}>Logout</Link>
+                            <div onClick={onClick} className={styles['nav-link']}>Logout</div>
                         </li >
                         <li className={styles['nav-item']}>
                             <Link to="/profile/profile" className={styles['nav-link']}>Profile</Link>
