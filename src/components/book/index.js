@@ -33,7 +33,6 @@ const Book = (props) => {
                                     </Link>
                                 </div>
                             </li>
-
                             <li>
                                 <div className={styles.black}>
                                     <button className={styles.button} onClick={deleteBook(book['_id'])}>
@@ -50,7 +49,6 @@ const Book = (props) => {
                                     </div>
                                 </Link>
                             </li>
-
                         </div>
                     </div>
                 </div >
