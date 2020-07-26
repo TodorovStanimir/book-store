@@ -5,8 +5,9 @@ const path = require('path');
 
 module.exports = (app) => {
     app.use(cors({
-        origin: true,
-        credentials: true,
+        // origin: true,
+        // credentials: true,
+        exposedHeaders: 'Authorization'
     }));
 
     app.use(express.json());

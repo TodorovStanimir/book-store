@@ -24,15 +24,15 @@ module.exports = {
                 const user = await User.findOne({ email });
                 const match = user ? await user.matchPassword(password) : false;
 
-                if (!match) {
-                    res.status(401).send('Invalid password');
+                if (!match) {             
+                    res.status(401).send({ errors: [{ msg: 'Invalid user e-mail or password! Please try again!' }] });
                     return;
                 };
                 const token = jwt.createToken({ id: user._id, username: user.username });
 
                 const userForSend = user.toObject();
                 delete userForSend.password;
-                res.cookie(config.cookieSecret, token, { maxAge: 3600000 }).send(userForSend);
+                res.header("Authorization", token).send(userForSend);
             } catch (err) {
                 next(err);
             }
@@ -54,14 +54,14 @@ module.exports = {
                 const user = await User.findOne({ email }).lean();
 
                 if (user) {
-                    return res.status(400).send({ errors: [{ msg: 'User already exists' }] });
+                    return res.status(400).send({ errors: [{ msg: `User e-mail ${email} already exists` }] });
                 }
                 const createdUser = await User.create({ username, password, email, phone, occupation, imageUrl });
                 const token = jwt.createToken({ id: createdUser._id, username: createdUser.username });
 
                 const userForSend = createdUser.toObject();
                 delete userForSend.password;
-                res.status(201).cookie(config.cookieSecret, token, { maxAge: 3600000 }).send(userForSend);
+                res.status(201).header("Authorization", token).send(userForSend);
             } catch (err) {
                 next(err);
             }
