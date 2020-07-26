@@ -4,10 +4,12 @@ import PageLayout from '../../components/page-layout';
 import styles from './index.module.css';
 import data from '../../books.json'
 import Book from '../../components/book';
+import UserContext from '../../Context';
 
 class Books extends Component {
-
+    static contextType = UserContext;
     render() {
+        console.log(this.context)
         const books = data.map(book => <Book book={book} key={book._id} />)
         return (
             <PageLayout>

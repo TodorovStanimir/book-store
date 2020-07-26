@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
@@ -9,8 +9,11 @@ import LinkEl from '../../components/link-el';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
 import Notification from '../../components/notification';
+import UserContext from '../../Context';
 
 const Login = (props) => {
+    const userContext = useContext(UserContext)
+
     const [inputData, setInputState] = useState({
         email: '',
         password: ''
@@ -47,8 +50,8 @@ const Login = (props) => {
         try {
             const user = await userService.authenticate('login', inputData);
 
-            history.push('/books/all')
-            console.log(user)
+            userContext.logIn(user);
+            history.push('/books/all');
         } catch (error) {
             setNotification({ ...notification, message: error, show: true })
             setTimeout(() => { setNotification({ ...notification, message: '', show: false }) }, 3000)
