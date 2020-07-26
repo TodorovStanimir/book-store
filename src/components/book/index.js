@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import UserContext from '../../Context';
 
 const Book = (props) => {
-    const { isLoggedIn, user } = useContext(UserContext);
+    const { isLoggedIn } = useContext(UserContext);
     const book = props.book;
     const deleteBook = (bookId) => {
         // have to implement book delete
