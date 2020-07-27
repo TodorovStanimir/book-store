@@ -5,8 +5,9 @@ const { Book, User } = require('../models');
 module.exports = {
     get: async (req, res, next) => {
         try {
-            const books = await Book.find().populate({ path: 'creator comments', select: '-password' }).lean();
-            res.send(books)
+            const search = req.params.id ? { _id: req.params.id } : {}
+            const books = await Book.find(search).populate({ path: 'creator comments', select: '-password' }).lean();
+            res.status(200).send(req.params && req.params.id ? books[0] : books);
         } catch (error) {
             next(error)
         }

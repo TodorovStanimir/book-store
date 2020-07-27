@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import PageLayout from '../../components/page-layout';
 import CommentCreate from '../../components/comment-create';
 import CommentDetails from '../../components/comment-details'
 import styles from './index.module.css';
+import bookService from '../../services/book-service';
+import UserContext from '../../Context';
 
-import data from '../../books.json';
-import { Link } from 'react-router-dom';
 
 class BookDetails extends Component {
     constructor(props) {
@@ -18,10 +19,14 @@ class BookDetails extends Component {
             voted: false
         }
     }
+    static contextType = UserContext;
 
-    componentDidMount() {
-        const book = data.find(book => book._id === this.props.match.params.id);
-        this.setState({ book, isCreator: book.creator._id === '6f10cdf4b0595728d4d2c940' })
+    async componentDidMount() {
+        const bookId = this.props.match.params.id;
+        const response = await bookService('GET', bookId, null, null);
+        const book = await response.json()
+        console.log(book);
+        this.setState({ book, isCreator: book.creator._id === this.context.user._id })
     }
 
     handleDeleteBook(id) {

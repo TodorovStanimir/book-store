@@ -6,6 +6,8 @@ const { bookValidator } = require('../utils/validators');
 
 router.get('/', controllers.book.get);
 
+router.get('/:id', controllers.book.get);
+
 router.post('/', auth(), bookValidator, controllers.book.post);
 
 router.put('/:id', auth(), bookValidator, controllers.book.put);
