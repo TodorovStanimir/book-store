@@ -68,13 +68,13 @@ module.exports = {
         },
 
         logout: (req, res, next) => {
-            const token = req.cookies[config.cookieSecret];
+            const token = req.body.token;
             console.log('-'.repeat(100));
             console.log(token);
             console.log('-'.repeat(100));
             TokenBlackList.create({ token })
                 .then(() => {
-                    res.status(200).clearCookie(config.cookieSecret).send({ 'message': 'Logout successfully!' });
+                    res.status(200).send({ 'message': 'Logout successfully!' });
                 })
                 .catch(next);
         },

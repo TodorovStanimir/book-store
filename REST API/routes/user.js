@@ -13,7 +13,7 @@ router.post('/login', userValidator, controllers.user.post.login);
 
 router.post('/verify', userValidator, controllers.user.post.verifyLogin);
 
-router.post('/logout', auth(), controllers.user.post.logout);
+router.post('/logout', auth(false), controllers.user.post.logout);
 
 router.put('/:id', auth(), userValidator, controllers.user.put);
 

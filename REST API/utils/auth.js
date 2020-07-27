@@ -6,7 +6,7 @@ function auth(redirectUnauthenticated = true) {
 
     return async function (req, res, next) {
         try {
-            const token = req.cookies[config.cookieSecret] || '';
+            const token = req.body.token || '';
             const decodetToken = jwt.verifyToken(token);
             const blacklistedToken = await models.TokenBlackList.findOne({ token });
 
