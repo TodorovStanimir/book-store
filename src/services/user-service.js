@@ -51,19 +51,17 @@ const userService = {
         }
     },
     logoutUser: async (token) => {
-        const response = await fetch(`${basicUrl}logout`, {
+        const promise = await fetch(`${basicUrl}logout`, {
             method: "POST",
-            credentials: 'include',
-            // 'headers': {
-            //     'Content-Type': 'application/json',
-            //     'Cookie': `x-auth-token=${token}`
-            //   },
-
+            'headers': {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({token})
         })
-        if (response.status !== 200) {
-            throw response
+        if (promise.status !== 200) {
+            throw promise
         }
-        const result = await response.json();
+        const result = await promise.json();
         return result;
     }
 }
