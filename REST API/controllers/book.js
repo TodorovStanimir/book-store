@@ -60,9 +60,9 @@ module.exports = {
         try {
             const book = await Book.findById(id).populate('creator');
             const { _id } = book.creator;
-            const removedBoook = await Book.deleteOne({ _id: id });
+            const removedBook = await Book.deleteOne({ _id: id });
             const updatedUser = await User.updateOne({ _id }, { $pull: { books: id } })
-            res.status(204).send(removedBoook);
+            res.status(204).send(removedBook);
         } catch (error) {
             next(error)
         }

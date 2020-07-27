@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 
 import styles from './index.module.css';
 
@@ -7,11 +7,8 @@ import { Link } from 'react-router-dom';
 import UserContext from '../../Context';
 
 const Book = (props) => {
-    const { isLoggedIn } = useContext(UserContext);
-    const book = props.book;
-    const deleteBook = (bookId) => {
-        // have to implement book delete
-    }
+    const { isLoggedIn, user } = useContext(UserContext);
+    const { book, deleteBook } = props;
     return (
         <div className={styles['grid-item']}>
             <div className={styles['grid-item-fr']}>
@@ -35,22 +32,29 @@ const Book = (props) => {
                                     </Link>
                                 </div>
                             </li>
-                            <li>
-                                <div className={styles.black}>
-                                    <button className={styles.button} onClick={deleteBook(book['_id'])}>
-                                        <i className="fa fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </li>
-                            <li>
-                                <Link to={`/books/edit/${book._id}`}>
-                                    <div className={styles.black}>
-                                        <button className={styles.button}>
-                                            <i className="fa fa-edit"></i>
-                                        </button>
-                                    </div>
-                                </Link>
-                            </li>
+                            {book.creator._id === user._id
+                                ?
+                                <Fragment>
+                                    <li>
+                                        <div className={styles.black}>
+                                            <button className={styles.button} onClick={() => deleteBook(book._id)}>
+                                                <i className="fa fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <Link to={`/books/edit/${book._id}`}>
+                                            <div className={styles.black}>
+                                                <button className={styles.button}>
+                                                    <i className="fa fa-edit"></i>
+                                                </button>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                </Fragment>
+                                :
+                                null
+                            }
                         </div>
                             : null}
                     </div>
