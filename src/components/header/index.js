@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import logo from '../../images/logo.png'
 import { Link } from 'react-router-dom';
-import UserContext from '../../Context';
+import { UserContext } from '../../Context';
 
 const Header = () => {
     const { isLoggedIn, user, logOut } = useContext(UserContext);
@@ -13,7 +13,7 @@ const Header = () => {
         logOut();
         history.push('/');
     }
-    
+
     return (
         <div className={styles.sticky}>
             <div className={styles.navbar}>

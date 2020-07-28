@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import UserContext from './Context';
+import { UserContext, NotificationContext } from './Context';
 import getCookie from './utils/getCookie';
 import userService from './services/user-service';
 import Notification from './components/notification';
@@ -14,6 +14,22 @@ class App extends Component {
             message: '',
             show: false
         }
+    }
+
+    showNotification = (message) => {
+        this.setState({
+            show: true,
+            message
+        })
+    }
+
+    hideNotification = () => {
+        setTimeout(() => {
+            this.setState({
+                show: false,
+                message: ''
+            })
+        }, 3000)
     }
 
     logIn = (user) => {
@@ -94,10 +110,18 @@ class App extends Component {
                 user,
                 logIn: this.logIn,
                 logOut: this.logOut
-            }}> <Fragment>
-                    {this.props.children}
-                    <Notification show={show} message={message} />
-                </Fragment>
+            }}>
+                <NotificationContext.Provider value={{
+                    show,
+                    message,
+                    showNotification: this.showNotification,
+                    hideNotification: this.hideNotification
+                }}>
+                    <Fragment>
+                        {this.props.children}
+                        <Notification show={show} message={message} />
+                    </Fragment>
+                </NotificationContext.Provider>
             </UserContext.Provider>
         )
     }

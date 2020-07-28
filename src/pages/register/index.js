@@ -9,11 +9,11 @@ import LinkEl from '../../components/link-el';
 import { emailValidator, usernameValidator, phoneValidator, } from '../../utils/validators';
 import { occupationValidator, imageUrlValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
-import Notification from '../../components/notification';
-import UserContext from '../../Context';
+import { UserContext, NotificationContext } from '../../Context';
 
 const Register = (props) => {
     const userContext = useContext(UserContext)
+    const notificationContext = useContext(NotificationContext);
     const [inputData, setInputState] = useState({
         email: '',
         username: '',
@@ -33,11 +33,6 @@ const Register = (props) => {
         rePassword: true,
         imageUrl: true
     });
-
-    const [notification, setNotification] = useState({
-        message: '',
-        show: false
-    })
 
     const history = useHistory();
 
@@ -70,18 +65,16 @@ const Register = (props) => {
         imageUrl: correctImageUrl
     } = validators;
 
-    const { message, show } = notification;
-
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
             const registeredUser = await userService.authenticate('register', inputData);
-            
+
             userContext.logIn(registeredUser);
             history.push('/books/all');
         } catch (error) {
-            setNotification({ ...notification, message: error, show: true })
-            setTimeout(() => { setNotification({ ...notification, message: '', show: false }) }, 3000)
+            notificationContext.showNotification(error);
+            notificationContext.hideNotification();
         }
     }
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
@@ -196,15 +189,11 @@ const Register = (props) => {
                                 <LinkEl className='login-link'
                                     to='/profile/login'
                                     linkText='Have an account? Log in here' />
-                                {/* <Link className={styles['login-link']} to="/profile/login">
-                                    <p>Have an account? Log in here</p>
-                                </Link> */}
                             </form>
                         </div>
                     </div >
                     <div className="col-lg-4"></div>
                 </div >
-                <Notification show={show} message={message} />
             </div >
         </PageLayout>
     )

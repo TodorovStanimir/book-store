@@ -8,11 +8,11 @@ import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
-import Notification from '../../components/notification';
-import UserContext from '../../Context';
+import { UserContext, NotificationContext } from '../../Context';
 
 const Login = (props) => {
-    const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext);
+    const notificationContext = useContext(NotificationContext);
 
     const [inputData, setInputState] = useState({
         email: '',
@@ -22,11 +22,6 @@ const Login = (props) => {
     const [validators, setValidators] = useState({
         email: true,
         password: true
-    });
-
-    const [notification, setNotification] = useState({
-        message: '',
-        show: false
     });
 
     const history = useHistory();
@@ -43,7 +38,6 @@ const Login = (props) => {
 
     const { email, password } = inputData;
     const { email: correctEmail, password: correctPassword } = validators;
-    const { message, show } = notification;
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -53,8 +47,8 @@ const Login = (props) => {
             userContext.logIn(user);
             history.push('/books/all');
         } catch (error) {
-            setNotification({ ...notification, message: error, show: true })
-            setTimeout(() => { setNotification({ ...notification, message: '', show: false }) }, 3000)
+            notificationContext.showNotification(error);
+            notificationContext.hideNotification();
         }
     }
 
@@ -109,7 +103,6 @@ const Login = (props) => {
                     </div>
                     <div className="col-lg-4"></div>
                 </div >
-                <Notification show={show} message={message} />
             </div >
         </PageLayout>
     )

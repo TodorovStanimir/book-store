@@ -4,7 +4,7 @@ import styles from './index.module.css';
 
 import { substr } from '../../services/filters';
 import { Link } from 'react-router-dom';
-import UserContext from '../../Context';
+import { UserContext } from '../../Context';
 
 const Book = (props) => {
     const { isLoggedIn, user } = useContext(UserContext);

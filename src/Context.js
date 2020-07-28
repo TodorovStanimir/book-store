@@ -7,4 +7,11 @@ const UserContext = React.createContext({
     logOut: () => { }
 })
 
-export default UserContext;
+const NotificationContext = React.createContext({
+    show: false,
+    message: null,
+    showNotification: () => { },
+    hideNotification: () => { }
+})
+
+export { UserContext, NotificationContext }

@@ -1,14 +1,15 @@
 const basicUrl = 'http://localhost:4000/api/book/';
 
-const bookService = async (method, url='', data='', token='') => {
+const bookService = async (method, url = '', data = '', token = '') => {
 
     const promise = (data || token)
         ? await fetch(`${basicUrl}${url}`, {
             method: method,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`
             },
-            body: data ? JSON.stringify({ data, token }) : JSON.stringify({ token })
+            body: JSON.stringify({ data })
         })
         : await fetch(`${basicUrl}${url}`, {
             method: method,

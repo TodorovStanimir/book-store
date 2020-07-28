@@ -4,15 +4,15 @@ import PageLayout from '../../components/page-layout';
 import styles from './index.module.css';
 import Book from '../../components/book';
 import getCookie from '../../utils/getCookie'
-import Notification from '../../components/notification';
 import bookService from '../../services/book-service';
+import { NotificationContext } from '../../Context';
 
 class Books extends Component {
     state = {
         books: [],
-        message: '',
-        show: false
     }
+
+    static contextType = NotificationContext;
 
     async componentDidMount() {
         const promise = await bookService('GET')
@@ -26,6 +26,7 @@ class Books extends Component {
 
     deleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
+        const { showNotification, hideNotification } = this.context;
         try {
             const result = await bookService('DELETE', bookId, null, token)
 
@@ -38,13 +39,13 @@ class Books extends Component {
             }
 
         } catch (error) {
-            this.setState({ message: error, show: true })
-            setTimeout(() => { this.setState({ message: '', show: false }) }, 3000)
+            showNotification(error);
+            hideNotification();
         }
     }
 
     render() {
-        const { message, show } = this.state;
+        // const { message, show } = this.state;
         const books = this.state.books.map(book => <Book book={book} key={book._id} deleteBook={this.deleteBook} />)
         return (
             <PageLayout>
@@ -52,7 +53,6 @@ class Books extends Component {
                     <div className={styles.grid}>
                         {books}
                     </div >
-                    <Notification message={message} show={show} />
                 </div >
             </PageLayout>
         )

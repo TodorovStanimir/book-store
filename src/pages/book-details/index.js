@@ -6,7 +6,7 @@ import CommentCreate from '../../components/comment-create';
 import CommentDetails from '../../components/comment-details'
 import styles from './index.module.css';
 import bookService from '../../services/book-service';
-import UserContext from '../../Context';
+import { UserContext } from '../../Context';
 
 
 class BookDetails extends Component {
