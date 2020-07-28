@@ -55,8 +55,8 @@ const userService = {
             method: "POST",
             'headers': {
                 'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({token})
+                'Authorization': `token ${token}`
+            },
         })
         if (promise.status !== 200) {
             throw promise

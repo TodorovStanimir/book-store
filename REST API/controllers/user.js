@@ -68,7 +68,7 @@ module.exports = {
         },
 
         logout: (req, res, next) => {
-            const token = req.body.token;
+            const token = req.header('Authorization').split(' ')[1];
             console.log('-'.repeat(100));
             console.log(token);
             console.log('-'.repeat(100));
@@ -81,7 +81,7 @@ module.exports = {
 
         verifyLogin: async (req, res, next) => {
             try {
-                const token = req.body.token || '';
+                const token = req.header('Authorization').split(' ')[1] || '';
                 const decodetToken = jwt.verifyToken(token);
                 const blacklistedToken = await TokenBlackList.findOne({ token });
 

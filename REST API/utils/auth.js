@@ -6,7 +6,7 @@ function auth(redirectUnauthenticated = true) {
 
     return async function (req, res, next) {
         try {
-            const token = req.body.token || '';
+            const token = req.header('Authorization').split(' ')[1] || '';
             const decodetToken = jwt.verifyToken(token);
             const blacklistedToken = await models.TokenBlackList.findOne({ token });
 
