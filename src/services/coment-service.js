@@ -1,6 +1,6 @@
-const basicUrl = 'http://localhost:4000/api/book/';
+const basicUrl = 'http://localhost:4000/api/comment/';
 
-const bookService = async (method, url = '', data = '', token = '') => {
+const commentService = async (method, url = '', data = '', token = '') => {
 
     const promise = (data || token)
         ? await fetch(`${basicUrl}${url}`, {
@@ -20,4 +20,4 @@ const bookService = async (method, url = '', data = '', token = '') => {
     return promise
 }
 
-export default bookService
+export default commentService

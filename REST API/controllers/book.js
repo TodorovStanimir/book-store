@@ -6,7 +6,7 @@ module.exports = {
     get: async (req, res, next) => {
         try {
             const search = req.params.id ? { _id: req.params.id } : {}
-            const books = await Book.find(search).populate({ path: 'creator comments', select: '-password' }).lean();
+            const books = await Book.find(search).populate({ path: 'creator comments', populate: {path: 'creator'}, select: '-password' }).lean();
             res.status(200).send(req.params && req.params.id ? books[0] : books);
         } catch (error) {
             next(error)

@@ -6,7 +6,7 @@
   .grid-container {
     display: flex;
     justify-content: center;
-    margin-bottom: -577px;
+    /* margin-bottom: -577px; */
   }
   .grid {
     margin-top: 20px;

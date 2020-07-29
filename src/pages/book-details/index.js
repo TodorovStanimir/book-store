@@ -1,144 +1,211 @@
-import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 
 import PageLayout from '../../components/page-layout';
 import CommentCreate from '../../components/comment-create';
 import CommentDetails from '../../components/comment-details'
 import styles from './index.module.css';
+import getCookie from '../../utils/getCookie'
 import bookService from '../../services/book-service';
-import { UserContext } from '../../Context';
+import { UserContext, NotificationContext } from '../../Context';
+import commentService from '../../services/coment-service';
 
 
-class BookDetails extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            book: null,
-            isCreator: null,
-            showContact: false,
-            voted: false
+const BookDetails = (props) => {
+
+    const [state, setMyState] = useState({
+        book: null,
+        isCreator: null,
+        showContact: false,
+        voted: false
+    })
+    const userContext = useContext(UserContext);
+    const notificationContext = useContext(NotificationContext);
+    const match = useRouteMatch();
+    const history = useHistory();
+    const bookId = match.params.id;
+    const token = getCookie('x-auth-token');
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await bookService('GET', bookId);
+            const book = await response.json();
+            setMyState({ ...state, book, isCreator: book.creator._id === userContext.user._id });
+        }
+        if (!state.book) { fetchData(); }
+        // return () => {
+        //     cleanup
+        // }
+    }, [state, bookId, userContext])
+
+    const handleDeleteBook = async (bookId) => {
+        try {
+            const result = await bookService('DELETE', bookId, undefined, token);
+
+            if (result.ok) {
+                history.push('/books/all');
+            } else {
+                const errors = [{ msg: `Could not delete book!` }]
+                throw errors
+            }
+
+        } catch (error) {
+            notificationContext.showNotification(error);
+            notificationContext.hideNotification();
         }
     }
-    static contextType = UserContext;
 
-    async componentDidMount() {
-        const bookId = this.props.match.params.id;
-        const response = await bookService('GET', bookId, null, null);
-        const book = await response.json()
-        console.log(book);
-        this.setState({ book, isCreator: book.creator._id === this.context.user._id })
+    const toggleShowContact = (showContact) => {
+        setMyState({ ...state, showContact: !showContact })
     }
 
-    handleDeleteBook(id) {
-        console.log(id)
+    const rateBook = async (book, rate) => {
+        const ratedBook = { ...book };
+        ratedBook[rate] = ratedBook[rate] + 1;
+
+        try {
+            const updatedBook = await bookService('PUT', bookId, ratedBook, token);
+
+            if (updatedBook.ok) {
+                setMyState({ ...state, book: ratedBook, voted: true });
+            } else {
+                const errors = await updatedBook.json();
+                throw errors;
+            }
+
+        } catch (error) {
+            notificationContext.showNotification(error.errors);
+            notificationContext.hideNotification();
+        }
     }
 
-    toggleShowContact(showContact) {
-        this.setState({ showContact: !showContact })
+    const createComment = async (book, newComment) => {
+
+        try {
+            const result = await commentService('POST', undefined, { 'subject': newComment, 'bookId': bookId }, token);
+
+            if (result.status === 201) {
+                const createdComment = await result.json();
+                createdComment.creator = userContext.user;
+                const updatedBook = { ...book };
+                updatedBook.comments.push(createdComment);
+                setMyState({ ...state, book: updatedBook })
+            } else {
+                const errors = await result.json();
+                throw errors;
+            }
+        } catch (error) {
+            notificationContext.showNotification(error.errors);
+            notificationContext.hideNotification();
+        }
     }
 
-    rateBook(book, rate) {
-        book[rate] += 1;
-        this.setState({ book, voted: true })
+    const deleteComment = async (commentId, book) => {
+        try {
+            const result = await commentService('DELETE', commentId, undefined, token);
+
+            if (result.status === 204) {
+                const updatedBook = { ...book, comments: book.comments.filter(comment => comment._id !== commentId) };
+                setMyState({ ...state, book: updatedBook })
+            } else {
+                const errors = await result.json();
+                throw errors;
+            }
+        } catch (error) {
+            notificationContext.showNotification(error.errors);
+            notificationContext.hideNotification();
+        }
+
     }
 
-    createComment(book, newComment) {
-        //to implement save of the new Comment added to the book
-        book.comments.push(newComment)
-        this.setState({ book })
-        console.log(book, newComment);
-    }
+    const { book, isCreator, showContact, voted } = state;
 
-    render() {
-        const { book, isCreator, showContact, voted } = this.state;
-        console.log(book)
-        return <PageLayout>
-            {book ? <div className={styles['grid-container']}>
-                <div>
-                    <div className={styles.grid}>
-                        <div className={styles['grid-item']}>
-                            <div className="main-info">
-                                <p className={styles.description}>{book.description}</p>
+    return <PageLayout>
+        {book ? <div className={styles['grid-container']}>
+            <div>
+                <div className={styles.grid}>
+                    <div className={styles['grid-item']}>
+                        <div className="main-info">
+                            <p className={styles.description}>{book.description}</p>
+                        </div>
+                    </div>
+                    <div className={styles['grid-item']}>
+                        <div className={styles['grid-item-fr']}>
+                            <div className={styles['grid-item-fr-fc']}>
+                                <p>
+                                    <img className={styles['img']} src={book.imageUrl} alt={book.title} />
+                                </p>
+                            </div>
+                            <div className={styles['grid-item-fr-sc']}>
+                                <p className={styles.title}>{book.title.toUpperCase()}</p>
+                                <p className={styles.othet}>{book.author.toLowerCase()}</p>
+                                <p className={styles.othet}>
+                                    <span>{book.genres.toLowerCase()}</span>
+                                </p>
+                                <p className={styles.othet}>year issue {book.year}</p>
+                                <p className={styles.othet}>publisher {book.publisher.toLowerCase()}</p>
+                                <p className={styles.othet}>price {book.price} bgn</p>
                             </div>
                         </div>
-                        <div className={styles['grid-item']}>
-                            <div className={styles['grid-item-fr']}>
-                                <div className={styles['grid-item-fr-fc']}>
-                                    <p>
-                                        <img className={styles['img']} src={book.imageUrl} alt={book.title} />
-                                    </p>
-                                </div>
-                                <div className={styles['grid-item-fr-sc']}>
-                                    <p className={styles.title}>{book.title.toUpperCase()}</p>
-                                    <p className={styles.othet}>{book.author.toLowerCase()}</p>
-                                    <p className={styles.othet}>
-                                        <span>{book.genres.toLowerCase()}</span>
-                                    </p>
-                                    <p className={styles.othet}>year issue {book.year}</p>
-                                    <p className={styles.othet}>publisher {book.publisher.toLowerCase()}</p>
-                                    <p className={styles.othet}>price {book.price} bgn</p>
-                                </div>
+                        <div className={styles['grid-item-sr']}>
+                            <div className={styles.blue}>
+                                <button
+                                    disabled={isCreator | voted}
+                                    onClick={() => rateBook(book, 'likes')}
+                                    className={styles['grid-item-sr-b-l']}
+                                >
+                                    <b>{book.likes}  </b>
+                                    <i className="fa fa-thumbs-up"></i>
+                                </button>
                             </div>
-                            <div className={styles['grid-item-sr']}>
-                                <div className={styles.blue}>
-                                    <button
-                                        disabled={isCreator | voted}
-                                        onClick={() => this.rateBook(book, 'likes')}
-                                        className={styles['grid-item-sr-b-l']}
-                                    >
-                                        <b>{book.likes}  </b>
-                                        <i className="fa fa-thumbs-up"></i>
-                                    </button>
-                                </div>
-                                {isCreator
-                                    ? <Fragment>
-                                        <div className={styles.black}>
-                                            <button onChange={this.handleDeleteBook(book._id)} className={styles['button-user']}>
-                                                <i className="fa fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                        <div className={styles.black}>
-                                            <Link to={`/books/edit/${book._id}`}>
-                                                <button className={styles['button-user']}>
-                                                    <i className="fa fa-edit"></i>
-                                                </button>
-                                            </Link>
-                                        </div>
-                                    </Fragment>
-                                    : <div className={styles.black}>
-                                        <button className={styles['button-user']} onClick={() => this.toggleShowContact(showContact)}>
-                                            <i className="fa fa-user"></i>
+                            {isCreator
+                                ? <Fragment>
+                                    <div className={styles.black}>
+                                        <button onClick={() => handleDeleteBook(book._id)} className={styles['button-user']}>
+                                            <i className="fa fa-trash-alt"></i>
                                         </button>
-                                    </div>}
-                                <div className={styles.red}>
-                                    <button
-                                        disabled={isCreator | voted}
-                                        onClick={() => this.rateBook(book, 'dislikes')}
-                                        className={styles['grid-item-sr-b-d']}
-                                    >
-                                        <b>{book.dislikes}  </b>
-                                        <i className="fa fa-thumbs-down"></i>
+                                    </div>
+                                    <div className={styles.black}>
+                                        <Link to={`/books/edit/${book._id}`}>
+                                            <button className={styles['button-user']}>
+                                                <i className="fa fa-edit"></i>
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </Fragment>
+                                : <div className={styles.black}>
+                                    <button className={styles['button-user']} onClick={() => toggleShowContact(showContact)}>
+                                        <i className="fa fa-user"></i>
                                     </button>
-                                </div>
-                            </div >
-                            {showContact ? <div>
-                                <p className={styles['owner-info']}>
-                                    You can emailed owner of the book {book.creator.username} to email: {book.creator.email} or phonecall
+                                </div>}
+                            <div className={styles.red}>
+                                <button
+                                    disabled={isCreator | voted}
+                                    onClick={() => rateBook(book, 'dislikes')}
+                                    className={styles['grid-item-sr-b-d']}
+                                >
+                                    <b>{book.dislikes}  </b>
+                                    <i className="fa fa-thumbs-down"></i>
+                                </button>
+                            </div>
+                        </div >
+                        {showContact ? <div>
+                            <p className={styles['owner-info']}>
+                                You can emailed owner of the book {book.creator.username} to email: {book.creator.email} or phonecall
               to phone: {book.creator.phone}.
             </p>
-                            </div> : null}
-                        </div >
+                        </div> : null}
+                    </div >
 
-                        <div className={styles['grid-item']}>
-                            <CommentCreate book={book} createComment={(book, newComment) => this.createComment(book, newComment)} />
-                            <CommentDetails bookId={book._id} book={book} creatorId={book.creator._id} />
-                        </div >
+                    <div className={styles['grid-item']}>
+                        <CommentCreate book={book} createComment={(book, newComment) => createComment(book, newComment)} />
+                        <CommentDetails book={book} deleteComment={(book, commentId) => deleteComment(book, commentId)} />
                     </div >
                 </div >
             </div >
-                : null}
-        </PageLayout>
-    }
+        </div >
+            : null}
+    </PageLayout>
 }
 
 export default BookDetails;

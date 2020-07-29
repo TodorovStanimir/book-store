@@ -28,10 +28,12 @@ const CommentCreate = (props) => {
 
     return (
         <div>
-            <div className={styles['comment-header']}>
-                <p>There is not comments for this book.</p>
-                <p>You can write the first one.</p>
-            </div>
+            {book.comments.length === 0
+                ? <div className={styles['comment-header']}>
+                    <p>There is not comments for this book.</p>
+                    <p>You can write the first one.</p>
+                </div>
+                : null}
             <div className={styles['add-comment']}>
                 <form>
                     <div className={styles['comment-body-items']}>

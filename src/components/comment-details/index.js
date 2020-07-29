@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import styles from './index.module.css';
+import { UserContext } from '../../Context';
 
-// import comments from '../../comments.json';
+const CommentDetails = ({ book, deleteComment }) => {
 
-const CommentDetails = ({ book, creatorId }) => {
-
-    const deleteComment = (commentId) => {
-        //to implement delete comment
-        console.log(`delete comment ${commentId}`);
-    }
+    const userContext = useContext(UserContext)
 
     return (
         <div>
@@ -19,11 +15,11 @@ const CommentDetails = ({ book, creatorId }) => {
                         <p>{comment.subject}</p>
                         <div className={styles['author-comment']}>
                             <p>{comment.creator.username}</p>
-                            {comment.creator._id === creatorId
+                            {comment.creator._id === userContext.user._id
                                 ? <div className={styles.black}>
                                     <button
                                         className={styles['button-user']}
-                                        onClick={() => deleteComment(comment._id)}
+                                        onClick={() => deleteComment(comment._id, book)}
                                     >
                                         <i className="fa fa-trash-alt"></i>
                                     </button>
