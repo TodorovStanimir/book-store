@@ -8,6 +8,7 @@ const InputEl = (props) => {
         classNameSpanEl,
         classNameIEl,
         type,
+        step,
         name,
         placeholder,
         isValid,
@@ -24,6 +25,7 @@ const InputEl = (props) => {
             </div>
             <input
                 type={type ? type : "text"}
+                step={step ? step : null}
                 className={isValid ? styles.valid : styles.invalid}
                 name={name}
                 placeholder={placeholder}
