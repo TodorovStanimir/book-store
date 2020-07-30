@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useHistory } from 'react-router-dom'
 import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import InputEl from '../../components/input-el';
@@ -8,20 +8,19 @@ import TextareaEl from '../../components/textarea-el';
 import SubmitButton from '../../components/submit-button';
 import { titleValidator, authorValidator, descriptionValidator, genresValidator } from '../../utils/validators';
 import { yearValidator, publisherValidator, priceValidator, imageUrlValidator } from '../../utils/validators';
-import books from '../../books.json'
+import bookService from '../../services/book-service';
+import { NotificationContext } from '../../Context';
+import getCookie from '../../utils/getCookie';
 
-
-const CreateBook = () => {
-
+const CreateBook = (props) => {
+    const history = useHistory();
     const bookId = useParams().id;
+    const token = getCookie('x-auth-token');
 
-    const book = books.find(book => book._id === bookId);
+    const { showNotification, hideNotification } = useContext(NotificationContext)
 
-    const isEdittingMode = book ? true : false;
-
-    const [inputData, setInputData] = useState(book
-        ? { ...book }
-        : {
+    const [inputData, setInputData] = useState({
+        book: {
             title: '',
             author: '',
             description: '',
@@ -30,7 +29,9 @@ const CreateBook = () => {
             publisher: '',
             price: '',
             imageUrl: ''
-        });
+        },
+        isEditingMode: false
+    });
 
     const [validators, setValidators] = useState({
         title: true,
@@ -41,7 +42,20 @@ const CreateBook = () => {
         publisher: true,
         price: true,
         imageUrl: true
-    })
+    });
+
+    useEffect(() => {
+        const isEditingMode = inputData.isEditingMode;
+        const fetchData = async () => {
+            const response = await bookService('GET', bookId);
+            const book = await response.json();
+            setInputData({ ...inputData, book: { ...book }, isEditingMode: true });
+        }
+        if (bookId && !isEditingMode) { fetchData(); }
+        // return () => {
+        //     cleanup
+        // }
+    }, [bookId, setInputData, inputData]);
 
     const onChange = (e) => {
         const currentValidator = {
@@ -55,9 +69,8 @@ const CreateBook = () => {
             imageUrl: imageUrlValidator
         }[e.target.name].test(e.target.value);
 
-        setInputData({ ...inputData, [e.target.name]: e.target.value });
-        setValidators({ ...validators, [e.target.name]: currentValidator })
-        console.log(currentValidator)
+        setInputData({ ...inputData, book: { ...inputData.book, [e.target.name]: e.target.value } });
+        setValidators({ ...validators, [e.target.name]: currentValidator });
     }
 
     const {
@@ -71,11 +84,28 @@ const CreateBook = () => {
         imageUrl: correctImageUrl
     } = validators
 
-    const { title, author, description, genres, year, publisher, price, imageUrl } = inputData;
+    const { title, author, description, genres, year, publisher, price, imageUrl } = inputData.book;
+    const { isEditingMode } = inputData;
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(inputData)
+        const method = bookId ? 'PUT' : 'POST';
+        const book = inputData.book;
+
+        try {
+            const result = await bookService(method, bookId, book, token)
+
+            if (result.status === 200 || result.status === 201) {
+                history.push('/books/all')
+            } else {
+                const errors = await result.json();
+                throw errors;
+            }
+
+        } catch (error) {
+            showNotification(error.erros);
+            hideNotification();
+        }
     }
     return (
         <PageLayout>
@@ -167,6 +197,7 @@ const CreateBook = () => {
                                         classNameSpanEl={'span-el'}
                                         classNameIEl={'fa fa-calendar-alt'}
                                         type='number'
+                                        step='1'
                                         name='year'
                                         placeholder="Year issue"
                                         isValid={correctYear}
@@ -203,6 +234,7 @@ const CreateBook = () => {
                                         classNameSpanEl={'span-el'}
                                         classNameIEl={'fa fa-dollar-sign'}
                                         type='number'
+                                        step='0.01  '
                                         name='price'
                                         placeholder="Price"
                                         isValid={correctPrice}
@@ -231,7 +263,7 @@ const CreateBook = () => {
                                 </div>
                                 <div className={styles['fifthr-secondc']}>
                                     <div className="form-group">
-                                        {isEdittingMode
+                                        {isEditingMode
                                             ? <SubmitButton
                                                 btnText={'Edit your book!'}
                                                 disabled={false}
