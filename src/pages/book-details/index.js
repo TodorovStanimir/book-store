@@ -7,7 +7,7 @@ import CommentDetails from '../../components/comment-details'
 import styles from './index.module.css';
 import getCookie from '../../utils/getCookie'
 import bookService from '../../services/book-service';
-import { UserContext, NotificationContext } from '../../Context';
+import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 import commentService from '../../services/coment-service';
 
 
@@ -21,6 +21,7 @@ const BookDetails = (props) => {
     })
     const userContext = useContext(UserContext);
     const notificationContext = useContext(NotificationContext);
+    const loaderContext = useContext(LoaderContext);
     const match = useRouteMatch();
     const history = useHistory();
     const bookId = match.params.id;
@@ -28,15 +29,15 @@ const BookDetails = (props) => {
 
     useEffect(() => {
         async function fetchData() {
+            loaderContext.showLoader();
             const response = await bookService('GET', bookId);
             const book = await response.json();
             setMyState({ ...state, book, isCreator: book.creator._id === userContext.user._id });
         }
+
         if (!state.book) { fetchData(); }
-        // return () => {
-        //     cleanup
-        // }
-    }, [state, bookId, userContext])
+
+    }, [state, bookId, userContext, loaderContext])
 
     const handleDeleteBook = async (bookId) => {
         try {
@@ -62,7 +63,7 @@ const BookDetails = (props) => {
     const rateBook = async (book, rate) => {
         const ratedBook = { ...book };
         ratedBook[rate] = ratedBook[rate] + 1;
-
+        loaderContext.showLoader();
         try {
             const updatedBook = await bookService('PUT', bookId, ratedBook, token);
 
@@ -80,7 +81,7 @@ const BookDetails = (props) => {
     }
 
     const createComment = async (book, newComment) => {
-
+        loaderContext.showLoader();
         try {
             const result = await commentService('POST', undefined, { 'subject': newComment, 'bookId': bookId }, token);
 
@@ -101,6 +102,7 @@ const BookDetails = (props) => {
     }
 
     const deleteComment = async (commentId, book) => {
+        loaderContext.showLoader();
         try {
             const result = await commentService('DELETE', commentId, undefined, token);
 

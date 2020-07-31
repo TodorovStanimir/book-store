@@ -14,4 +14,9 @@ const NotificationContext = React.createContext({
     hideNotification: () => { }
 })
 
-export { UserContext, NotificationContext }
+const LoaderContext = React.createContext({
+    showingLoader: false,
+    showLoader: () => { },
+})
+
+export { UserContext, NotificationContext, LoaderContext }

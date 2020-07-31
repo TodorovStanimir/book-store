@@ -8,11 +8,12 @@ import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
-import { UserContext, NotificationContext } from '../../Context';
+import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 
 const Login = (props) => {
     const userContext = useContext(UserContext);
     const notificationContext = useContext(NotificationContext);
+    const loaderContext = useContext(LoaderContext);
 
     const [inputData, setInputState] = useState({
         email: '',
@@ -41,6 +42,7 @@ const Login = (props) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
+        loaderContext.showLoader()
         try {
             const user = await userService.authenticate('login', inputData);
 

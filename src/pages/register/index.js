@@ -9,11 +9,12 @@ import LinkEl from '../../components/link-el';
 import { emailValidator, usernameValidator, phoneValidator, } from '../../utils/validators';
 import { occupationValidator, imageUrlValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
-import { UserContext, NotificationContext } from '../../Context';
+import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 
 const Register = (props) => {
     const userContext = useContext(UserContext)
     const notificationContext = useContext(NotificationContext);
+    const loaderContext = useContext(LoaderContext);
     const [inputData, setInputState] = useState({
         email: '',
         username: '',
@@ -67,6 +68,7 @@ const Register = (props) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        loaderContext.showLoader();
         try {
             const registeredUser = await userService.authenticate('register', inputData);
 

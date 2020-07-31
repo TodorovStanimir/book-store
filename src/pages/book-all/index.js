@@ -5,7 +5,7 @@ import styles from './index.module.css';
 import Book from '../../components/book';
 import getCookie from '../../utils/getCookie'
 import bookService from '../../services/book-service';
-import { NotificationContext } from '../../Context';
+import { NotificationContext, LoaderContext } from '../../Context';
 
 class Books extends Component {
     state = {
@@ -13,8 +13,11 @@ class Books extends Component {
     }
 
     static contextType = NotificationContext;
+    static contextType = LoaderContext;
 
     async componentDidMount() {
+
+        this.context.showLoader();
         const promise = await bookService('GET')
 
         const books = await promise.json();
@@ -27,6 +30,7 @@ class Books extends Component {
     deleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
         const { showNotification, hideNotification } = this.context;
+        this.context.showLoader();
         try {
             const result = await bookService('DELETE', bookId, null, token)
 

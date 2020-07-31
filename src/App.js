@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { UserContext, NotificationContext } from './Context';
+import { UserContext, NotificationContext, LoaderContext } from './Context';
 import getCookie from './utils/getCookie';
 import userService from './services/user-service';
 import Notification from './components/notification';
+import Loader from './components/loader';
 
 class App extends Component {
     constructor(props) {
@@ -12,8 +13,20 @@ class App extends Component {
             isLoggedIn: null,
             user: null,
             message: '',
-            show: false
+            show: false,
+            showingLoader: false
         }
+    }
+
+    showLoader = () => {
+        this.setState({
+            showingLoader: true
+        })
+        setTimeout(() => {
+            this.setState({
+                showingLoader: false,
+            })
+        }, 1800)
     }
 
     showNotification = (message) => {
@@ -98,7 +111,8 @@ class App extends Component {
             isLoggedIn,
             user,
             show,
-            message
+            message,
+            showingLoader
         } = this.state;
 
         if (isLoggedIn === null) {
@@ -111,17 +125,23 @@ class App extends Component {
                 logIn: this.logIn,
                 logOut: this.logOut
             }}>
-                <NotificationContext.Provider value={{
-                    show,
-                    message,
-                    showNotification: this.showNotification,
-                    hideNotification: this.hideNotification
+                <LoaderContext.Provider value={{
+                    showingLoader,
+                    showLoader: this.showLoader,
                 }}>
-                    <Fragment>
-                        {this.props.children}
-                        <Notification show={show} message={message} />
-                    </Fragment>
-                </NotificationContext.Provider>
+                    <NotificationContext.Provider value={{
+                        show,
+                        message,
+                        showNotification: this.showNotification,
+                        hideNotification: this.hideNotification
+                    }}>
+                        <Fragment>
+                            {this.props.children}
+                            <Notification show={show} message={message} />
+                            <Loader showingLoader={showingLoader} />
+                        </Fragment>
+                    </NotificationContext.Provider>
+                </LoaderContext.Provider>
             </UserContext.Provider>
         )
     }
