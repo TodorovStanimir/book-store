@@ -29,7 +29,7 @@ class Books extends Component {
 
     deleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
-        const { showNotification, hideNotification } = this.context;
+        const { showNotification } = this.context;
         this.context.showLoader();
         try {
             const result = await bookService('DELETE', bookId, null, token)
@@ -44,12 +44,10 @@ class Books extends Component {
 
         } catch (error) {
             showNotification(error);
-            hideNotification();
         }
     }
 
     render() {
-        // const { message, show } = this.state;
         const books = this.state.books.map(book => <Book book={book} key={book._id} deleteBook={this.deleteBook} />)
         return (
             <PageLayout>

@@ -52,7 +52,6 @@ const BookDetails = (props) => {
 
         } catch (error) {
             notificationContext.showNotification(error);
-            notificationContext.hideNotification();
         }
     }
 
@@ -76,7 +75,6 @@ const BookDetails = (props) => {
 
         } catch (error) {
             notificationContext.showNotification(error.errors);
-            notificationContext.hideNotification();
         }
     }
 
@@ -96,8 +94,7 @@ const BookDetails = (props) => {
                 throw errors;
             }
         } catch (error) {
-            notificationContext.showNotification(error.errors);
-            notificationContext.hideNotification();
+            notificationContext.showNotification(error.errors);;
         }
     }
 
@@ -115,7 +112,6 @@ const BookDetails = (props) => {
             }
         } catch (error) {
             notificationContext.showNotification(error.errors);
-            notificationContext.hideNotification();
         }
 
     }

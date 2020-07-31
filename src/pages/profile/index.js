@@ -40,9 +40,6 @@ const Profile = (props) => {
             fetchUser()
         }
 
-        // return () => {
-        //     cleanup
-        // }
     }, [userId, editedUser])
 
     const handleEditUser = async (e) => {
@@ -55,7 +52,6 @@ const Profile = (props) => {
             }
         } catch (error) {
             notificationContext.showNotification(error);
-            notificationContext.hideNotification();
         }
         console.log(editedUser, validators);
     }
@@ -76,7 +72,6 @@ const Profile = (props) => {
 
     } catch (error) {
         notificationContext.showNotification(error);
-        notificationContext.hideNotification();
     }
 }
 

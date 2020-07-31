@@ -17,7 +17,7 @@ const CreateBook = (props) => {
     const bookId = useParams().id;
     const token = getCookie('x-auth-token');
 
-    const { showNotification, hideNotification } = useContext(NotificationContext);
+    const { showNotification } = useContext(NotificationContext);
     const { showLoader } = useContext(LoaderContext);
 
     const [inputData, setInputData] = useState({
@@ -54,9 +54,7 @@ const CreateBook = (props) => {
             setInputData({ ...inputData, book: { ...book }, isEditingMode: true });
         }
         if (bookId && !isEditingMode) { fetchData(); }
-        // return () => {
-        //     cleanup
-        // }
+
     }, [bookId, setInputData, inputData, showLoader]);
 
     const onChange = (e) => {
@@ -90,8 +88,8 @@ const CreateBook = (props) => {
     const { isEditingMode } = inputData;
 
     const onSubmit = async (e) => {
-        showLoader();
         e.preventDefault();
+        showLoader();
         const method = bookId ? 'PUT' : 'POST';
         const book = inputData.book;
         try {
@@ -105,8 +103,7 @@ const CreateBook = (props) => {
             }
 
         } catch (error) {
-            showNotification(error.erros);
-            hideNotification();
+            showNotification(error.errors);
         }
     }
     return (

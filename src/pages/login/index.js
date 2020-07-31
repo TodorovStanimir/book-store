@@ -50,7 +50,6 @@ const Login = (props) => {
             history.push('/books/all');
         } catch (error) {
             notificationContext.showNotification(error);
-            notificationContext.hideNotification();
         }
     }
 

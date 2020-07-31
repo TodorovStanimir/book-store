@@ -5,7 +5,6 @@ import styles from './undex.module.css';
 const Notification = ({ show, message }) => {
 
     if (Array.isArray(message)) {
-        // const msg = message.map((err,ind) => <p key={ind}>${err.msg}</p>
         return (
             show &&
             <div className={styles.loading}>

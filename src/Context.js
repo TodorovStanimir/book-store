@@ -11,7 +11,6 @@ const NotificationContext = React.createContext({
     show: false,
     message: null,
     showNotification: () => { },
-    hideNotification: () => { }
 })
 
 const LoaderContext = React.createContext({

@@ -34,9 +34,6 @@ class App extends Component {
             show: true,
             message
         })
-    }
-
-    hideNotification = () => {
         setTimeout(() => {
             this.setState({
                 show: false,
@@ -133,7 +130,6 @@ class App extends Component {
                         show,
                         message,
                         showNotification: this.showNotification,
-                        hideNotification: this.hideNotification
                     }}>
                         <Fragment>
                             {this.props.children}

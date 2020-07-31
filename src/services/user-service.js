@@ -20,26 +20,7 @@ const userService = {
         }
         return result;
     },
-    // createUser: async (newUser) => {
-    //     const response = await fetch(`${basicUrl}register`, {
-    //         method: "post",
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ ...newUser })
-    //     })
-    //     const token = response.headers.get('Authorization');
-    //     const registeredUser = await response.json();
-
-    //     if (registeredUser.username && token) {
-    //         document.cookie = `x-auth-token=${token}`
-    //     }
-
-    //     if (registeredUser.errors) {
-    //         throw registeredUser.errors;
-    //     }
-    //     return registeredUser;
-    // },
+    
     getUser: async (method, url = '', data = '', token = '') => {
         const promise = (data || token)
             ? await fetch(`${basicUrl}${url}`, {

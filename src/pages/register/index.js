@@ -76,7 +76,6 @@ const Register = (props) => {
             history.push('/books/all');
         } catch (error) {
             notificationContext.showNotification(error);
-            notificationContext.hideNotification();
         }
     }
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
