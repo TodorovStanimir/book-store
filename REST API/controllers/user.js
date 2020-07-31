@@ -98,10 +98,17 @@ module.exports = {
 
     },
     put: async (req, res, next) => {
+        const errors = validationResult(req);
+        errors.errors = errors.errors.filter(err => err.param !== 'password');
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).send({ errors: errors.array() });
+        }
         try {
             const id = req.params.id;
             const { username, phone, occupation, imageUrl } = req.body;
-            const updatedUser = await User.update({ _id: id }, { username, phone, occupation, imageUrl });
+            const updatedUser = await User.updateOne({ _id: id }, { username, phone, occupation, imageUrl });
             res.status(200).send(updatedUser)
         } catch (error) {
             next(error)

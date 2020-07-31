@@ -96,7 +96,7 @@ const CreateBook = (props) => {
             const result = await bookService(method, bookId, book, token)
 
             if (result.status === 200 || result.status === 201) {
-                history.push('/books/all')
+                history.goBack()
             } else {
                 const errors = await result.json();
                 throw errors;

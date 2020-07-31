@@ -27,7 +27,7 @@ const Header = () => {
                             <div onClick={onClick} className={styles['nav-link']}>Logout</div>
                         </li >
                         <li className={styles['nav-item']}>
-                            <Link to="/profile/profile" className={styles['nav-link']}>Profile</Link>
+                            <Link to="/books/all" className={styles['nav-link']}>Shop</Link>
                         </li >
                         <li className={styles['nav-item']}>
                             <Link to="/books/create" className={styles['nav-link']}>Create book</Link>
@@ -42,6 +42,9 @@ const Header = () => {
                         </li>
                         <li className={styles['nav-item']}>
                             <Link to="/profile/login" className={styles['nav-link']}>Login</Link>
+                        </li >
+                        <li className={styles['nav-item']}>
+                            <Link to="/books/all" className={styles['nav-link']}>Shop</Link>
                         </li >
                     </Fragment>
                 }

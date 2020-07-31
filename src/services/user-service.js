@@ -40,15 +40,23 @@ const userService = {
     //     }
     //     return registeredUser;
     // },
-    getUser: async (userId) => {
-        try {
-            const rawUsers = await fetch(basicUrl);
-            const users = await rawUsers.json();
-            const user = users.find(user => user._id === userId)
-            return user;
-        } catch (error) {
-            console.log(error)
-        }
+    getUser: async (method, url = '', data = '', token = '') => {
+        const promise = (data || token)
+            ? await fetch(`${basicUrl}${url}`, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                },
+                body: JSON.stringify({ ...data })
+            })
+            : await fetch(`${basicUrl}${url}`, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        return promise
     },
     logoutUser: async (token) => {
         const promise = await fetch(`${basicUrl}logout`, {

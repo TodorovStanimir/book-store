@@ -8,6 +8,9 @@ const BookUser = ({ book, handleDeleteBook }) => {
     return (
         <div key={book._id} className={styles['book-row']}>
             <div className={styles['book-title']}>
+                <img src={book.imageUrl} alt={book.title} height='60px' width='40px'></img>
+            </div>
+            <div className={styles['book-title']}>
                 <div className="inside-book-info">{book.title.toUpperCase()}</div>
             </div>
             <div className={styles['book-likes-buttons']}>
