@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import PageLayout from '../../components/page-layout';
 import CommentCreate from '../../components/comment-create';
@@ -9,6 +9,8 @@ import getCookie from '../../utils/getCookie'
 import bookService from '../../services/book-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 import commentService from '../../services/coment-service';
+import LinkButton from '../../components/link-button';
+import FunctionButton from '../../components/function-button';
 
 
 const BookDetails = (props) => {
@@ -138,7 +140,7 @@ const BookDetails = (props) => {
                                 <p className={styles.title}>{book.title.toUpperCase()}</p>
                                 <p className={styles.othet}>{book.author.toLowerCase()}</p>
                                 <p className={styles.othet}>
-                                    <span>{book.genres.toLowerCase()}</span>
+                                    <span>Genres {book.genres.toLowerCase()}</span>
                                 </p>
                                 <p className={styles.othet}>year issue {book.year}</p>
                                 <p className={styles.othet}>publisher {book.publisher.toLowerCase()}</p>
@@ -158,24 +160,27 @@ const BookDetails = (props) => {
                             </div>
                             {isCreator
                                 ? <Fragment>
-                                    <div className={styles.black}>
-                                        <button onClick={() => handleDeleteBook(book._id)} className={styles['button-user']}>
-                                            <i className="fa fa-trash-alt"></i>
-                                        </button>
-                                    </div>
-                                    <div className={styles.black}>
-                                        <Link to={`/books/edit/${book._id}`}>
-                                            <button className={styles['button-user']}>
-                                                <i className="fa fa-edit"></i>
-                                            </button>
-                                        </Link>
-                                    </div>
+                                    <FunctionButton
+                                        funct={handleDeleteBook}
+                                        icon={'fa fa-trash-alt'}
+                                        styleDivEl={'black'}
+                                        styleBtnEl={'button-user'}
+                                        bookId={book._id}
+                                    />
+                                    <LinkButton
+                                        to={`/books/edit/${book._id}`}
+                                        icon={'fa fa-edit'}
+                                        styleDivEl={'black'}
+                                        styleBtnEl={'button-user'}
+                                    />
                                 </Fragment>
-                                : <div className={styles.black}>
-                                    <button className={styles['button-user']} onClick={() => toggleShowContact(showContact)}>
-                                        <i className="fa fa-user"></i>
-                                    </button>
-                                </div>}
+                                : <FunctionButton
+                                    funct={toggleShowContact}
+                                    icon={'fa fa-user'}
+                                    styleDivEl={'black'}
+                                    styleBtnEl={'button-user'}
+                                    bookId={showContact}
+                                />}
                             <div className={styles.red}>
                                 <button
                                     disabled={isCreator | voted}
@@ -194,7 +199,6 @@ const BookDetails = (props) => {
             </p>
                         </div> : null}
                     </div >
-
                     <div className={styles['grid-item']}>
                         <CommentCreate book={book} createComment={(book, newComment) => createComment(book, newComment)} />
                         <CommentDetails book={book} deleteComment={(book, commentId) => deleteComment(book, commentId)} />
