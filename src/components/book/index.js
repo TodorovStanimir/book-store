@@ -3,8 +3,9 @@ import React, { useContext, Fragment } from 'react';
 import styles from './index.module.css';
 
 import { substr } from '../../services/filters';
-import { Link } from 'react-router-dom';
 import { UserContext } from '../../Context';
+import LinkButton from '../link-button';
+import FunctionButton from '../function-button';
 
 const Book = (props) => {
     const { isLoggedIn, user } = useContext(UserContext);
@@ -23,34 +24,12 @@ const Book = (props) => {
                     </p>
                     <div className={styles['buttons-container']}>
                         {isLoggedIn ? <div className={styles.buttons}>
-                            <li>
-                                <div className={styles.black}>
-                                    <Link to={`/books/details/${book._id}`}>
-                                        <button className={styles.button}>
-                                            <i className="fa fa-info-circle"></i>
-                                        </button>
-                                    </Link>
-                                </div>
-                            </li>
+                            <LinkButton styleDivEl='black' styleBtnEl='button' icon={'fa fa-info-circle'} to={`/books/details/${book._id}`} />
                             {book.creator._id === user._id
                                 ?
                                 <Fragment>
-                                    <li>
-                                        <div className={styles.black}>
-                                            <button className={styles.button} onClick={() => deleteBook(book._id)}>
-                                                <i className="fa fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <Link to={`/books/edit/${book._id}`}>
-                                            <div className={styles.black}>
-                                                <button className={styles.button}>
-                                                    <i className="fa fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </Link>
-                                    </li>
+                                    <FunctionButton styleDivEl='black' styleBtnEl='button' bookId={book._id} funct={deleteBook} icon={'fa fa-trash-alt'} />
+                                    <LinkButton styleDivEl='black' styleBtnEl='button' to={`/books/edit/${book._id}`} icon={'fa fa-edit'} />
                                 </Fragment>
                                 :
                                 null
