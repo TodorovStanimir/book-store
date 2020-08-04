@@ -1,7 +1,8 @@
 import React from 'react';
 
 import styles from './index.module.css';
-import { Link } from 'react-router-dom';
+import FunctionButton from '../function-button';
+import LinkButton from '../link-button';
 
 const BookUser = ({ book, handleDeleteBook }) => {
 
@@ -30,19 +31,25 @@ const BookUser = ({ book, handleDeleteBook }) => {
                 </div>
                 <div className={styles['buttons-container']}>
                     <div className={styles.buttons}>
-                        <Link to={`/books/details/${book._id}`}>
-                            <button className="btn">
-                                <i className="fa fa-info-circle"></i>
-                            </button>
-                        </Link>
-                        <button onClick={() => handleDeleteBook(book._id)} className="btn">
-                            <i className="fa fa-trash-alt"></i>
-                        </button>
-                        <Link to={`/books/edit/${book._id}`}>
-                            <button className="btn">
-                                <i className="fa fa-edit"></i>
-                            </button>
-                        </Link>
+                        <LinkButton
+                            styleDivEl='black'
+                            styleBtnEl='button'
+                            icon={'fa fa-info-circle'}
+                            to={`/books/details/${book._id}`}
+                        />
+                        <FunctionButton
+                            funct={handleDeleteBook}
+                            icon={'fa fa-trash-alt'}
+                            styleDivEl={'black'}
+                            styleBtnEl={'button'}
+                            bookId={book._id}
+                        />
+                        <LinkButton
+                            to={`/books/edit/${book._id}`}
+                            icon={'fa fa-edit'}
+                            styleDivEl={'black'}
+                            styleBtnEl={'button'}
+                        />
                     </div>
                 </div >
             </div >

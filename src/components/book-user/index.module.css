@@ -31,18 +31,6 @@
   justify-content: center;
   width: max-content;
 }
-.buttons button {
-  height: 30px;
-  width: 58px;
-  border: 1px solid black;
-  color: black;
-  margin: 2px;
-  margin-bottom: 0px;
-  padding: 0px;
-}
-.buttons i {
-  color: black;
-}
 .inside-book-info {
   margin-right: 13px;
   text-align: left;
