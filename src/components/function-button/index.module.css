@@ -38,7 +38,7 @@ li {
   color: white;
 }
   
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 950px) {
   .button {
     height: 30px;
     width: 40px;
