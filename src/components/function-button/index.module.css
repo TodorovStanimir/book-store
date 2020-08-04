@@ -1,0 +1,48 @@
+li {
+  list-style-type: none;
+}
+.button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  height: 30px;
+  width: 58px;
+  border: 1px solid black;
+  color: black;
+  border-radius: 5px;
+  margin: 2px;
+  padding-left: 2px;
+  margin-bottom: 0px;
+}
+.button:hover {
+  background-color: black;
+  color: white;
+}
+.black i {
+  color: black;
+}
+.black:hover i {
+  color: white;
+}
+.button-user {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  height: 30px;
+  width: 80px;
+  border: 1px solid black;
+  color: black;
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
+.button-user:hover {
+  background-color: black;
+  color: white;
+}
+  
+@media only screen and (max-width: 768px) {
+  .button {
+    height: 30px;
+    width: 40px;
+    margin-right: 5px;
+     border: 1px solid grey;
+  }
+}
