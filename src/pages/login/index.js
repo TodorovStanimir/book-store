@@ -9,11 +9,13 @@ import LinkEl from '../../components/link-el';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
+import InputPasswordEl from '../../components/input-password-el';
 
 const Login = (props) => {
     const userContext = useContext(UserContext);
     const notificationContext = useContext(NotificationContext);
     const loaderContext = useContext(LoaderContext);
+
 
     const [inputData, setInputState] = useState({
         email: '',
@@ -24,6 +26,8 @@ const Login = (props) => {
         email: true,
         password: true
     });
+
+    const [typeFieldPassword, setTypeFieldPassword] = useState('password')
 
     const history = useHistory();
 
@@ -51,6 +55,13 @@ const Login = (props) => {
         } catch (error) {
             notificationContext.showNotification(error);
         }
+    }
+
+    const showHidePassword = () => {
+        setTypeFieldPassword({
+            'password': 'text',
+            'text': 'password'
+        }[typeFieldPassword]);
     }
 
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
@@ -82,17 +93,18 @@ const Login = (props) => {
                                     validator={correctPassword}
                                     message='Password shoud be between 3 and 16 letters and digits'
                                 />
-                                <InputEl
-                                    classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
-                                    classNameIEl='fa fa-lock'
-                                    type='password'
-                                    name='password'
-                                    placeholder='Password'
-                                    value={password}
-                                    isValid={correctPassword}
-                                    onChange={onChange}
-                                />
+                                    <InputPasswordEl
+                                     classNameDivEl='input-group'
+                                     classNameSpanEl='span-el'
+                                     classNameIEl='fa fa-eye'
+                                     type={typeFieldPassword}
+                                     name='password'
+                                     placeholder='Password'
+                                     value={password}
+                                     isValid={correctPassword}
+                                     onChange={onChange}
+                                     showHidePassword={showHidePassword}
+                                    />                              
                                 <SubmitButton btnText={'Login in Your account'} disabled={btnDisabled} />
                                 <LinkEl
                                     className={'login-link'}

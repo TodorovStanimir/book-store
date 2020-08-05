@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import InputEl from '../../components/input-el';
+import InputPasswordEl from '../../components/input-password-el'
 import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
@@ -34,6 +35,8 @@ const Register = (props) => {
         rePassword: true,
         imageUrl: true
     });
+
+    const [typeFieldPassword, setTypeFieldPassword] = useState('password')
 
     const history = useHistory();
 
@@ -78,6 +81,14 @@ const Register = (props) => {
             notificationContext.showNotification(error);
         }
     }
+
+    const showHidePassword = () => {
+        setTypeFieldPassword({
+            'password': 'text',
+            'text': 'password'
+        }[typeFieldPassword]);
+    }
+
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
 
     return (
@@ -148,15 +159,16 @@ const Register = (props) => {
                                     validator={correctPassword}
                                     message={'Password shoud be between 3 and 16 symbols: letters and digits'}
                                 />
-                                <InputEl
+                                <InputPasswordEl
                                     classNameDivEl='input-group'
                                     classNameSpanEl='span-el'
-                                    classNameIEl='fa fa-lock'
-                                    type='password'
+                                    classNameIEl='fa fa-eye'
+                                    type={typeFieldPassword}
                                     name='password'
                                     placeholder='Password'
                                     isValid={correctPassword}
                                     onChange={onChange}
+                                    showHidePassword={showHidePassword}
                                 />
                                 <ValidatorEl
                                     validator={correctRePassword}
