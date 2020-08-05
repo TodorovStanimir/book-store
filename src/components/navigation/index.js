@@ -13,7 +13,7 @@ import { UserContext } from '../../Context';
 
 const Navigation = () => {
     const { isLoggedIn } = useContext(UserContext);
-    console.log('isUserLogged: ', isLoggedIn)
+
     return (
         <Router>
             <Switch>
