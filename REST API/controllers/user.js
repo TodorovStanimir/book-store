@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const { User, TokenBlackList } = require('../models');
-const { jwt } = require('../utils');
+const { jwt, sendWelcomeEmail, sendCancelationEmail } = require('../utils');
 const config = require('../config/config');
 
 module.exports = {
@@ -61,6 +61,7 @@ module.exports = {
 
                 const userForSend = createdUser.toObject();
                 delete userForSend.password;
+                sendWelcomeEmail(email, username);
                 res.status(201).header("Authorization", token).send(userForSend);
             } catch (err) {
                 next(err);
@@ -74,6 +75,7 @@ module.exports = {
             console.log('-'.repeat(100));
             TokenBlackList.create({ token })
                 .then(() => {
+                    
                     res.status(200).send({ 'message': 'Logout successfully!' });
                 })
                 .catch(next);
@@ -117,8 +119,10 @@ module.exports = {
 
     delete: async (req, res, next) => {
         const id = req.params.id;
+        const user = req.user;
         try {
             const removedUser = await User.deleteOne({ _id: id }).lean();
+            sendCancelationEmail(user.email, user.username)
             res.send(removedUser)
         } catch (error) {
             next(error)
