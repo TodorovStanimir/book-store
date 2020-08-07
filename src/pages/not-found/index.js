@@ -9,7 +9,7 @@ const NotFound = () => {
     return (
         <PageLayout>
             <div className={styles.container}>
-                <Link to="/user/login">
+                <Link to="/">
                     <img className={styles['not-found-image']} src={notFoundPicture} alt="404" />
                 </Link>
             </div>

@@ -49,8 +49,7 @@ const CreateBook = (props) => {
         const isEditingMode = inputData.isEditingMode;
         const fetchData = async () => {
             showLoader();
-            const response = await bookService('GET', bookId);
-            const book = await response.json();
+            const book = await bookService('get', bookId);
             setInputData({ ...inputData, book: { ...book }, isEditingMode: true });
         }
         if (bookId && !isEditingMode) { fetchData(); }
@@ -90,25 +89,19 @@ const CreateBook = (props) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         showLoader();
-        const method = bookId ? 'PUT' : 'POST';
+        const method = bookId ? 'put' : 'post';
         const book = inputData.book;
-        try {
-            const result = await bookService(method, bookId, book, token)
+        const result = await bookService(method, bookId, book, token)
 
-            if (result.status === 200 || result.status === 201) {
-                history.goBack()
-            } else {
-                const errors = await result.json();
-                throw errors;
-            }
-
-        } catch (error) {
-            showNotification(error.errors);
+        if (Array.isArray(result) || result.isAxiosError) {
+            showNotification(result);
+            return;
         }
+        history.goBack()
     }
 
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData.book).includes('');
-    
+
     return (
         <PageLayout>
             {!isEditingMode && bookId
@@ -270,7 +263,7 @@ const CreateBook = (props) => {
                                             {isEditingMode
                                                 ? <SubmitButton
                                                     btnText={'Edit your book!'}
-                                                    disabled={btnDisabled}
+                                                    disabled={false}
                                                 />
                                                 : <SubmitButton
                                                     btnText={'Create your book!'}

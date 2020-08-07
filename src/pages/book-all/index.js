@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import PageLayout from '../../components/page-layout';
 
 import styles from './index.module.css';
@@ -7,58 +7,53 @@ import getCookie from '../../utils/getCookie'
 import bookService from '../../services/book-service';
 import { NotificationContext, LoaderContext } from '../../Context';
 
-class Books extends Component {
-    state = {
-        books: [],
-    }
+const Books = (props) => {
 
-    static contextType = NotificationContext;
-    static contextType = LoaderContext;
+    const [books, setBooks] = useState([]);
+    const [load, setLoad] = useState(false);
 
-    async componentDidMount() {
+    const notificationContext = useContext(NotificationContext);
+    const loaderContext = useContext(LoaderContext);
 
-        this.context.showLoader();
-        const promise = await bookService('GET')
+    const getBooks = useCallback(async () => {
+        const books = await bookService('get')
+        setBooks(books)
+        setLoad(true);
+    }, []);
 
-        const books = await promise.json();
+    useEffect(() => {
+        loaderContext.showLoader();
+        getBooks();
+        // eslint-disable-next-line
+    }, [load])
 
-        if (books) {
-            this.setState({ books })
-        }
-    }
-
-    deleteBook = async (bookId) => {
+    const deleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
-        const { showNotification } = this.context;
-        this.context.showLoader();
-        try {
-            const result = await bookService('DELETE', bookId, null, token)
+        
+        loaderContext.showLoader();
 
-            if (result.ok) {
-                const books = this.state.books.filter(book => book._id !== bookId)
-                this.setState({ books })
-            } else {
-                const errors = [{ msg: `Could not delete book!` }]
-                throw errors
-            }
+        const result = await bookService('delete', bookId, null, token)
 
-        } catch (error) {
-            showNotification(error);
+        if (Array.isArray(result) || result.isAxiosError) {
+            notificationContext.showNotification([{ msg: `Could not delete book!` }]);
+            return;
         }
+        const modifiedBooks = books.filter(book => book._id !== bookId)
+        setBooks(modifiedBooks)
     }
 
-    render() {
-        const books = this.state.books.map(book => <Book book={book} key={book._id} deleteBook={this.deleteBook} />)
-        return (
-            <PageLayout>
-                <div className={styles['grid-container']}>
-                    <div className={styles.grid}>
-                        {books}
-                    </div >
+
+    const boooks = books.length > 0 && books.map(book => <Book book={book} key={book._id} deleteBook={deleteBook} />)
+    return (
+        <PageLayout>
+            <div className={styles['grid-container']}>
+                <div className={styles.grid}>
+                    {boooks}
                 </div >
-            </PageLayout>
-        )
-    }
+            </div >
+        </PageLayout>
+    )
+
 }
 
 

@@ -7,9 +7,9 @@ import { UserContext } from '../../Context';
 import LinkButton from '../link-button';
 import FunctionButton from '../function-button';
 
-const Book = (props) => {
+const Book = ({ book, deleteBook }) => {
     const { isLoggedIn, user } = useContext(UserContext);
-    const { book, deleteBook } = props;
+    
     return (
         <div className={styles['grid-item']}>
             <div className={styles['grid-item-fr']}>

@@ -47,14 +47,15 @@ const Login = (props) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         loaderContext.showLoader()
-        try {
-            const user = await userService.authenticate('login', inputData);
 
-            userContext.logIn(user);
-            history.push('/books/all');
-        } catch (error) {
-            notificationContext.showNotification(error);
+        const user = await userService.authenticate('login', inputData);
+        if (Array.isArray(user) || user.isAxiosError) {
+            notificationContext.showNotification(user);
+            return;
         }
+        userContext.logIn(user);
+        history.push('/books/all');
+
     }
 
     const showHidePassword = () => {
@@ -93,18 +94,18 @@ const Login = (props) => {
                                     validator={correctPassword}
                                     message='Password shoud be between 3 and 16 letters and digits'
                                 />
-                                    <InputPasswordEl
-                                     classNameDivEl='input-group'
-                                     classNameSpanEl='span-el'
-                                     classNameIEl='fa fa-eye'
-                                     type={typeFieldPassword}
-                                     name='password'
-                                     placeholder='Password'
-                                     value={password}
-                                     isValid={correctPassword}
-                                     onChange={onChange}
-                                     showHidePassword={showHidePassword}
-                                    />                              
+                                <InputPasswordEl
+                                    classNameDivEl='input-group'
+                                    classNameSpanEl='span-el'
+                                    classNameIEl='fa fa-eye'
+                                    type={typeFieldPassword}
+                                    name='password'
+                                    placeholder='Password'
+                                    value={password}
+                                    isValid={correctPassword}
+                                    onChange={onChange}
+                                    showHidePassword={showHidePassword}
+                                />
                                 <SubmitButton btnText={'Login in Your account'} disabled={btnDisabled} />
                                 <LinkEl
                                     className={'login-link'}

@@ -5,10 +5,10 @@ const bookValidator = [
         .isLength({ min: 2 }).withMessage('Title shoud contain at least 2 signs')
     ,
     body('author')
-        .isLength({ min: 5 }).withMessage('Title shoud contain at least 5 signs')
+        .isLength({ min: 5 }).withMessage('Author shoud contain at least 5 signs')
     ,
     body('description')
-        .isLength({ min: 40 }).withMessage('Title shoud contain at least 40 signs')
+        .isLength({ min: 40 }).withMessage('Description shoud contain at least 40 signs')
     ,
     body('genres')
         .isLength({ min: 3 }).withMessage('Genres should contain at least 3 signs')

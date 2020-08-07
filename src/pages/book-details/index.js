@@ -32,8 +32,7 @@ const BookDetails = (props) => {
     useEffect(() => {
         async function fetchData() {
             loaderContext.showLoader();
-            const response = await bookService('GET', bookId);
-            const book = await response.json();
+            const book = await bookService('get', bookId);
             setMyState({ ...state, book, isCreator: book.creator._id === userContext.user._id });
         }
 
@@ -42,19 +41,13 @@ const BookDetails = (props) => {
     }, [state, bookId, userContext, loaderContext])
 
     const handleDeleteBook = async (bookId) => {
-        try {
-            const result = await bookService('DELETE', bookId, undefined, token);
+        const result = await bookService('delete', bookId, undefined, token);
 
-            if (result.ok) {
-                history.push('/books/all');
-            } else {
-                const errors = [{ msg: `Could not delete book!` }]
-                throw errors
-            }
-
-        } catch (error) {
-            notificationContext.showNotification(error);
+        if (Array.isArray(result) || result.isAxiosError) {
+            notificationContext.showNotification([{ msg: `Could not delete book!` }]);
+            return;
         }
+        history.push('/books/all');
     }
 
     const toggleShowContact = (showContact) => {
@@ -65,57 +58,42 @@ const BookDetails = (props) => {
         const ratedBook = { ...book };
         ratedBook[rate] = ratedBook[rate] + 1;
         loaderContext.showLoader();
-        try {
-            const updatedBook = await bookService('PUT', bookId, ratedBook, token);
 
-            if (updatedBook.ok) {
-                setMyState({ ...state, book: ratedBook, voted: true });
-            } else {
-                const errors = await updatedBook.json();
-                throw errors;
-            }
+        const updatedBook = await bookService('put', bookId, ratedBook, token);
 
-        } catch (error) {
-            notificationContext.showNotification(error.errors);
+        if (Array.isArray(updatedBook) || updatedBook.isAxiosError) {
+            notificationContext.showNotification(updatedBook);
+            return;
         }
+        setMyState({ ...state, book: ratedBook, voted: true });
     }
 
     const createComment = async (book, newComment) => {
         loaderContext.showLoader();
-        try {
-            const result = await commentService('POST', undefined, { 'subject': newComment, 'bookId': bookId }, token);
+        const result = await commentService('post', undefined, { 'subject': newComment, 'bookId': bookId }, token);
 
-            if (result.status === 201) {
-                const createdComment = await result.json();
-                createdComment.creator = userContext.user;
-                const updatedBook = { ...book };
-                updatedBook.comments.push(createdComment);
-                setMyState({ ...state, book: updatedBook })
-            } else {
-                const errors = await result.json();
-                throw errors;
-            }
-        } catch (error) {
-            notificationContext.showNotification(error.errors);;
+        if (Array.isArray(result) || result.isAxiosError) {
+            notificationContext.showNotification(result);
+            return;
         }
+
+        result.creator = userContext.user;
+        const updatedBook = { ...book };
+        updatedBook.comments.push(result);
+        setMyState({ ...state, book: updatedBook });
     }
 
     const deleteComment = async (commentId, book) => {
         loaderContext.showLoader();
-        try {
-            const result = await commentService('DELETE', commentId, undefined, token);
+        const result = await commentService('delete', commentId, undefined, token);
 
-            if (result.status === 204) {
-                const updatedBook = { ...book, comments: book.comments.filter(comment => comment._id !== commentId) };
-                setMyState({ ...state, book: updatedBook })
-            } else {
-                const errors = await result.json();
-                throw errors;
-            }
-        } catch (error) {
-            notificationContext.showNotification(error.errors);
+        if (Array.isArray(result) || result.isAxiosError) {
+            notificationContext.showNotification([{ msg: `Could not delete comment!` }]);
+            return;
         }
 
+        const updatedBook = { ...book, comments: book.comments.filter(comment => comment._id !== commentId) };
+        setMyState({ ...state, book: updatedBook })
     }
 
     const { book, isCreator, showContact, voted } = state;

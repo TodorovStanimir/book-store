@@ -4,6 +4,7 @@ import getCookie from './utils/getCookie';
 import userService from './services/user-service';
 import Notification from './components/notification';
 import Loader from './components/loader';
+import axios from 'axios';
 
 class App extends Component {
     constructor(props) {
@@ -50,6 +51,7 @@ class App extends Component {
     }
 
     logOut = async () => {
+        debugger
         const token = getCookie('x-auth-token');
 
         try {
@@ -79,27 +81,20 @@ class App extends Component {
             this.logOut();
             return
         }
-
-        fetch('http://localhost:4000/api/user/verify', {
-            method: 'POST',
+        axios('http://localhost:4000/api/user/verify', {
+            method: 'post',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `token ${token}`
             }
-        }).then(promise => {
-            console.log(promise);
-            return promise.json()
         }).then(response => {
-            if (response.status) {
-                this.logIn(response.user);
+            if (response.data.status) {
+                this.logIn(response.data.user);
             } else {
                 this.logOut();
             }
         }).catch(error => {
-            this.setState({ message: error.status, show: true })
-            setTimeout(() => {
-                this.setState({ message: '', show: false })
-            }, 3000)
+            this.showNotification(error);
         })
     }
 
@@ -113,7 +108,7 @@ class App extends Component {
         } = this.state;
 
         if (isLoggedIn === null) {
-            return (<div>Loading...</div>)
+            return (<div><Notification show={show} message={message} /></div>)
         }
         return (
             <UserContext.Provider value={{

@@ -72,14 +72,15 @@ const Register = (props) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         loaderContext.showLoader();
-        try {
-            const registeredUser = await userService.authenticate('register', inputData);
 
-            userContext.logIn(registeredUser);
-            history.push('/books/all');
-        } catch (error) {
-            notificationContext.showNotification(error);
+        const registeredUser = await userService.authenticate('register', inputData);
+
+        if (Array.isArray(registeredUser) || registeredUser.isAxiosError) {
+            notificationContext.showNotification(registeredUser);
+            return;
         }
+        userContext.logIn(registeredUser);
+        history.push('/books/all');
     }
 
     const showHidePassword = () => {

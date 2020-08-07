@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 
 import styles from './index.module.css';
 
-const CommentCreate = (props) => {
+const CommentCreate = ({ book, createComment }) => {
 
     const [{ btnDisabled, subject }, setBtnDisabled] = useState(
         {
             btnDisabled: true,
             subject: ''
         });
-
-    const { book, createComment } = props;
 
     const onChange = (e) => {
         const subject = e.target.value;

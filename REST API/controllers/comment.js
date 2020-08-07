@@ -10,7 +10,7 @@ module.exports = {
             const comments = await Comment.find(search ? { book: search } : {})
                 .populate({ path: 'creator', select: '-password' })
                 .populate({ path: 'book' }).lean();
-            res.send(comments)
+            res.json(comments)
         } catch (error) {
             next(error)
         }
@@ -23,7 +23,7 @@ module.exports = {
 
         if (!errors.isEmpty()) {
 
-            return res.status(400).send({ errors: errors.array() });
+            return res.status(200).json({ errors: errors.array() });
         }
 
         const { subject, bookId } = req.body;
@@ -33,7 +33,7 @@ module.exports = {
             const createdComment = await Comment.create({ subject, book: bookId, creator: _id });
             const updatedBook = await Book.updateOne({ _id: bookId }, { $push: { comments: createdComment } });
 
-            res.status(201).send(createdComment);
+            res.status(201).json(createdComment);
         } catch (error) {
             next(error);
         }
@@ -46,13 +46,13 @@ module.exports = {
 
         if (!errors.isEmpty()) {
 
-            return res.status(400).send({ errors: errors.array() });
+            return res.status(200).json({ errors: errors.array() });
         }
         const id = req.params.id;
         const { subject } = req.body;
         try {
             const updatedComment = await Comment.updateOne({ _id: id }, { subject });
-            res.status(200).send(updatedComment)
+            res.status(200).json(updatedComment)
         } catch (error) {
             next(error);
         }
@@ -67,7 +67,7 @@ module.exports = {
             const bookId = comment.book._id;
             const removedComment = await Comment.deleteOne({ _id: id });
             const updatedBook = await Book.updateOne({ _id: bookId }, { $pull: { comments: id } })
-            res.status(204).send(removedComment);
+            res.status(204).json(removedComment);
         } catch (error) {
             next(error)
         }

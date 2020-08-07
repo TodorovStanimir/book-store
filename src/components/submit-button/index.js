@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from './index.module.css';
 
-const SubmitButton = (props) => {
-    const { btnText, disabled, className } = props;
+const SubmitButton = ({ btnText, disabled, className }) => {
+
     return (
         <div className="form-group">
             <button

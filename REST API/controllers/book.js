@@ -7,7 +7,7 @@ module.exports = {
         try {
             const search = req.params.id ? { _id: req.params.id } : {}
             const books = await Book.find(search).populate({ path: 'creator comments', populate: {path: 'creator'}, select: '-password' }).lean();
-            res.status(200).send(req.params && req.params.id ? books[0] : books);
+            res.status(200).json(req.params && req.params.id ? books[0] : books);
         } catch (error) {
             next(error)
         }
@@ -20,7 +20,7 @@ module.exports = {
 
         if (!errors.isEmpty()) {
 
-            return res.status(400).send({ errors: errors.array() });
+            return res.status(200).json({ errors: errors.array() });
         }
 
         const { title, author, description, genres, year, publisher, price, imageUrl } = req.body;
@@ -30,7 +30,7 @@ module.exports = {
             const createdBook = await Book.create({ title, author, description, genres, year, publisher, price, imageUrl, creator: _id });
             const updatedUser = await User.updateOne({ _id }, { $push: { books: createdBook } });
 
-            res.status(201).send(createdBook);
+            res.status(201).json(createdBook);
         } catch (error) {
             next(error);
         }
@@ -43,13 +43,13 @@ module.exports = {
 
         if (!errors.isEmpty()) {
 
-            return res.status(400).send({ errors: errors.array() });
+            return res.status(200).json({ errors: errors.array() });
         }
         const id = req.params.id;
         const { title, author, description, genres, year, publisher, price, imageUrl, likes, dislikes } = req.body;
         try {
             const updatedBook = await Book.updateOne({ _id: id }, { title, author, description, genres, year, publisher, price, imageUrl, likes, dislikes });
-            res.status(200).send(updatedBook)
+            res.status(200).json(updatedBook)
         } catch (error) {
             next(error);
         }
@@ -63,7 +63,7 @@ module.exports = {
             const { _id } = book.creator;
             const removedBook = await Book.deleteOne({ _id: id });
             const updatedUser = await User.updateOne({ _id }, { $pull: { books: id } })
-            res.status(204).send(removedBook);
+            res.status(200).json(removedBook);
         } catch (error) {
             next(error)
         }

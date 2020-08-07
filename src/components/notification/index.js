@@ -13,8 +13,8 @@ const Notification = ({ show, message }) => {
         )
     } else {
         const msg = {
-            'Unauthorized': 'Invalid user e-mail or password! Please try again!',
-            '500': 'Internal Server Error! Please try again later!',
+            'Error: Network Error': 'Internal Server Error! Please try again later!',
+            'Error: Request failed with status code 500': 'Internal Server Error! Please try again later!',
             'TypeError: Failed to fetch': 'Failed to fetch data from server',
             'undefined': 'Failed to fetch data from server'
         }[message]

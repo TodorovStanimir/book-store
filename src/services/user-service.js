@@ -1,57 +1,79 @@
+import axios from 'axios';
 const basicUrl = 'http://localhost:4000/api/user/'
 const userService = {
     authenticate: async (url, data) => {
-        const promise = await fetch(`${basicUrl}${url}`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ...data })
-        })
-        const token = promise.headers.get('Authorization');
-        const result = await promise.json();
-
-        if (result.username && token) {
-            document.cookie = `x-auth-token=${token}`
-        }
-
-        if (result.errors) {
-            throw result.errors;
-        }
-        return result;
-    },
-    
-    getUser: async (method, url = '', data = '', token = '') => {
-        const promise = (data || token)
-            ? await fetch(`${basicUrl}${url}`, {
-                method: method,
+        try {
+            const promise = await axios({
+                url: `${basicUrl}${url}`,
+                method: 'post',
                 headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: { ...data }
+            })
+            const result = promise.data;
+            const token = promise.headers.authorization;
+
+            if (result.username && token) {
+                document.cookie = `x-auth-token=${token}`
+            }
+
+            if (result.errors) {
+                throw result.errors;
+            }
+            return result;
+        } catch (error) {
+            return error
+        }
+
+    },
+
+    getUser: async (method, url = '', data = '', token = '') => {
+        try {
+            const promise = (data || token)
+                ? await axios({
+                    url: `${basicUrl}${url}`,
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `token ${token}`
+                    },
+                    data: { ...data }
+                })
+                : await axios({
+                    url: `${basicUrl}${url}`,
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            const result = promise.data;
+            if (result.errors) {
+                throw result.errors;
+            }
+            return result;
+        } catch (error) {
+            return error;
+        }
+    },
+    logoutUser: async (token) => {
+        try {
+            const promise = await axios({
+                url:`${basicUrl}logout`, 
+                method: 'post',
+                'headers': {
                     'Content-Type': 'application/json',
                     'Authorization': `token ${token}`
                 },
-                body: JSON.stringify({ ...data })
             })
-            : await fetch(`${basicUrl}${url}`, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        return promise
-    },
-    logoutUser: async (token) => {
-        const promise = await fetch(`${basicUrl}logout`, {
-            method: "POST",
-            'headers': {
-                'Content-Type': 'application/json',
-                'Authorization': `token ${token}`
-            },
-        })
-        if (promise.status !== 200) {
-            throw promise
+            if (promise.status !== 200) {
+                throw promise
+            }
+            const result = await promise.data;
+            return result;
+        } catch (error) {
+            console.log(error)
         }
-        const result = await promise.json();
-        return result;
     }
 }
 

@@ -10,7 +10,7 @@ module.exports = {
             const search = req.params.id ? { _id: req.params.id } : {}
 
             const users = await User.find(search).populate('books').select('-password').lean();
-            res.status(200).send(req.params && req.params.id ? users[0] : users);
+            res.status(200).json(req.params && req.params.id ? users[0] : users);
         } catch (error) {
             next(error)
         }
@@ -25,14 +25,14 @@ module.exports = {
                 const match = user ? await user.matchPassword(password) : false;
 
                 if (!match) {
-                    res.status(401).send({ errors: [{ msg: 'Invalid user e-mail or password! Please try again!' }] });
+                    res.status(200).json({ errors: [{ msg: 'Invalid user e-mail or password! Please try again!' }] });
                     return;
                 };
                 const token = jwt.createToken({ id: user._id, username: user.username });
 
                 const userForSend = user.toObject();
                 delete userForSend.password;
-                res.header("Authorization", token).send(userForSend);
+                res.header("Authorization", token).json(userForSend);
             } catch (err) {
                 next(err);
             }
@@ -45,7 +45,7 @@ module.exports = {
 
             if (!errors.isEmpty()) {
 
-                return res.status(400).send({ errors: errors.array() });
+                return res.status(200).json({ errors: errors.array() });
             }
 
             const { username, password, email, phone, occupation, imageUrl } = req.body;
@@ -54,7 +54,7 @@ module.exports = {
                 const user = await User.findOne({ email }).lean();
 
                 if (user) {
-                    return res.status(400).send({ errors: [{ msg: `User e-mail ${email} already exists` }] });
+                    return res.status(200).json({ errors: [{ msg: `User e-mail ${email} already exists` }] });
                 }
                 const createdUser = await User.create({ username, password, email, phone, occupation, imageUrl });
                 const token = jwt.createToken({ id: createdUser._id, username: createdUser.username });
@@ -62,7 +62,7 @@ module.exports = {
                 const userForSend = createdUser.toObject();
                 delete userForSend.password;
                 sendWelcomeEmail(email, username);
-                res.status(201).header("Authorization", token).send(userForSend);
+                res.status(201).header("Authorization", token).json(userForSend);
             } catch (err) {
                 next(err);
             }
@@ -76,7 +76,7 @@ module.exports = {
             TokenBlackList.create({ token })
                 .then(() => {
                     
-                    res.status(200).send({ 'message': 'Logout successfully!' });
+                    res.status(200).json({ 'message': 'Logout successfully!' });
                 })
                 .catch(next);
         },
@@ -92,9 +92,9 @@ module.exports = {
                 }
 
                 const user = await User.findById(decodetToken.id).select('-password').lean();
-                res.send({ status: true, user });
+                res.json({ status: true, user });
             } catch (error) {
-                res.send({ status: false });
+                res.json({ status: false });
             }
         }
 
@@ -105,13 +105,13 @@ module.exports = {
 
         if (!errors.isEmpty()) {
 
-            return res.status(400).send({ errors: errors.array() });
+            return res.status(200).json({ errors: errors.array() });
         }
         try {
             const id = req.params.id;
             const { username, phone, occupation, imageUrl } = req.body;
             const updatedUser = await User.updateOne({ _id: id }, { username, phone, occupation, imageUrl });
-            res.status(200).send(updatedUser)
+            res.status(200).json(updatedUser)
         } catch (error) {
             next(error)
         }
@@ -123,7 +123,7 @@ module.exports = {
         try {
             const removedUser = await User.deleteOne({ _id: id }).lean();
             sendCancelationEmail(user.email, user.username)
-            res.send(removedUser)
+            res.json(removedUser)
         } catch (error) {
             next(error)
         }
