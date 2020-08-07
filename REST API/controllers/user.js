@@ -41,8 +41,6 @@ module.exports = {
         register: async function (req, res, next) {
             const errors = validationResult(req);
 
-            console.log(errors);
-
             if (!errors.isEmpty()) {
 
                 return res.status(200).json({ errors: errors.array() });

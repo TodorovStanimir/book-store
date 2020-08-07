@@ -19,8 +19,6 @@ module.exports = {
     post: async (req, res, next) => {
         const errors = validationResult(req);
 
-        console.log(errors);
-
         if (!errors.isEmpty()) {
 
             return res.status(200).json({ errors: errors.array() });
@@ -41,8 +39,6 @@ module.exports = {
 
     put: async (req, res, next) => {
         const errors = validationResult(req);
-
-        console.log(errors);
 
         if (!errors.isEmpty()) {
 

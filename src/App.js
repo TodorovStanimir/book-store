@@ -51,7 +51,7 @@ class App extends Component {
     }
 
     logOut = async () => {
-        debugger
+
         const token = getCookie('x-auth-token');
 
         try {
