@@ -1,3 +1,4 @@
+/* global i18n */
 import React, { useState } from 'react';
 
 import styles from './index.module.css';
@@ -28,8 +29,8 @@ const CommentCreate = ({ book, createComment }) => {
         <div>
             {book.comments.length === 0
                 ? <div className={styles['comment-header']}>
-                    <p>There is not comments for this book.</p>
-                    <p>You can write the first one.</p>
+                    <p>{i18n('commentThereIsNot1')}</p>
+                    <p>{i18n('commentThereIsNot2')}</p>
                 </div>
                 : null}
             <div className={styles['add-comment']}>
@@ -37,7 +38,7 @@ const CommentCreate = ({ book, createComment }) => {
                     <div className={styles['comment-body-items']}>
                         <textarea
                             type="text"
-                            placeholder="Your comment..."
+                            placeholder={i18n('commentSubject')}
                             name="subject"
                             value={subject}
                             onChange={onChange}

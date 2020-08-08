@@ -1,3 +1,4 @@
+/* global i18n */
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
@@ -77,7 +78,7 @@ const Login = (props) => {
                             <form onSubmit={onSubmit}>
                                 <ValidatorEl
                                     validator={correctEmail}
-                                    message='Email shoud be a valid email address'
+                                    message={i18n('userEmailField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -85,14 +86,14 @@ const Login = (props) => {
                                     classNameIEl='fa fa-envelope'
                                     type='email'
                                     name='email'
-                                    placeholder='E-mail'
+                                    placeholder={i18n('email')}
                                     value={email}
                                     isValid={correctEmail}
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
                                     validator={correctPassword}
-                                    message='Password shoud be between 3 and 16 letters and digits'
+                                    message={i18n('userPasswordField')}
                                 />
                                 <InputPasswordEl
                                     classNameDivEl='input-group'
@@ -100,17 +101,17 @@ const Login = (props) => {
                                     classNameIEl='fa fa-eye'
                                     type={typeFieldPassword}
                                     name='password'
-                                    placeholder='Password'
+                                    placeholder={i18n('userPassword')}
                                     value={password}
                                     isValid={correctPassword}
                                     onChange={onChange}
                                     showHidePassword={showHidePassword}
                                 />
-                                <SubmitButton btnText={'Login in Your account'} disabled={btnDisabled} />
+                                <SubmitButton btnText={i18n('userLoginInAccount')} disabled={btnDisabled} />
                                 <LinkEl
                                     className={'login-link'}
                                     to={'/profile/register'}
-                                    linkText={'Have not an account? Register here'}
+                                    linkText={i18n('userHaveNotAnAccount')}
                                 />
                             </form>
                         </div>

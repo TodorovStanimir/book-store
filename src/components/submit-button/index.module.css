@@ -15,7 +15,7 @@
 .submit-button-userprofile {
   border: 2px solid grey;
   background-color: #42a948;
-  width: 50%;
+  width: 70%;
   min-height: calc(1.5em + .75rem + 2px);
   height: auto;
   color: white;

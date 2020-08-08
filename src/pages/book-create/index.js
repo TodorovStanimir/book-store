@@ -1,3 +1,4 @@
+/* global i18n */
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom'
 import styles from './index.module.css';
@@ -114,7 +115,7 @@ const CreateBook = (props) => {
                                     <div className={styles['firstr-firstc']}>
                                         <ValidatorEl
                                             validator={correctTitle}
-                                            message={'Title shoud contain at least 2 signs'}
+                                            message={i18n('bookTitleField', 2)}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -122,7 +123,7 @@ const CreateBook = (props) => {
                                             classNameIEl={'fa fa-book'}
                                             type='text'
                                             name='title'
-                                            placeholder='Book title'
+                                            placeholder={i18n('bookTitle')}
                                             isValid={correctTitle}
                                             value={title}
                                             onChange={onChange}
@@ -131,7 +132,7 @@ const CreateBook = (props) => {
                                     <div className={styles['firstr-secondc']}>
                                         <ValidatorEl
                                             validator={correctAuthor}
-                                            message={'Author name should contain at least 5 signs'}
+                                            message={i18n('bookAuthorField', 5)}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -139,7 +140,7 @@ const CreateBook = (props) => {
                                             classNameIEl={'fa fa-user-tie'}
                                             type='text'
                                             name='author'
-                                            placeholder="Book's author"
+                                            placeholder={i18n('bookAuthor')}
                                             isValid={correctAuthor}
                                             value={author}
                                             onChange={onChange}
@@ -150,7 +151,7 @@ const CreateBook = (props) => {
                                     <div>
                                         <ValidatorEl
                                             validator={correctDescription}
-                                            message={'Description should contain at least 40 signs'}
+                                            message={i18n('bookDescriptionField', 40)}
                                         />
                                         <TextareaEl
                                             classNameDivEl={'input-group'}
@@ -159,7 +160,7 @@ const CreateBook = (props) => {
                                             type='text'
                                             name='description'
                                             rows='3'
-                                            placeholder="Description"
+                                            placeholder={i18n('bookDescription')}
                                             isValid={correctDescription}
                                             value={description}
                                             onChange={onChange}
@@ -170,7 +171,7 @@ const CreateBook = (props) => {
                                     <div className={styles['thirdr-firstc']}>
                                         <ValidatorEl
                                             validator={correctGenres}
-                                            message={'Genres should contain genres of book separeted by comma and space'}
+                                            message={i18n('bookGenresField')}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -178,7 +179,7 @@ const CreateBook = (props) => {
                                             classNameIEl={'fa fa-folder'}
                                             type='text'
                                             name='genres'
-                                            placeholder="Genres book"
+                                            placeholder={i18n('bookGenres')}
                                             isValid={correctGenres}
                                             value={genres}
                                             onChange={onChange}
@@ -187,7 +188,7 @@ const CreateBook = (props) => {
                                     <div className={styles['thirdr-secondc']}>
                                         <ValidatorEl
                                             validator={correctYear}
-                                            message={'Year should contain exactly 4 digits'}
+                                            message={i18n('bookYearField')}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -196,7 +197,7 @@ const CreateBook = (props) => {
                                             type='number'
                                             step='1'
                                             name='year'
-                                            placeholder="Year issue"
+                                            placeholder={i18n('bookYear')}
                                             isValid={correctYear}
                                             value={year}
                                             onChange={onChange}
@@ -207,7 +208,7 @@ const CreateBook = (props) => {
                                     <div className={styles['fourthr-firstc']}>
                                         <ValidatorEl
                                             validator={correctPublisher}
-                                            message={'Publishers should contain at least 6 signs'}
+                                            message={i18n('bookPublisherField',6)}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -215,7 +216,7 @@ const CreateBook = (props) => {
                                             classNameIEl={'fa fa-user-tie'}
                                             type='text'
                                             name='publisher'
-                                            placeholder="Publisher"
+                                            placeholder={i18n('bookPublisher')}
                                             isValid={correctPublisher}
                                             value={publisher}
                                             onChange={onChange}
@@ -224,7 +225,7 @@ const CreateBook = (props) => {
                                     <div className={styles['fourthr-secondc']}>
                                         <ValidatorEl
                                             validator={correctPrice}
-                                            message={'Price should be at least 0.01'}
+                                            message={i18n('bookPriceField')}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -233,7 +234,7 @@ const CreateBook = (props) => {
                                             type='number'
                                             step='0.01  '
                                             name='price'
-                                            placeholder="Price"
+                                            placeholder={i18n('bookPrice')}
                                             isValid={correctPrice}
                                             value={price}
                                             onChange={onChange}
@@ -244,7 +245,7 @@ const CreateBook = (props) => {
                                     <div className={styles['fifthr-firstc']}>
                                         <ValidatorEl
                                             validator={correctImageUrl}
-                                            message={'Image Url should start wth http:// or https://'}
+                                            message={i18n('bookImageUrlField')}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -252,7 +253,7 @@ const CreateBook = (props) => {
                                             classNameIEl={'fa fa-image'}
                                             type='text'
                                             name='imageUrl'
-                                            placeholder="ImageUrl"
+                                            placeholder={i18n('bookImageUrl')}
                                             isValid={correctImageUrl}
                                             value={imageUrl}
                                             onChange={onChange}
@@ -262,11 +263,11 @@ const CreateBook = (props) => {
                                         <div className="form-group">
                                             {isEditingMode
                                                 ? <SubmitButton
-                                                    btnText={'Edit your book!'}
+                                                    btnText={i18n('bookEditButton')}
                                                     disabled={false}
                                                 />
                                                 : <SubmitButton
-                                                    btnText={'Create your book!'}
+                                                    btnText={i18n('bookCreateButton')}
                                                     disabled={btnDisabled}
                                                 />
                                             }

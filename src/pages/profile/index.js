@@ -1,3 +1,4 @@
+/* global i18n */
 import React, { useState, useEffect, useContext } from 'react';
 
 import PageLayout from '../../components/page-layout';
@@ -59,7 +60,7 @@ const Profile = (props) => {
 
     const handleDeleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
-        
+
         const result = await bookService('delete', bookId, null, token)
 
         if (Array.isArray(result) || result.isAxiosError) {
@@ -96,7 +97,7 @@ const Profile = (props) => {
                         <form onSubmit={(e) => handleEditUser(e)}>
                             <ValidatorEl
                                 validator={correctEmail}
-                                message={'Email shoud be a valid email address'}
+                                message={i18n('userEmailField')}
                             />
                             <InputEl
                                 classNameDivEl='input-group'
@@ -104,14 +105,14 @@ const Profile = (props) => {
                                 classNameIEl='fa fa-envelope'
                                 type='email'
                                 name='email'
-                                placeholder='E-mail'
+                                placeholder={i18n('email')}
                                 isValid={correctEmail}
                                 value={email}
                                 onChange={onChange}
                             />
                             <ValidatorEl
                                 validator={correctPhone}
-                                message={'Phone should consists country code and at least 7 digits'}
+                                message={i18n('userPhoneField')}
                             />
                             <InputEl
                                 classNameDivEl='input-group'
@@ -119,14 +120,14 @@ const Profile = (props) => {
                                 classNameIEl='fa fa-phone'
                                 type='text'
                                 name='phone'
-                                placeholder='Phone number'
+                                placeholder={i18n('userPhone')}
                                 isValid={correctPhone}
                                 value={phone}
                                 onChange={onChange}
                             />
                             <ValidatorEl
                                 validator={correctOccupation}
-                                message={'Occupation field should consists only letters'}
+                                message={i18n('userOccupationField')}
                             />
                             <InputEl
                                 classNameDivEl='input-group'
@@ -134,14 +135,14 @@ const Profile = (props) => {
                                 classNameIEl='fa fa-building'
                                 type='text'
                                 name='occupation'
-                                placeholder='Phone number'
+                                placeholder={i18n('userOccupation')}
                                 isValid={correctOccupation}
                                 value={occupation}
                                 onChange={e => onChange(e)}
                             />
                             <ValidatorEl
                                 validator={correctImageUrl}
-                                message={'Image URL must start with http:// or https://'}
+                                message={i18n('userImageUrlField')}
                             />
                             <InputEl
                                 classNameDivEl='input-group'
@@ -149,7 +150,7 @@ const Profile = (props) => {
                                 classNameIEl='fa fa-image'
                                 type='url'
                                 name='imageUrl'
-                                placeholder='userImageUrl'
+                                placeholder={i18n('userImageUrl')}
                                 isValid={correctImageUrl}
                                 value={imageUrl}
                                 onChange={e => onChange(e)}
@@ -159,13 +160,13 @@ const Profile = (props) => {
 
                             <SubmitButton
                                 className={'submit-button-userprofile'}
-                                btnText={'Change your profile'}
+                                btnText={i18n('userChangeProfile')}
                                 disabled={btnDisabled} />
                         </form>
                     </div>
                     <div className={styles['book-info']}>
                         <div className={styles['book-summary']}>
-                            <p>You have {editedUser.books.length} books and {editedUser.books.reduce((acc, cur) => acc += cur.comments.length, 0)} comments</p>
+                            <p>{i18n('userProfileReport', [editedUser.books.length, editedUser.books.reduce((acc, cur) => acc += cur.comments.length, 0)])}</p>
                         </div>
                         {booksUser}
                     </div >

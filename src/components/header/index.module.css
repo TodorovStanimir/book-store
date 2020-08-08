@@ -54,6 +54,16 @@
   height: 45px;
 }
 
+.nav-image-flag {
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  width: 45px;
+  height: 45px;
+}
+
 @media only screen and (max-width: 768px) {
   .nav-link {
     /* color: rgba(0,0,0,.5); */
@@ -64,12 +74,17 @@
     cursor: pointer; */
   }
   .nav-image {
-    border-radius: 5px;
+    /* border-radius: 5px;
     border: 1px solid grey;
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 10px;
-    width: 50px;
+    width: 50px; */
+    width: 60px;
+    height: 25px;
+  }
+  .nav-image-flag {
+    width: 25px;
     height: 25px;
   }
 }  

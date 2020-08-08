@@ -18,4 +18,9 @@ const LoaderContext = React.createContext({
     showLoader: () => { },
 })
 
-export { UserContext, NotificationContext, LoaderContext }
+const LanguageContext = React.createContext({
+    language: window.navigator.language === 'en' ? 'en' : 'bg',
+    changeLanguage: () => { },
+})
+
+export { UserContext, NotificationContext, LoaderContext, LanguageContext }

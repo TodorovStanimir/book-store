@@ -1,3 +1,4 @@
+/* global i18n */
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
@@ -102,7 +103,7 @@ const Register = (props) => {
                             <form onSubmit={onSubmit}>
                                 <ValidatorEl
                                     validator={correctEmail}
-                                    message={'Email shoud be a valid email address'}
+                                    message={i18n('userEmailField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -110,13 +111,13 @@ const Register = (props) => {
                                     classNameIEl='fa fa-envelope'
                                     type='email'
                                     name='email'
-                                    placeholder='E-mail'
+                                    placeholder={i18n('email')}
                                     isValid={correctEmail}
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
                                     validator={correctUsername}
-                                    message={'Username shoud be in format Xxxxx Xxxxx'}
+                                    message={i18n('userNameField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -124,13 +125,13 @@ const Register = (props) => {
                                     classNameIEl='fa fa-user'
                                     type='text  '
                                     name='username'
-                                    placeholder='Username'
+                                    placeholder={i18n('username')}
                                     isValid={correctUsername}
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
                                     validator={correctPhone}
-                                    message={'Phone should consists country code and at least 7 digits'}
+                                    message={i18n('userPhoneField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -138,13 +139,13 @@ const Register = (props) => {
                                     classNameIEl='fa fa-phone'
                                     type='text'
                                     name='phone'
-                                    placeholder='Phone number'
+                                    placeholder={i18n('userPhone')}
                                     isValid={correctPhone}
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
                                     validator={correctOccupation}
-                                    message={'Occupation field should consists only letters'}
+                                    message={i18n('userOccupationField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -152,13 +153,13 @@ const Register = (props) => {
                                     classNameIEl='fa fa-building'
                                     type='text'
                                     name='occupation'
-                                    placeholder='Occupation'
+                                    placeholder={i18n('userOccupation')}
                                     isValid={correctOccupation}
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
                                     validator={correctPassword}
-                                    message={'Password shoud be between 3 and 16 symbols: letters and digits'}
+                                    message={i18n('userPasswordField')}
                                 />
                                 <InputPasswordEl
                                     classNameDivEl='input-group'
@@ -166,14 +167,14 @@ const Register = (props) => {
                                     classNameIEl='fa fa-eye'
                                     type={typeFieldPassword}
                                     name='password'
-                                    placeholder='Password'
+                                    placeholder={i18n('userCreatePassword')}
                                     isValid={correctPassword}
                                     onChange={onChange}
                                     showHidePassword={showHidePassword}
                                 />
                                 <ValidatorEl
                                     validator={correctRePassword}
-                                    message={'Passwords do not match'}
+                                    message={i18n('userRepeatPasswordField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -181,13 +182,13 @@ const Register = (props) => {
                                     classNameIEl='fa fa-lock'
                                     type='password'
                                     name='rePassword'
-                                    placeholder='Repeat password'
+                                    placeholder={i18n('userRepeatPassword')}
                                     isValid={correctRePassword}
                                     onChange={onChange}
                                 />
                                 <ValidatorEl
                                     validator={correctImageUrl}
-                                    message={'Image URL must start with http:// or https://'}
+                                    message={i18n('userImageUrlField')}
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
@@ -195,14 +196,14 @@ const Register = (props) => {
                                     classNameIEl='fa fa-image'
                                     type='url'
                                     name='imageUrl'
-                                    placeholder='image Url'
+                                    placeholder={i18n('userImageUrl')}
                                     isValid={correctImageUrl}
                                     onChange={onChange}
                                 />
-                                <SubmitButton btnText={'Create an Account'} disabled={btnDisabled} />
+                                <SubmitButton btnText={i18n('userCreateAccount')} disabled={btnDisabled} />
                                 <LinkEl className='login-link'
                                     to='/profile/login'
-                                    linkText='Have an account? Log in here' />
+                                    linkText={i18n('userHaveAccount')} />
                             </form>
                         </div>
                     </div >

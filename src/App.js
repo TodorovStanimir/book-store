@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { UserContext, NotificationContext, LoaderContext } from './Context';
+import { UserContext, NotificationContext, LoaderContext, LanguageContext } from './Context';
 import getCookie from './utils/getCookie';
 import userService from './services/user-service';
 import Notification from './components/notification';
 import Loader from './components/loader';
 import axios from 'axios';
+import './services/localizationService';
+
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class App extends Component {
             user: null,
             message: '',
             show: false,
-            showingLoader: false
+            showingLoader: false,
+            language: window.navigator.language === 'en' ? 'en' : 'bg',
         }
     }
 
@@ -74,6 +77,13 @@ class App extends Component {
         }
     }
 
+    changeLanguage = (e) => {
+        window.changeLanguage(e.target.dataset.language);
+        this.setState({
+            language: e.target.dataset.language
+        })
+    }
+
     componentDidMount() {
         const token = getCookie('x-auth-token');
 
@@ -104,7 +114,8 @@ class App extends Component {
             user,
             show,
             message,
-            showingLoader
+            showingLoader,
+            language
         } = this.state;
 
         if (isLoggedIn === null) {
@@ -126,11 +137,16 @@ class App extends Component {
                         message,
                         showNotification: this.showNotification,
                     }}>
-                        <Fragment>
-                            {this.props.children}
-                            <Notification show={show} message={message} />
-                            <Loader showingLoader={showingLoader} />
-                        </Fragment>
+                        <LanguageContext.Provider value={{
+                            language,
+                            changeLanguage: this.changeLanguage
+                        }}>
+                            <Fragment>
+                                {this.props.children}
+                                <Notification show={show} message={message} />
+                                <Loader showingLoader={showingLoader} />
+                            </Fragment>
+                        </LanguageContext.Provider>
                     </NotificationContext.Provider>
                 </LoaderContext.Provider>
             </UserContext.Provider>
