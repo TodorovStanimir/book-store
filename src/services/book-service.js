@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const basicUrl = 'http://localhost:4000/api/book/';
+const basicUrl = '/api/book/';
 
 const bookService = async (method, url = '', data = '', token = '') => {
     try {

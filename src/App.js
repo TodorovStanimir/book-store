@@ -91,7 +91,7 @@ class App extends Component {
             this.logOut();
             return
         }
-        axios('http://localhost:4000/api/user/verify', {
+        axios('/api/user/verify', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

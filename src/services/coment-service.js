@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const basicUrl = 'http://localhost:4000/api/comment/';
+const basicUrl = '/api/comment/';
 
 const commentService = async (method, url = '', data = '', token = '') => {
     try {

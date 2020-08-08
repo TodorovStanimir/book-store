@@ -1,5 +1,5 @@
 import axios from 'axios';
-const basicUrl = 'http://localhost:4000/api/user/'
+const basicUrl = '/api/user/'
 const userService = {
     authenticate: async (url, data) => {
         try {
