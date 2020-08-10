@@ -5,7 +5,6 @@ import styles from './index.module.css';
 const TextareaEl = (props) => {
     const {
         classNameDivEl,
-        classNameSpanEl,
         classNameIEl,
         type,
         name,
@@ -19,7 +18,7 @@ const TextareaEl = (props) => {
     return (
         <div className={styles[`${classNameDivEl}`]}>
             <div className="input-group-prepend">
-                <span className={styles[`${classNameSpanEl}`]}>
+                <span className={styles[`${isValid ? 'span-el-valid' : 'span-el-invalid'}`]}>
                     <i className={`${classNameIEl}`}></i>
                 </span>
             </div>

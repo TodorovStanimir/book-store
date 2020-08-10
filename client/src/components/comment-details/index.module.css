@@ -43,6 +43,7 @@
 }
 .black i {
   color: black;
+  width: 16px;
 }
 .black:hover i {
   color: white;

@@ -119,7 +119,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-book'}
                                             type='text'
                                             name='title'
@@ -136,7 +135,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-user-tie'}
                                             type='text'
                                             name='author'
@@ -155,7 +153,6 @@ const CreateBook = (props) => {
                                         />
                                         <TextareaEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-edit'}
                                             type='text'
                                             name='description'
@@ -175,7 +172,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-folder'}
                                             type='text'
                                             name='genres'
@@ -192,7 +188,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-calendar-alt'}
                                             type='number'
                                             step='1'
@@ -212,7 +207,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-user-tie'}
                                             type='text'
                                             name='publisher'
@@ -229,7 +223,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-dollar-sign'}
                                             type='number'
                                             step='0.01  '
@@ -249,7 +242,6 @@ const CreateBook = (props) => {
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
-                                            classNameSpanEl={'span-el'}
                                             classNameIEl={'fa fa-image'}
                                             type='text'
                                             name='imageUrl'

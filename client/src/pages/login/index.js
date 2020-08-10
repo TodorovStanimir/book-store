@@ -82,7 +82,6 @@ const Login = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-envelope'
                                     type='email'
                                     name='email'
@@ -97,7 +96,6 @@ const Login = (props) => {
                                 />
                                 <InputPasswordEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-eye'
                                     type={typeFieldPassword}
                                     name='password'

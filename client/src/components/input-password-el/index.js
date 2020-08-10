@@ -5,7 +5,6 @@ import styles from './index.module.css';
 const InputPasswordEl = (props) => {
     const {
         classNameDivEl,
-        classNameSpanEl,
         classNameIEl,
         type,
         step,
@@ -20,7 +19,7 @@ const InputPasswordEl = (props) => {
     return (
         <div className={styles[`${classNameDivEl}`]}>
             <div className="input-group-prepend" onClick={()=>showHidePassword()}>
-                <span className={styles[`${classNameSpanEl}`]}>
+                <span className={styles[`${isValid ? 'span-el-valid' : 'span-el-invalid'}`]}>
                     <i className={`${classNameIEl}`}></i>
                 </span>
             </div>

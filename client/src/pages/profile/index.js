@@ -101,7 +101,6 @@ const Profile = (props) => {
                             />
                             <InputEl
                                 classNameDivEl='input-group'
-                                classNameSpanEl='span-el'
                                 classNameIEl='fa fa-envelope'
                                 type='email'
                                 name='email'
@@ -116,7 +115,6 @@ const Profile = (props) => {
                             />
                             <InputEl
                                 classNameDivEl='input-group'
-                                classNameSpanEl='span-el'
                                 classNameIEl='fa fa-phone'
                                 type='text'
                                 name='phone'
@@ -131,7 +129,6 @@ const Profile = (props) => {
                             />
                             <InputEl
                                 classNameDivEl='input-group'
-                                classNameSpanEl='span-el'
                                 classNameIEl='fa fa-building'
                                 type='text'
                                 name='occupation'
@@ -146,7 +143,6 @@ const Profile = (props) => {
                             />
                             <InputEl
                                 classNameDivEl='input-group'
-                                classNameSpanEl='span-el'
                                 classNameIEl='fa fa-image'
                                 type='url'
                                 name='imageUrl'

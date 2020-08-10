@@ -107,7 +107,6 @@ const Register = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-envelope'
                                     type='email'
                                     name='email'
@@ -121,7 +120,6 @@ const Register = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-user'
                                     type='text  '
                                     name='username'
@@ -135,7 +133,6 @@ const Register = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-phone'
                                     type='text'
                                     name='phone'
@@ -149,7 +146,6 @@ const Register = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-building'
                                     type='text'
                                     name='occupation'
@@ -163,7 +159,6 @@ const Register = (props) => {
                                 />
                                 <InputPasswordEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-eye'
                                     type={typeFieldPassword}
                                     name='password'
@@ -178,7 +173,6 @@ const Register = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-lock'
                                     type='password'
                                     name='rePassword'
@@ -192,7 +186,6 @@ const Register = (props) => {
                                 />
                                 <InputEl
                                     classNameDivEl='input-group'
-                                    classNameSpanEl='span-el'
                                     classNameIEl='fa fa-image'
                                     type='url'
                                     name='imageUrl'

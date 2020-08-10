@@ -26,7 +26,7 @@ const BookDetails = (props) => {
     const loaderContext = useContext(LoaderContext);
     const match = useRouteMatch();
     const history = useHistory();
-    const bookId = match.params.id;
+    const bookId = match.params && match.params.id;
     const token = getCookie('x-auth-token');
 
     useEffect(() => {

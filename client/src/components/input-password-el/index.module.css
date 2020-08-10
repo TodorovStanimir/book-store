@@ -3,7 +3,7 @@
     width: 100%;
 }
 
-.span-el {
+.span-el-valid {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,9 +16,27 @@
     width: 43px;
 }
 
-i {
+.span-el-invalid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid darkred;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: white;
+    width: 43px;
+}
+
+.span-el-valid i {
     color: #42a948;
-    width: 20px;
+    width: 18px;
+}
+
+.span-el-invalid i {
+    color: darkred;
+    width: 18px;
 }
 
 .valid {
@@ -32,7 +50,7 @@ i {
     padding: 10px;
 }
 .invalid {
-    border: 2px solid #a94442; /* red */
+    border: 2px solid darkred; /* red */
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border-top-right-radius: 5px;
