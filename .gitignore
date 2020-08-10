@@ -2,7 +2,7 @@
 
 # dependencies
 /client/node_modules
-/REST API/nodemon.json
+/nodemon.json
 /.env
 /.vscode
 /node_modules
