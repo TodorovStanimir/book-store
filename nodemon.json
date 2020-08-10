@@ -1,0 +1,13 @@
+{
+    "env": {
+        "NODE_ENV": "development",
+        "PORT": "4000",
+        "MONGO_USER": "todorovUser",
+        "MONGO_PASSWORD": "Tourier2014",
+        "MONGO_DEFAULT_DATABASE": "books",
+        "JWT_SECRET": "my_secret_key",
+        "COOKIE_SECRET": "x-auth-token",
+        "SALT_ROUNDS": 10,
+        "SENDGRID_API_KEY": "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"
+    }
+}
