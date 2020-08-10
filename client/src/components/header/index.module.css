@@ -67,20 +67,10 @@
 
 @media only screen and (max-width: 768px) {
   .nav-link {
-    /* color: rgba(0,0,0,.5); */
-    /* font-family: sans-serif; */
     font-size: 10px;
     margin: 1px;
-    /* text-decoration: none;
-    cursor: pointer; */
   }
   .nav-image {
-    /* border-radius: 5px;
-    border: 1px solid grey;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    width: 50px; */
     width: 60px;
     height: 25px;
   }
