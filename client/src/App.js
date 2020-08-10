@@ -6,6 +6,7 @@ import Notification from './components/notification';
 import Loader from './components/loader';
 import axios from 'axios';
 import './services/localizationService';
+import defaultLanguage from './services/localizationService'
 
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
             message: '',
             show: false,
             showingLoader: false,
-            language: window.navigator.language === 'en' ? 'en' : 'bg',
+            language: defaultLanguage
         }
     }
 
@@ -82,6 +83,7 @@ class App extends Component {
         this.setState({
             language: e.target.dataset.language
         })
+        localStorage.setItem('language', e.target.dataset.language);
     }
 
     componentDidMount() {

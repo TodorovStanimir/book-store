@@ -6,7 +6,7 @@ const languages = {
     bg
 };
 
-let defaultLanguage = window.navigator.language === 'en' ? 'en' : 'bg';
+let defaultLanguage = localStorage.getItem('language') ? localStorage.getItem('language') : window.navigator.language;
 
 
 window.i18nData = languages[defaultLanguage];
@@ -32,3 +32,5 @@ window.i18n = (key, params) => {
 window.changeLanguage = (lang) => {
     window.i18nData = languages[lang];
 }
+
+export default defaultLanguage;
