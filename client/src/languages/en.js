@@ -53,6 +53,7 @@ export default {
     userProfileReport: 'You have {0} books and {1} comments',
     userChangeProfile: 'Change your profile',
     
+    uploadImgButton:'Upload image',
     navProfile: 'Profile',
     navMyStore: 'My store',
     navMyBooks: 'My books',

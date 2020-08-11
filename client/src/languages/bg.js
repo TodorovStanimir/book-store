@@ -53,6 +53,7 @@ export default {
     userProfileReport: 'Вие имате {0} книги и {1} коментарa',
     userChangeProfile: 'Променете вашия профил',
 
+    uploadImgButton:'Качете файл',
     navProfile: 'Профил',
     navMyStore: 'Моят магазин',
     navMyBooks: 'Моите книги',

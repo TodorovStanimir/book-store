@@ -8,13 +8,14 @@ import InputPasswordEl from '../../components/input-password-el'
 import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
+import InputUploadEl from '../../components/input-upload-el';
 import { emailValidator, usernameValidator, phoneValidator, } from '../../utils/validators';
 import { occupationValidator, imageUrlValidator, passwordValidator } from '../../utils/validators';
 import userService from '../../services/user-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 
 const Register = (props) => {
-    const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext);
     const notificationContext = useContext(NotificationContext);
     const loaderContext = useContext(LoaderContext);
     const [inputData, setInputState] = useState({
@@ -37,7 +38,9 @@ const Register = (props) => {
         imageUrl: true
     });
 
-    const [typeFieldPassword, setTypeFieldPassword] = useState('password')
+    const [typeFieldPassword, setTypeFieldPassword] = useState('password');
+
+    const [uploadImgBtnDisabled, setUploadImgBtnDisabled] = useState(false);
 
     const history = useHistory();
 
@@ -90,6 +93,22 @@ const Register = (props) => {
             'text': 'password'
         }[typeFieldPassword]);
     }
+
+    const openWidget = () => {
+        window.cloudinary.createUploadWidget(
+            {
+                cloudName: 'dv0zd1ahz',
+                uploadPreset: 'booksstore',
+            },
+            (error, result) => {
+                if (result.event === 'success') {
+                    setInputState({ ...inputData, imageUrl: result.info.url })
+                    setValidators({ ...validators, imageUrl: true })
+                    setUploadImgBtnDisabled(true)
+                }
+            },
+        ).open();
+    };
 
     const btnDisabled = Object.values(validators).includes(false) || Object.values(inputData).includes('');
 
@@ -184,14 +203,19 @@ const Register = (props) => {
                                     validator={correctImageUrl}
                                     message={i18n('userImageUrlField')}
                                 />
-                                <InputEl
+                                <InputUploadEl
                                     classNameDivEl='input-group'
                                     classNameIEl='fa fa-image'
+                                    classNameBtnEl='btn'
                                     type='url'
                                     name='imageUrl'
                                     placeholder={i18n('userImageUrl')}
+                                    btntext={i18n('uploadImgButton')}
                                     isValid={correctImageUrl}
                                     onChange={onChange}
+                                    value={inputData.imageUrl}
+                                    onClick={openWidget}
+                                    disabled={uploadImgBtnDisabled}
                                 />
                                 <SubmitButton btnText={i18n('userCreateAccount')} disabled={btnDisabled} />
                                 <LinkEl className='login-link'
