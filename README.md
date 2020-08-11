@@ -81,7 +81,7 @@ cd client
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Loads for development
 ```
 npm run dev - start expressjs server - which serve data to react application and react application.
 npm run server - start expressjs server.
