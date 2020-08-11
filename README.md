@@ -2,7 +2,7 @@
 
 ## Book store is SPA for advertising books.
 
-It was generated with create-react-app, and used react and react-dom - version 16.13.1, and react-router-doma - version 5.2.0. All input forms are with validation of the entered information, accomplished via author's implementation. The user interface is in English and Bulgarian language accomplished via author's implementation.
+It was generated with create-react-app, and used react and react-dom - version 16.13.1, and react-router-dom - version 5.2.0. All input forms are with validation of the entered information, accomplished via author's implementation. The user interface is in English and Bulgarian language accomplished via author's implementation.
 
 ## Application structure.
 
