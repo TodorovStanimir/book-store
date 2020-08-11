@@ -67,12 +67,12 @@ Pages for creating and editing a book used the same component, but depending the
 How works the validation of entered by users information is shown on next photo:
 
 #### errors
-![errors in create a new book](/images/errors.png)
+![errors in create a new book](/images/Errors.png)
 
 The user will be notified if something is wrong or incorrect. For example if he wrong his email or password
 
 #### notification
-![notification in login page](/images/notification.png)
+![notification in login page](/images/Notification.png)
 
 ## Project setup
 ```
