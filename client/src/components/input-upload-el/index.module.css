@@ -71,3 +71,15 @@
   .btn:hover {
     background-color: #166e16;
   }
+  .userbtn {
+    border: 2px solid grey;
+    background-color: #42a948;
+    width: 80%;
+    height: calc(1.5em + .75rem + 2px);
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .userbtn:hover {
+    background-color: #166e16;
+  }

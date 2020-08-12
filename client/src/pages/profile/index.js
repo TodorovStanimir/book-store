@@ -13,6 +13,7 @@ import userService from '../../services/user-service';
 import { UserContext, NotificationContext } from '../../Context';
 import getCookie from '../../utils/getCookie';
 import bookService from '../../services/book-service';
+import InputUploadEl from '../../components/input-upload-el';
 
 const Profile = (props) => {
 
@@ -29,6 +30,8 @@ const Profile = (props) => {
         occupation: true,
         imageUrl: true
     });
+
+    const [uploadImgBtnDisabled, setUploadImgBtnDisabled] = useState(false);
 
     useEffect(() => {
         async function fetchUser() {
@@ -82,6 +85,22 @@ const Profile = (props) => {
         setState({ ...editedUser, [e.target.name]: e.target.value })
         setValidators({ ...validators, [e.target.name]: currentControl })
     }
+
+    const openWidget = () => {
+        window.cloudinary.createUploadWidget(
+            {
+                cloudName: 'dv0zd1ahz',
+                uploadPreset: 'booksstore',
+            },
+            (error, result) => {
+                if (result.event === 'success') {
+                    setState({ ...editedUser, imageUrl: result.info.url })
+                    setValidators({ ...validators, imageUrl: true })
+                    setUploadImgBtnDisabled(true)
+                }
+            },
+        ).open();
+    };
 
     const { email, phone, occupation, imageUrl, books } = editedUser;
     const { email: correctEmail, phone: correctPhone, occupation: correctOccupation, imageUrl: correctImageUrl } = validators;
@@ -141,7 +160,7 @@ const Profile = (props) => {
                                 validator={correctImageUrl}
                                 message={i18n('userImageUrlField')}
                             />
-                            <InputEl
+                            {/* <InputEl
                                 classNameDivEl='input-group'
                                 classNameIEl='fa fa-image'
                                 type='url'
@@ -150,6 +169,20 @@ const Profile = (props) => {
                                 isValid={correctImageUrl}
                                 value={imageUrl}
                                 onChange={e => onChange(e)}
+                            /> */}
+                            <InputUploadEl
+                                classNameDivEl={'input-group'}
+                                classNameIEl={'fa fa-image'}
+                                classNameBtnEl={'userbtn'}
+                                type='url'
+                                name='imageUrl'
+                                placeholder={i18n('userImageUrl')}
+                                btntext={i18n('uploadImgButton')}
+                                isValid={correctImageUrl}
+                                value={imageUrl}
+                                onChange={e => onChange(e)}
+                                onClick={openWidget}
+                                disabled={uploadImgBtnDisabled}
                             />
 
                             <img className={styles.img} src={editedUser.imageUrl} alt={editedUser.username} />
