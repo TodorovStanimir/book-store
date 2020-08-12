@@ -12,6 +12,7 @@ import { yearValidator, publisherValidator, priceValidator, imageUrlValidator } 
 import bookService from '../../services/book-service';
 import { NotificationContext, LoaderContext } from '../../Context';
 import getCookie from '../../utils/getCookie';
+import InputUploadEl from '../../components/input-upload-el';
 
 const CreateBook = (props) => {
     const history = useHistory();
@@ -34,6 +35,8 @@ const CreateBook = (props) => {
         },
         isEditingMode: false
     });
+
+    const [uploadImgBtnDisabled, setUploadImgBtnDisabled] = useState(false);
 
     const [validators, setValidators] = useState({
         title: true,
@@ -83,6 +86,22 @@ const CreateBook = (props) => {
         price: correctPrice,
         imageUrl: correctImageUrl
     } = validators
+
+    const openWidget = () => {
+        window.cloudinary.createUploadWidget(
+            {
+                cloudName: 'dv0zd1ahz',
+                uploadPreset: 'booksstore',
+            },
+            (error, result) => {
+                if (result.event === 'success') {
+                    setInputData({ ...inputData, book: { ...inputData.book, imageUrl: result.info.url } })
+                    setValidators({ ...validators, imageUrl: true })
+                    setUploadImgBtnDisabled(true)
+                }
+            },
+        ).open();
+    };
 
     const { title, author, description, genres, year, publisher, price, imageUrl } = inputData.book;
     const { isEditingMode } = inputData;
@@ -203,7 +222,7 @@ const CreateBook = (props) => {
                                     <div className={styles['fourthr-firstc']}>
                                         <ValidatorEl
                                             validator={correctPublisher}
-                                            message={i18n('bookPublisherField',6)}
+                                            message={i18n('bookPublisherField', 6)}
                                         />
                                         <InputEl
                                             classNameDivEl={'input-group'}
@@ -240,7 +259,7 @@ const CreateBook = (props) => {
                                             validator={correctImageUrl}
                                             message={i18n('bookImageUrlField')}
                                         />
-                                        <InputEl
+                                        {/* <InputEl
                                             classNameDivEl={'input-group'}
                                             classNameIEl={'fa fa-image'}
                                             type='text'
@@ -249,6 +268,20 @@ const CreateBook = (props) => {
                                             isValid={correctImageUrl}
                                             value={imageUrl}
                                             onChange={onChange}
+                                        /> */}
+                                        <InputUploadEl
+                                            classNameDivEl={'input-group'}
+                                            classNameIEl={'fa fa-image'}
+                                            classNameBtnEl={'btn'}
+                                            type='url'
+                                            name='imageUrl'
+                                            placeholder={i18n('bookImageUrl')}
+                                            btntext={i18n('uploadImgButton')}
+                                            isValid={correctImageUrl}
+                                            value={imageUrl}
+                                            onChange={onChange}
+                                            onClick={openWidget}
+                                            disabled={uploadImgBtnDisabled}
                                         />
                                     </div>
                                     <div className={styles['fifthr-secondc']}>
@@ -256,7 +289,7 @@ const CreateBook = (props) => {
                                             {isEditingMode
                                                 ? <SubmitButton
                                                     btnText={i18n('bookEditButton')}
-                                                    disabled={false}
+                                                    disabled={btnDisabled}
                                                 />
                                                 : <SubmitButton
                                                     btnText={i18n('bookCreateButton')}
