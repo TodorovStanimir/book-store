@@ -86,4 +86,17 @@ npm install
 npm run dev - start expressjs server - which serve data to react application and react application.
 npm run server - start expressjs server.
 npm run client - start react application
+
+to start the application is necessary to add .env file with following structure:
+
+# .env
+NODE_ENV=development
+PORT=port which You prefer
+MONGO_USER=Your username for mongo
+MONGO_PASSWORD=Your password for mongo
+MONGO_DEFAULT_DATABASE=name which You prefer
+JWT_SECRET=string which You prefer
+COOKIE_SECRET=string which You prefer
+SALT_ROUNDS=number between 1 and 12
+SENDGRID_API_KEY=Your APIKey for Sendgrid
 ```
