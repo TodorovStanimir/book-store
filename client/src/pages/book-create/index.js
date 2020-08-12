@@ -53,7 +53,7 @@ const CreateBook = (props) => {
         const isEditingMode = inputData.isEditingMode;
         const fetchData = async () => {
             showLoader();
-            const book = await bookService('get', bookId);
+            const book = await bookService({method: 'get'}, bookId);
             setInputData({ ...inputData, book: { ...book }, isEditingMode: true });
         }
         if (bookId && !isEditingMode) { fetchData(); }
@@ -111,7 +111,7 @@ const CreateBook = (props) => {
         showLoader();
         const method = bookId ? 'put' : 'post';
         const book = inputData.book;
-        const result = await bookService(method, bookId, book, token)
+        const result = await bookService({method}, bookId, book, token)
 
         if (Array.isArray(result) || result.isAxiosError) {
             showNotification(result);
@@ -259,16 +259,6 @@ const CreateBook = (props) => {
                                             validator={correctImageUrl}
                                             message={i18n('bookImageUrlField')}
                                         />
-                                        {/* <InputEl
-                                            classNameDivEl={'input-group'}
-                                            classNameIEl={'fa fa-image'}
-                                            type='text'
-                                            name='imageUrl'
-                                            placeholder={i18n('bookImageUrl')}
-                                            isValid={correctImageUrl}
-                                            value={imageUrl}
-                                            onChange={onChange}
-                                        /> */}
                                         <InputUploadEl
                                             classNameDivEl={'input-group'}
                                             classNameIEl={'fa fa-image'}

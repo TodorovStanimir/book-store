@@ -2,7 +2,7 @@ import axios from "axios";
 
 const basicUrl = '/api/book/';
 
-const bookService = async (method, url = '', data = '', token = '') => {
+const bookService = async ({method, pageNumber, perPage}, url = '', data = '', token = '') => {
     try {
         const promise = (data || token)
             ? await axios({
@@ -15,7 +15,7 @@ const bookService = async (method, url = '', data = '', token = '') => {
                 data: { ...data }
             })
             : await axios({
-                url: `${basicUrl}${url}`,
+                url: `${basicUrl}${url}?page=${pageNumber}&perPage=${perPage}`,
                 method: method,
                 headers: {
                     'Content-Type': 'application/json'

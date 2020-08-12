@@ -5,9 +5,18 @@ const { Book, User } = require('../models');
 module.exports = {
     get: async (req, res, next) => {
         try {
-            const search = req.params.id ? { _id: req.params.id } : {}
-            const books = await Book.find(search).populate({ path: 'creator comments', populate: {path: 'creator'}, select: '-password' }).lean();
-            res.status(200).json(req.params && req.params.id ? books[0] : books);
+            const page = Number(req.query.page) || null;
+            const booksPerPage = Number(req.query.perPage) || 3;
+            const search = req.params.id ? { _id: req.params.id } : {};
+            const books = await Book.find(search).populate({ path: 'creator comments', populate: { path: 'creator' }, select: '-password' }).lean();
+            const booksForSending = page ? {
+                'page': page,
+                'per_page': booksPerPage,
+                'total': books.length,
+                'total-pages': Math.ceil(books.length / booksPerPage),
+                'data': books.slice((page - 1) * booksPerPage, (page * booksPerPage))
+            } : books
+            res.status(200).json(req.params && req.params.id ? booksForSending[0] : booksForSending);
         } catch (error) {
             next(error)
         }

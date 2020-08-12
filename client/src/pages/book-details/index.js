@@ -29,19 +29,20 @@ const BookDetails = (props) => {
     const bookId = match.params && match.params.id;
     const token = getCookie('x-auth-token');
 
+    
+    const fetchData = async () => {
+        loaderContext.showLoader();
+        const book = await bookService({ method: 'get' }, bookId);
+        setMyState({ ...state, book, isCreator: book.creator._id === userContext.user._id });
+    }
+
     useEffect(() => {
-        async function fetchData() {
-            loaderContext.showLoader();
-            const book = await bookService('get', bookId);
-            setMyState({ ...state, book, isCreator: book.creator._id === userContext.user._id });
-        }
-
-        if (!state.book) { fetchData(); }
-
-    }, [state, bookId, userContext, loaderContext])
+        fetchData();
+        // eslint-disable-next-line
+    }, [])
 
     const handleDeleteBook = async (bookId) => {
-        const result = await bookService('delete', bookId, undefined, token);
+        const result = await bookService({ method: 'delete' }, bookId, undefined, token);
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);
@@ -59,7 +60,7 @@ const BookDetails = (props) => {
         ratedBook[rate] = ratedBook[rate] + 1;
         loaderContext.showLoader();
 
-        const updatedBook = await bookService('put', bookId, ratedBook, token);
+        const updatedBook = await bookService({ method: 'put' }, bookId, ratedBook, token);
 
         if (Array.isArray(updatedBook) || updatedBook.isAxiosError) {
             notificationContext.showNotification(updatedBook);

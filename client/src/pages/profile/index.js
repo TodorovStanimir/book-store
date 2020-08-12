@@ -64,7 +64,7 @@ const Profile = (props) => {
     const handleDeleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
 
-        const result = await bookService('delete', bookId, null, token)
+        const result = await bookService({method: 'delete'}, bookId, null, token)
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);
