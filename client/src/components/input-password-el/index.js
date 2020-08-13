@@ -20,7 +20,7 @@ const InputPasswordEl = (props) => {
         <div className={styles[`${classNameDivEl}`]}>
             <div className="input-group-prepend" onClick={()=>showHidePassword()}>
                 <span className={styles[`${isValid ? 'span-el-valid' : 'span-el-invalid'}`]}>
-                    <i className={`${classNameIEl}`}></i>
+                    <i className={type==='password' ? `${classNameIEl}` : 'fas fa-eye-slash'}></i>
                 </span>
             </div>
             <input
