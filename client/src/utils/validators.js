@@ -11,6 +11,7 @@ module.exports = {
     genresValidator: /^[\w\W]{2,}$/,
     yearValidator: /^[1-2]{1}[0-9]{1}[0-9]{1}[0-9]{1}$/,
     publisherValidator: /^[\w\W]{6,}$/,
-    priceValidator: /^[+]?\d+(\.\d{1,2})?$/
+    priceValidator: /^[+]?\d+(\.\d{1,2})?$/,
+    messageValidator: /^[\w\W]{20,}$/,
 }
 

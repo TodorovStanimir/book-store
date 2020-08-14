@@ -5,6 +5,7 @@ export default {
     Logout: 'Изход',
     CreateBook: 'Създай книга',
     Shop: 'Всички книги',
+    headerContactUs:'Обратна връзка',
     //Register
     email: 'Имейл адрес',
     username: 'Име и фамилия',
@@ -54,6 +55,13 @@ export default {
     userChangeProfile: 'Променете вашия профил',
 
     uploadImgButton:'Качете файл',
+    //ContactUs
+    address: 'България, 9002 Варна, ул.Генерал Киселов 13',
+    contactUs:'Обратна връзка',
+    message: 'Съобщение',
+    messageField:'Съобщението трябва да съдържа минимум {0} знака',
+    userMessage: 'Изпрати съобщение',
+    successSended: 'Получихме Вашето съобщение. Очаквайте нашия отгоор.',
     navProfile: 'Профил',
     navMyStore: 'Моят магазин',
     navMyBooks: 'Моите книги',

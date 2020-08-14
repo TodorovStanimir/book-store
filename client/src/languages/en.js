@@ -5,6 +5,7 @@ export default {
     Logout: 'Logout',
     CreateBook: 'Create Book',
     Shop: 'All books',
+    headerContactUs:'Contact us',
     //Register
     email: 'Email Address',
     username: 'Name and Surname',
@@ -52,11 +53,17 @@ export default {
     //Profile
     userProfileReport: 'You have {0} books and {1} comments',
     userChangeProfile: 'Change your profile',
-    
-    uploadImgButton:'Upload image',
+
+    uploadImgButton: 'Upload image',
+    //ContactUs
+    address: 'Bulgaria, 9002 Varna, ul.General Kiselov 13',
+    contactUs: 'Contact us',
+    message: 'Message',
+    messageField: 'Message should contain at least {0} signs',
+    userMessage: 'Send message',
+    successSended: 'We received message, expect our reply.',
     navProfile: 'Profile',
     navMyStore: 'My store',
     navMyBooks: 'My books',
-    
     loadAllBooks: 'Successfully loaded all book!'
 };

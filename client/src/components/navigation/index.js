@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import { Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Books from '../../pages/book-all';
 import CreateBook from '../../pages/book-create';
 import BookDetails from '../../pages/book-details';
 import Login from '../../pages/login';
 import Register from '../../pages/register';
 import Profile from '../../pages/profile';
-import NotFoundRoute from '../../pages/not-found'
+import NotFoundRoute from '../../pages/not-found';
+import ContactUs from '../../pages/contact-us';
 import { UserContext } from '../../Context';
 
 const Navigation = () => {
@@ -37,6 +36,7 @@ const Navigation = () => {
                 <Route path="/profile/profile">
                     {isLoggedIn ? (<Profile />) : (<Redirect to="/profile/login" />)}
                 </Route>
+                <Route path="/contact" component={ContactUs} />
                 <Route component={NotFoundRoute} />
             </Switch>
         </Router >

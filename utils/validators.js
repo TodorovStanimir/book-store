@@ -41,7 +41,7 @@ const userValidator = [
     body('username')
         .custom((value, { req }) => {
             if (!/(^[А-Я]{1}[а-я]+[ ]{1}[А-Я]{1}[а-я]+$)|(^[A-Z][a-z]+\s[A-Z][a-z]+$)/g.test(value)) {
-                throw new Error('Shoud be in format Xxxxx Xxxxx');
+                throw new Error('Username shoud be in format Xxxxx Xxxxx');
             }
             return true;
         })
@@ -57,8 +57,8 @@ const userValidator = [
             }
             return true;
         })
-        .isAlphanumeric().withMessage('The password should be at least 3 and consist only english letters and digits.')
-        .isLength({ min: 3 }).withMessage('The password should be at least 3 and consist only english letters and digits.')
+        .isAlphanumeric().withMessage('The password should be at least 3 symbols and consist only english letters and digits.')
+        .isLength({ min: 3 }).withMessage('The password should be at least 3 symbols and consist only english letters and digits.')
     ,
 
     body('phone')
@@ -94,8 +94,38 @@ const commentValidator = [
     ,
 ];
 
+const messageValidator = [
+
+    body('username')
+        .custom((value, { req }) => {
+            if (!/(^[А-Я]{1}[а-я]+[ ]{1}[А-Я]{1}[а-я]+$)|(^[A-Z][a-z]+\s[A-Z][a-z]+$)/g.test(value)) {
+                throw new Error('Username shoud be in format Xxxxx Xxxxx');
+            }
+            return true;
+        })
+    ,
+
+    body('email')
+        .isEmail().withMessage('Email shoud be a valid email address, like example@example.extension!')
+    ,
+
+    body('phone')
+        .custom((value, { req }) => {
+            if (!/^[+]{1}\d{10,}$/g.test(value)) {
+                throw new Error('Phone number should consists country code and at least 7 digits!');
+            }
+            return true;
+        })
+    ,
+
+    body('message')
+        .isLength({ min: 20 }).withMessage('Message shoud contain at least 20 signs')
+    ,
+];
+
 module.exports = {
     bookValidator,
     userValidator,
-    commentValidator
+    commentValidator,
+    messageValidator
 };

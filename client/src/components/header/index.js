@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import logo from '../../images/logo.png';
 import { UserContext, LanguageContext } from '../../Context';
-import '../../services/localizationService';
+import '../../services/languageService';
 import uk from '../../images/uk.png';
 import bg from '../../images/bg.png';
 
@@ -35,9 +35,6 @@ const Header = () => {
                             <div onClick={onClick} className={styles['nav-link']}>{i18n('Logout')}</div>
                         </li >
                         <li className={styles['nav-item']}>
-                            <Link to="/books/all" className={styles['nav-link']}>{i18n('Shop')}</Link>
-                        </li >
-                        <li className={styles['nav-item']}>
                             <Link to="/books/create" className={styles['nav-link']}>{i18n('CreateBook')}</Link>
                         </li >
                     </Fragment>
@@ -48,12 +45,14 @@ const Header = () => {
                         <li className={styles['nav-item']}>
                             <Link to="/profile/login" className={styles['nav-link']}>{i18n('Login')}</Link>
                         </li >
-                        <li className={styles['nav-item']}>
-                            <Link to="/books/all" className={styles['nav-link']}>{i18n('Shop')}</Link>
-                        </li >
                     </Fragment>
                 }
-
+                <li className={styles['nav-item']}>
+                    <Link to="/books/all" className={styles['nav-link']}>{i18n('Shop')}</Link>
+                </li >
+                <li className={styles['nav-item']}>
+                    <Link to="/contact" className={styles['nav-link']}>{i18n('headerContactUs')}</Link>
+                </li >
             </div >
         </div >
     )

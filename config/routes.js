@@ -9,6 +9,8 @@ module.exports = (app) => {
 
     app.use('/api/comment', router.comment);
 
+    app.use('/api/message', router.message);
+
     if (process.env.NODE_ENV === 'production') {
         // Handle React routing, return all requests to React app
         app.use('*', (req, res, next) => {

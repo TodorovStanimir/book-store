@@ -1,6 +1,6 @@
 const jwt = require('./jwt');
 const auth = require('./auth');
-const { bookValidator, userValidator, commentValidator } = require('./validators');
+const { bookValidator, userValidator, commentValidator, messageValidator } = require('./validators');
 const {sendWelcomeEmail, sendCancelationEmail} = require('./message-account')
 
 
@@ -11,5 +11,6 @@ module.exports = {
     userValidator,
     commentValidator,
     sendWelcomeEmail,
-    sendCancelationEmail
+    sendCancelationEmail,
+    messageValidator
 }
