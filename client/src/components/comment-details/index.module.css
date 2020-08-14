@@ -2,16 +2,16 @@
   font-style: italic;
 }
 .comment-container {
+  background-color: rgba(196, 119, 119, 0);
+  border-radius: 4px;
+  border: 1px solid white;
+  color: black;
   display: flex;
   flex-direction: column;
-  text-align: left;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid white;
-  background-color: rgb(240, 240, 240, 0);
-  color: black;
+  text-align: left;
 }
 .comment-container p {
   margin-left: 4px;
@@ -24,18 +24,18 @@
   justify-content: space-between;
 }
 .author-comment button {
-  margin-right: -1px;
   margin-bottom: -1px;
+  margin-right: -1px;
 }
 .button-user {
   background-color: Transparent;
   background-repeat:no-repeat;
-  height: 30px;
-  width: 80px;
   border: 1px solid white;
-  color: black;
   border-radius: 5px;
+  color: black;
+  height: 30px;
   margin-bottom: 0px;
+  width: 80px;
 }
 .button-user:hover {
   background-color: black;

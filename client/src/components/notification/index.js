@@ -1,5 +1,4 @@
 import React from 'react';
-
 import styles from './undex.module.css';
 
 const Notification = ({ show, message }) => {
@@ -25,7 +24,6 @@ const Notification = ({ show, message }) => {
             </div>
         )
     }
-
 }
 
 export default Notification;

@@ -1,59 +1,60 @@
 .input-group {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .span-el-valid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 2px solid #42a948;
-    border-top: 2px solid #42a948;
-    border-bottom: 2px solid #42a948;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-color: white;
-    width: 43px;
+  align-items: center;
+  background-color: white;
+  border-bottom: 2px solid #42a948;
+  border-bottom-left-radius: 5px;
+  border-left: 2px solid #42a948;
+  border-top: 2px solid #42a948;
+  border-top-left-radius: 5px;
+  display: flex;
+  justify-content: center;
+  width: 43px;
 }
 
 .span-el-invalid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 2px solid darkred;
-    border-top: 2px solid darkred;
-    border-bottom: 2px solid darkred;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-color: white;
-    width: 43px;
+  align-items: center;
+  background-color: white;
+  border-bottom: 2px solid darkred;
+  border-bottom-left-radius: 5px;
+  border-left: 2px solid darkred;
+  border-top: 2px solid darkred;
+  border-top-left-radius: 5px;
+  display: flex;
+  justify-content: center;
+  width: 43px;
 }
 
 .span-el-valid i {
-    color: #42a948;
-    width: 16px;
+  color: #42a948;
+  width: 16px;
 }
 
 .span-el-invalid i {
-    color: darkred;
-    width: 16px;
+  color: darkred;
+  width: 16px;
 }
 
 .valid {
-    border: 2px solid #42a948;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    width: 100%;
-    padding: 10px;
-  }
-  .invalid {
-    border: 2px solid darkred;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding: 10px;
-    width: 100%;
-  }
+  border: 2px solid #42a948;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+.invalid {
+  border: 2px solid darkred;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}

@@ -1,7 +1,5 @@
 import React, { useContext, Fragment } from 'react';
-
 import styles from './index.module.css';
-
 import { substr } from '../../services/filters';
 import { UserContext } from '../../Context';
 import LinkButton from '../link-button';

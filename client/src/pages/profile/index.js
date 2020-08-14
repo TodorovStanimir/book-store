@@ -1,10 +1,8 @@
 /* global i18n */
 import React, { useState, useEffect, useContext } from 'react';
-
+import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import BookUser from '../../components/book-user';
-import styles from './index.module.css';
-
 import InputEl from '../../components/input-el';
 import { emailValidator, phoneValidator, occupationValidator, imageUrlValidator } from '../../utils/validators';
 import ValidatorEl from '../../components/validator-el';
@@ -160,16 +158,6 @@ const Profile = (props) => {
                                 validator={correctImageUrl}
                                 message={i18n('userImageUrlField')}
                             />
-                            {/* <InputEl
-                                classNameDivEl='input-group'
-                                classNameIEl='fa fa-image'
-                                type='url'
-                                name='imageUrl'
-                                placeholder={i18n('userImageUrl')}
-                                isValid={correctImageUrl}
-                                value={imageUrl}
-                                onChange={e => onChange(e)}
-                            /> */}
                             <InputUploadEl
                                 classNameDivEl={'input-group'}
                                 classNameIEl={'fa fa-image'}

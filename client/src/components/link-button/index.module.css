@@ -24,12 +24,12 @@ li {
 .button-user {
   background-color: Transparent;
   background-repeat:no-repeat;
-  height: 30px;
-  width: 80px;
   border: 1px solid black;
-  color: black;
   border-radius: 5px;
+  color: black;
+  height: 30px;
   margin-bottom: 0px;
+  width: 80px;
 }
 .button-user:hover {
   background-color: black;
@@ -42,12 +42,11 @@ li {
   color: white;
 }
 
-
 @media only screen and (max-width: 950px) {
   .button {
-    height: 30px;
-    width: 40px;
-    margin-right: 5px;
     border: 1px solid grey;
+    height: 30px;
+    margin-right: 5px;
+    width: 40px;
   }
 }

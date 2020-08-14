@@ -59,7 +59,7 @@ const userService = {
     logoutUser: async (token) => {
         try {
             const promise = await axios({
-                url:`${basicUrl}logout`, 
+                url: `${basicUrl}logout`,
                 method: 'post',
                 'headers': {
                     'Content-Type': 'application/json',

@@ -1,6 +1,5 @@
 /* global i18n */
 import React, { useState } from 'react';
-
 import styles from './index.module.css';
 
 const CommentCreate = ({ book, createComment }) => {

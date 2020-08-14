@@ -1,17 +1,15 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-
+import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import CommentCreate from '../../components/comment-create';
 import CommentDetails from '../../components/comment-details'
-import styles from './index.module.css';
 import getCookie from '../../utils/getCookie'
 import bookService from '../../services/book-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 import commentService from '../../services/coment-service';
 import LinkButton from '../../components/link-button';
 import FunctionButton from '../../components/function-button';
-
 
 const BookDetails = (props) => {
 

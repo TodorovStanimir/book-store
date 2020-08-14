@@ -1,49 +1,59 @@
 .book-row {
+  align-items: center;
+  border: 1px solid green;
+  border-radius: 4px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid green;
-  border-radius: 4px;
-  align-items: center;
   margin-bottom: 10px;
   padding: 5px;
 }
+
 .book-title {
   display: flex;
   flex-direction: row;
   margin-right: 0px;
 }
+
 .book-likes-buttons {
   display: flex;
   flex-direction: row;
 }
+
 .book-likes {
   display: flex;
   flex-direction: row;
   padding: 5px;
 }
+
 .buttons-container {
   display: flex;
   justify-content: space-evenly;
 }
+
 .buttons {
   display: flex;
   justify-content: center;
   width: max-content;
 }
+
 .inside-book-info {
   margin-right: 13px;
   text-align: left;
 }
+
 .blue i {
   color: blue;
 }
+
 .red i {
   color: red;
 }
+
 .green i {
   color: green;
 }
+
 @media only screen and (max-width: 560px) {
   .book-row {
     flex-direction: column;

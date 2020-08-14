@@ -4,13 +4,13 @@ li {
 .button {
   background-color: Transparent;
   background-repeat:no-repeat;
-  height: 30px;
-  width: 58px;
   border: 1px solid black;
-  color: black;
   border-radius: 5px;
+  color: black;
+  height: 30px;
   margin: 2px;
   margin-bottom: 0px;
+  width: 58px;
 }
 .button:hover {
   background-color: black;
@@ -26,12 +26,12 @@ li {
 .button-user {
   background-color: Transparent;
   background-repeat:no-repeat;
-  height: 30px;
-  width: 80px;
   border: 1px solid black;
-  color: black;
   border-radius: 5px;
+  color: black;
+  height: 30px;
   margin-bottom: 0px;
+  width: 80px;
 }
 .button-user:hover {
   background-color: black;
@@ -40,9 +40,9 @@ li {
   
 @media only screen and (max-width: 950px) {
   .button {
+    border: 1px solid grey;
     height: 30px;
-    width: 40px;
     margin-right: 5px;
-     border: 1px solid grey;
+    width: 40px;
   }
 }

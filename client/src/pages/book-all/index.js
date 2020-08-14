@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 import PageLayout from '../../components/page-layout';
-
 import styles from './index.module.css';
 import Book from '../../components/book';
 import getCookie from '../../utils/getCookie'
@@ -60,32 +59,29 @@ const Books = (props) => {
 
     const renderPageNumbers = pageNumbers.map(number => {
         let classes = state.current_page === number ? styles.active : '';
-
         return (
             <span key={number} className={classes} onClick={() => getBooks(number, perPage)}>{number}</span>
         );
     });
 
-    const books = state.books.length > 0 && state.books.map(book => <Book book={book} key={book._id} deleteBook={deleteBook} />)
+    const books = state.books && state.books.length>0 && state.books.map(book => <Book book={book} key={book._id} deleteBook={deleteBook} />)
     return (
         <PageLayout>
             {books
                 ? <Fragment><div className={styles.pagination}>
                     <span onClick={() => getBooks(1, perPage)}>&laquo;</span>
                     {renderPageNumbers}
-                    <span onClick={() => getBooks(1, perPage)}>&raquo;</span>
+                    <span onClick={() => getBooks(pageNumbers.length, perPage)}>&raquo;</span>
                 </div>
                     <div className={styles['grid-container']}>
                         <div className={styles.grid}>
                             {books}
                         </div >
-
                     </div >
                 </Fragment>
                 : null}
         </PageLayout>
     )
-
 }
 
 

@@ -1,45 +1,45 @@
 .grid-container {
+  align-items: center;
   display: flex;
   justify-content: space-around;
-  align-items: center;
   margin-bottom: -510px;
 }
 
 .first-grid {
-  height: 70vh;
-  width: 100%;
-  margin: 40px;
-  padding: 20px;
   background-color: rgb(0, 0, 0, 0.1);
   border-radius: 4px;
   border: 1px solid white;
+  height: 70vh;
+  margin: 40px;
+  padding: 20px;
+  width: 100%;
 }
 
 .address {
+  background-color: white;
   border: 1px solid white;
-  color: rgb(117, 117, 209);
-  font: italic small-caps bold 17px/18px Gothic, serif;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: white;
+  color: rgb(117, 117, 209);
+  font: italic small-caps bold 17px/18px Gothic, serif;
 }
 
 .map {
+  background-color: white;
   border: 1px solid white;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   height: 94%;
   width: 100%;
-  background-color: white;
 }
 
 .message {
+  background-color: white;
   border: 1px solid white;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   height: 94%;
   padding: 0px 10px;
   width: 100%;
-  background-color: white;
 }
 
