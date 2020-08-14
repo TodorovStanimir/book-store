@@ -1,4 +1,4 @@
-# React course project
+# React course project is uploaded on https://react-store-book.herokuapp.com/.
 
 ## Book store is SPA for advertising books.
 
@@ -20,6 +20,9 @@ The public part is visible without authetntication and consists:
 
 #### login form:
 ![Login form](/images/userLogin.png)
+
+#### contact us form:
+![Login form](/images/contactUsNotLoggedUser.png)
 
 ### Private part
 
@@ -73,6 +76,9 @@ The user will be notified if something is wrong or incorrect. For example if he 
 
 #### notification
 ![notification in login page](/images/Notification.png)
+
+#### contact us form:
+![Login form](/images/contactUsLoggedUser.png)
 
 ## Project setup
 ```
