@@ -1,16 +1,3 @@
-import en from '../languages/en';
-import bg from '../languages/bg';
-
-const languages = {
-    en,
-    bg
-};
-
-let defaultLanguage = localStorage.getItem('language') ? localStorage.getItem('language') : window.navigator.language;
-
-
-window.i18nData = languages[defaultLanguage];
-
 window.i18n = (key, params) => {
     if (params || params === 0) {
         let i18nKey = window.i18nData[key];
@@ -28,9 +15,3 @@ window.i18n = (key, params) => {
         return window.i18nData[key];
     }
 };
-
-window.changeLanguage = (lang) => {
-    window.i18nData = languages[lang];
-}
-
-export default defaultLanguage;

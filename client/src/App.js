@@ -5,9 +5,14 @@ import userService from './services/user-service';
 import Notification from './components/notification';
 import Loader from './components/loader';
 import axios from 'axios';
-import './services/localizationService';
-import defaultLanguage from './services/localizationService'
+import en from './languages/en';
+import bg from './languages/bg';
 
+const languages = { en, bg };
+
+let defaultLanguage = localStorage.getItem('language') ? localStorage.getItem('language') : 'bg';
+
+window.i18nData = languages[defaultLanguage];
 
 class App extends Component {
     constructor(props) {
@@ -79,7 +84,7 @@ class App extends Component {
     }
 
     changeLanguage = (e) => {
-        window.changeLanguage(e.target.dataset.language);
+        window.i18nData = languages[e.target.dataset.language];
         this.setState({
             language: e.target.dataset.language
         })
