@@ -2,7 +2,41 @@
 
 ## Book store is SPA for advertising books.
 
-It was generated with create-react-app, and used react and react-dom - version 16.13.1, and react-router-dom - version 5.2.0. All input forms are with validation of the entered information, accomplished via author's implementation. The user interface is in English and Bulgarian language accomplished via author's implementation.
+It was generated with create-react-app and used:
+  react and react-dom - 16.13.1
+  react-router-dom - 5.2.0
+  axios - 0.19.2
+  moment - 2.27.0
+  external API's: Cloudinary, Google.Maps
+
+The input forms are with validation of the entered information, accomplished via author's implementation.The user interface is in English and Bulgarian language accomplished via author's implementation.
+
+## Project setup
+```
+npm install
+cd client
+npm install
+```
+
+### Loads for development
+```
+npm run server - start expressjs server - which serve data to react application and react application
+npm run client - start react application
+npm run dev - start expressjs server and react application /used concurrently package/
+
+to start the application is necessary to add .env file with following structure:
+
+# .env
+NODE_ENV=development
+PORT=port which You prefer
+MONGO_USER=Your username for mongo
+MONGO_PASSWORD=Your password for mongo
+MONGO_DEFAULT_DATABASE=name which You prefer
+JWT_SECRET=string which You prefer
+COOKIE_SECRET=string which You prefer
+SALT_ROUNDS=number between 1 and 12
+SENDGRID_API_KEY=Your APIKey for Sendgrid
+```
 
 ## Application structure.
 
@@ -14,15 +48,19 @@ The public part is visible without authetntication and consists:
 
 #### home page:  
 ![Home page for quest users](/images/homePageQuestUsers.png)
+- guest users can see basic information for each books, but can not access details page and its functionality.
 
 #### register form:  
 ![Register form](/images/userRegister.png)
+- guest users can register by submitting this form. The email address must be unique and user will be notified if try to used registered email. All fields are with validation and register button is disabled if vaidation did not pass. There is validation on the server too, and if the client mannipulate the client site validation, the server will return warning message and registration will not be done. Password is not visible, till client press eye icon. If the registration is success, user will automatically log in.
 
 #### login form:
 ![Login form](/images/userLogin.png)
+- registered users can login by typing email and password , and submitting this form. They will be notified if email or password is not correct.
 
-#### contact us form:
+#### contact form:
 ![Login form](/images/contactUsNotLoggedUser.png)
+- submitting this form, quest users can send message to the owner of the site.
 
 ### Private part
 
@@ -72,37 +110,11 @@ How works the validation of entered by users information is shown on next photo:
 #### errors
 ![errors in create a new book](/images/Errors.png)
 
-The user will be notified if something is wrong or incorrect. For example if he wrong his email or password
+The user will be notified if something is wrong or incorrect.
 
 #### notification
 ![notification in login page](/images/Notification.png)
 
-#### contact us form:
+#### contact form:
 ![Login form](/images/contactUsLoggedUser.png)
-
-## Project setup
-```
-npm install
-cd client
-npm install
-```
-
-### Loads for development
-```
-npm run dev - start expressjs server - which serve data to react application and react application.
-npm run server - start expressjs server.
-npm run client - start react application
-
-to start the application is necessary to add .env file with following structure:
-
-# .env
-NODE_ENV=development
-PORT=port which You prefer
-MONGO_USER=Your username for mongo
-MONGO_PASSWORD=Your password for mongo
-MONGO_DEFAULT_DATABASE=name which You prefer
-JWT_SECRET=string which You prefer
-COOKIE_SECRET=string which You prefer
-SALT_ROUNDS=number between 1 and 12
-SENDGRID_API_KEY=Your APIKey for Sendgrid
-```
+The username, email and phone are automatically loaded in the form, and user have to write only his message.
