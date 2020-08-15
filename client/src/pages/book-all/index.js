@@ -24,6 +24,10 @@ const Books = (props) => {
         loaderContext.showLoader();
         const data = await bookService({ method: 'get', pageNumber, perPage });
 
+        if (Array.isArray(data) || data.isAxiosError) {
+            notificationContext.showNotification(data);
+            return;
+        }
         setState({
             books: data.data,
             total: data.total,
