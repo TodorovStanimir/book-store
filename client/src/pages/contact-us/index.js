@@ -32,7 +32,7 @@ const ContactUs = (props) => {
 
     const handleSubmitMessage = async (e) => {
         e.preventDefault();
-        debugger
+
         const result = await messageService( 'post', 'create', { username, email, phone, message }, null);
 
         if (Array.isArray(result) || result.isAxiosError) {

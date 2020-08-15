@@ -12,11 +12,10 @@ const Books = (props) => {
         books: [],
         total: null,
         per_page: null,
-        current_page: null
+        current_page: 1
     });
 
     const perPage = 3;
-
     const notificationContext = useContext(NotificationContext);
     const loaderContext = useContext(LoaderContext);
 
@@ -28,6 +27,7 @@ const Books = (props) => {
             notificationContext.showNotification(data);
             return;
         }
+
         setState({
             books: data.data,
             total: data.total,
@@ -37,9 +37,9 @@ const Books = (props) => {
     };
 
     useEffect(() => {
-        getBooks(1, perPage);
+        getBooks(state.current_page, perPage);
         // eslint-disable-next-line
-    }, [])
+    }, [state.current_page])
 
     const deleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
@@ -52,8 +52,10 @@ const Books = (props) => {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);
             return;
         }
-        const modifiedBooks = state.books.filter(book => book._id !== bookId)
-        setState({ ...state, books: modifiedBooks })
+
+        const modifiedBooks = state.books.filter(book => book._id !== bookId);
+        const currentPage = modifiedBooks.length === 0 ? state.current_page - 1 : state.current_page;
+        setState({ ...state, books: modifiedBooks, total: state.total - 1, current_page: currentPage });
     }
 
     const pageNumbers = [];
@@ -68,7 +70,7 @@ const Books = (props) => {
         );
     });
 
-    const books = state.books && state.books.length>0 && state.books.map(book => <Book book={book} key={book._id} deleteBook={deleteBook} />)
+    const books = state.books && state.books.length > 0 && state.books.map(book => <Book book={book} key={book._id} deleteBook={deleteBook} />)
     return (
         <PageLayout>
             {books
