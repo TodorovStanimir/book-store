@@ -21,7 +21,9 @@ const Header = () => {
     return (
         <div className={styles.sticky}>
             <div className={styles.navbar}>
-                <img className={styles['nav-image']} src={logo} alt="BookStore" />
+                <Link to="/books/all">
+                <img className={styles['nav-image']} src={logo} alt="BookStore"/>
+                </Link>
                 {language === 'bg'
                     ? <img className={styles['nav-image-flag']} src={uk} alt="en" data-language="en" onClick={changeLanguage} />
                     : <img className={styles['nav-image-flag']} src={bg} alt="bg" data-language="bg" onClick={changeLanguage} />
