@@ -17,15 +17,14 @@ const Login = (props) => {
     const notificationContext = useContext(NotificationContext);
     const loaderContext = useContext(LoaderContext);
 
-
     const [inputData, setInputState] = useState({
         email: '',
         password: ''
     });
 
     const [validators, setValidators] = useState({
-        email: true,
-        password: true
+        correctEmail: true,
+        correctPassword: true
     });
 
     const [typeFieldPassword, setTypeFieldPassword] = useState('password')
@@ -33,17 +32,18 @@ const Login = (props) => {
     const history = useHistory();
 
     const onChange = (e) => {
+
         const currentValidator = {
-            email: emailValidator,
-            password: passwordValidator
-        }[e.target.name].test(e.target.value);
+            correctEmail: emailValidator,
+            correctPassword: passwordValidator
+        }[e.target.dataset.validator].test(e.target.value);
 
         setInputState({ ...inputData, [e.target.name]: e.target.value });
-        setValidators({ ...validators, [e.target.name]: currentValidator });
+        setValidators({ ...validators, [e.target.dataset.validator]: currentValidator });
     }
 
     const { email, password } = inputData;
-    const { email: correctEmail, password: correctPassword } = validators;
+    const { correctEmail, correctPassword } = validators;
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -89,6 +89,7 @@ const Login = (props) => {
                                     value={email}
                                     isValid={correctEmail}
                                     onChange={onChange}
+                                    validator='correctEmail'
                                 />
                                 <ValidatorEl
                                     validator={correctPassword}
@@ -104,6 +105,7 @@ const Login = (props) => {
                                     isValid={correctPassword}
                                     onChange={onChange}
                                     showHidePassword={showHidePassword}
+                                    validator='correctPassword'
                                 />
                                 <SubmitButton btnText={i18n('userLoginInAccount')} disabled={btnDisabled} />
                                 <LinkEl

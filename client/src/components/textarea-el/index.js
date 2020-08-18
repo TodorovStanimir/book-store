@@ -12,7 +12,7 @@ const TextareaEl = (props) => {
         isValid,
         value,
         rows,
-        onChange
+        onChange, validator
     } = props;
 
     return (
@@ -30,6 +30,7 @@ const TextareaEl = (props) => {
                 value={value}
                 rows={rows}
                 onChange={e => onChange(e)}
+                data-validator={validator}
             />
         </div>
     )

@@ -13,7 +13,8 @@ const InputPasswordEl = (props) => {
         isValid,
         value,
         onChange,
-        showHidePassword
+        showHidePassword,
+        validator
     } = props;
 
     return (
@@ -31,6 +32,7 @@ const InputPasswordEl = (props) => {
                 placeholder={placeholder}
                 value={value}
                 onChange={e => onChange(e)}
+                data-validator={validator}
             />
         </div>
     )

@@ -29,13 +29,13 @@ const Register = (props) => {
     });
 
     const [validators, setValidators] = useState({
-        email: true,
-        username: true,
-        phone: true,
-        occupation: true,
-        password: true,
-        rePassword: true,
-        imageUrl: true
+        correctEmail: true,
+        correctUsername: true,
+        correctPhone: true,
+        correctOccupation: true,
+        correctPassword: true,
+        correctRePassword: true,
+        correctImageUrl: true
     });
 
     const [typeFieldPassword, setTypeFieldPassword] = useState('password');
@@ -46,31 +46,31 @@ const Register = (props) => {
 
     const onChange = (e) => {
         const currentValidator = {
-            email: emailValidator,
-            username: usernameValidator,
-            phone: phoneValidator,
-            occupation: occupationValidator,
-            password: passwordValidator,
-            rePassword: new RegExp(`^${inputData.password}$`),
-            imageUrl: imageUrlValidator
-        }[e.target.name].test(e.target.value)
+            correctEmail: emailValidator,
+            correctUsername: usernameValidator,
+            correctPhone: phoneValidator,
+            correctOccupation: occupationValidator,
+            correctPassword: passwordValidator,
+            correctRePassword: new RegExp(`^${inputData.password}$`),
+            correctImageUrl: imageUrlValidator
+        }[e.target.dataset.validator].test(e.target.value)
 
-        const rePassword = e.target.name === 'password'
+        const correctRePassword = e.target.dataset.validator === 'correctPassword'
             ? e.target.value === inputData.rePassword
-            : e.target.name === 'rePassword' ? currentValidator : validators.rePassword;
+            : e.target.dataset.validator === 'correctRePassword' ? currentValidator : validators.correctRePassword;
 
         setInputState({ ...inputData, [e.target.name]: e.target.value })
-        setValidators({ ...validators, [e.target.name]: currentValidator, rePassword: rePassword })
+        setValidators({ ...validators, [e.target.dataset.validator]: currentValidator, correctRePassword: correctRePassword })
     }
 
     const {
-        email: correctEmail,
-        username: correctUsername,
-        phone: correctPhone,
-        occupation: correctOccupation,
-        password: correctPassword,
-        rePassword: correctRePassword,
-        imageUrl: correctImageUrl
+        correctEmail,
+        correctUsername,
+        correctPhone,
+        correctOccupation,
+        correctPassword,
+        correctRePassword,
+        correctImageUrl
     } = validators;
 
     const onSubmit = async (e) => {
@@ -132,6 +132,7 @@ const Register = (props) => {
                                     placeholder={i18n('email')}
                                     isValid={correctEmail}
                                     onChange={onChange}
+                                    validator='correctEmail'
                                 />
                                 <ValidatorEl
                                     validator={correctUsername}
@@ -145,6 +146,7 @@ const Register = (props) => {
                                     placeholder={i18n('username')}
                                     isValid={correctUsername}
                                     onChange={onChange}
+                                    validator='correctUsername'
                                 />
                                 <ValidatorEl
                                     validator={correctPhone}
@@ -158,6 +160,7 @@ const Register = (props) => {
                                     placeholder={i18n('userPhone')}
                                     isValid={correctPhone}
                                     onChange={onChange}
+                                    validator='correctPhone'
                                 />
                                 <ValidatorEl
                                     validator={correctOccupation}
@@ -171,6 +174,7 @@ const Register = (props) => {
                                     placeholder={i18n('userOccupation')}
                                     isValid={correctOccupation}
                                     onChange={onChange}
+                                    validator='correctOccupation'
                                 />
                                 <ValidatorEl
                                     validator={correctPassword}
@@ -185,6 +189,7 @@ const Register = (props) => {
                                     isValid={correctPassword}
                                     onChange={onChange}
                                     showHidePassword={showHidePassword}
+                                    validator='correctPassword'
                                 />
                                 <ValidatorEl
                                     validator={correctRePassword}
@@ -198,6 +203,7 @@ const Register = (props) => {
                                     placeholder={i18n('userRepeatPassword')}
                                     isValid={correctRePassword}
                                     onChange={onChange}
+                                    validator='correctRePassword'
                                 />
                                 <ValidatorEl
                                     validator={correctImageUrl}
@@ -216,6 +222,7 @@ const Register = (props) => {
                                     value={inputData.imageUrl}
                                     onClick={openWidget}
                                     disabled={uploadImgBtnDisabled}
+                                    validator='correctImageUrl'
                                 />
                                 <SubmitButton btnText={i18n('userCreateAccount')} disabled={btnDisabled} />
                                 <LinkEl className='login-link'

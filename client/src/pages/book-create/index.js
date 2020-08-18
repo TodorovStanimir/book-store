@@ -39,14 +39,14 @@ const CreateBook = (props) => {
     const [uploadImgBtnDisabled, setUploadImgBtnDisabled] = useState(false);
 
     const [validators, setValidators] = useState({
-        title: true,
-        author: true,
-        description: true,
-        genres: true,
-        year: true,
-        publisher: true,
-        price: true,
-        imageUrl: true
+        correctTitle: true,
+        correctAuthor: true,
+        correctDescription: true,
+        correctGenres: true,
+        correctYear: true,
+        correctPublisher: true,
+        correctPrice: true,
+        correctImageUrl: true
     });
 
     useEffect(() => {
@@ -62,29 +62,29 @@ const CreateBook = (props) => {
 
     const onChange = (e) => {
         const currentValidator = {
-            title: titleValidator,
-            author: authorValidator,
-            description: descriptionValidator,
-            genres: genresValidator,
-            year: yearValidator,
-            publisher: publisherValidator,
-            price: priceValidator,
-            imageUrl: imageUrlValidator
-        }[e.target.name].test(e.target.value);
+            correctTitle: titleValidator,
+            correctAuthor: authorValidator,
+            correctDescription: descriptionValidator,
+            correctGenres: genresValidator,
+            correctYear: yearValidator,
+            correctPublisher: publisherValidator,
+            correctPrice: priceValidator,
+            correctImageUrl: imageUrlValidator
+        }[e.target.dataset.validator].test(e.target.value);
 
         setInputData({ ...inputData, book: { ...inputData.book, [e.target.name]: e.target.value } });
-        setValidators({ ...validators, [e.target.name]: currentValidator });
+        setValidators({ ...validators, [e.target.dataset.validator]: currentValidator });
     }
 
     const {
-        title: correctTitle,
-        author: correctAuthor,
-        description: correctDescription,
-        genres: correctGenres,
-        year: correctYear,
-        publisher: correctPublisher,
-        price: correctPrice,
-        imageUrl: correctImageUrl
+        correctTitle,
+        correctAuthor,
+        correctDescription,
+        correctGenres,
+        correctYear,
+        correctPublisher,
+        correctPrice,
+        correctImageUrl
     } = validators
 
     const openWidget = () => {
@@ -96,7 +96,7 @@ const CreateBook = (props) => {
             (error, result) => {
                 if (result.event === 'success') {
                     setInputData({ ...inputData, book: { ...inputData.book, imageUrl: result.info.url } })
-                    setValidators({ ...validators, imageUrl: true })
+                    setValidators({ ...validators, correctImageUrl: true })
                     setUploadImgBtnDisabled(true)
                 }
             },
@@ -145,6 +145,7 @@ const CreateBook = (props) => {
                                             isValid={correctTitle}
                                             value={title}
                                             onChange={onChange}
+                                            validator='correctTitle'
                                         />
                                     </div>
                                     <div className={styles['firstr-secondc']}>
@@ -161,6 +162,7 @@ const CreateBook = (props) => {
                                             isValid={correctAuthor}
                                             value={author}
                                             onChange={onChange}
+                                            validator='correctAuthor'
                                         />
                                     </div>
                                 </div>
@@ -180,6 +182,7 @@ const CreateBook = (props) => {
                                             isValid={correctDescription}
                                             value={description}
                                             onChange={onChange}
+                                            validator='correctDescription'
                                         />
                                     </div>
                                 </div>
@@ -198,6 +201,7 @@ const CreateBook = (props) => {
                                             isValid={correctGenres}
                                             value={genres}
                                             onChange={onChange}
+                                            validator='correctGenres'
                                         />
                                     </div>
                                     <div className={styles['thirdr-secondc']}>
@@ -215,6 +219,7 @@ const CreateBook = (props) => {
                                             isValid={correctYear}
                                             value={year}
                                             onChange={onChange}
+                                            validator='correctYear'
                                         />
                                     </div>
                                 </div>
@@ -233,6 +238,7 @@ const CreateBook = (props) => {
                                             isValid={correctPublisher}
                                             value={publisher}
                                             onChange={onChange}
+                                            validator='correctPublisher'
                                         />
                                     </div>
                                     <div className={styles['fourthr-secondc']}>
@@ -250,6 +256,7 @@ const CreateBook = (props) => {
                                             isValid={correctPrice}
                                             value={price}
                                             onChange={onChange}
+                                            validator='correctPrice'
                                         />
                                     </div>
                                 </div>
@@ -272,6 +279,7 @@ const CreateBook = (props) => {
                                             onChange={onChange}
                                             onClick={openWidget}
                                             disabled={uploadImgBtnDisabled}
+                                            validator='correctImageUrl'
                                         />
                                     </div>
                                     <div className={styles['fifthr-secondc']}>

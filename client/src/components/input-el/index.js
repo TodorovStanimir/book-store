@@ -11,7 +11,8 @@ const InputEl = (props) => {
         placeholder,
         isValid,
         value,
-        onChange
+        onChange,
+        validator
     } = props;
 
     return (
@@ -29,6 +30,7 @@ const InputEl = (props) => {
                 placeholder={placeholder}
                 value={value}
                 onChange={e => onChange(e)}
+                data-validator={validator}
             />
         </div>
     )

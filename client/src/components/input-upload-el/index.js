@@ -15,7 +15,8 @@ const InputUploadEl = (props) => {
         onChange,
         disabled,
         onClick,
-        btntext
+        btntext,
+        validator
     } = props;
 
     return (
@@ -34,6 +35,7 @@ const InputUploadEl = (props) => {
                 value={value}
                 disabled={disabled}
                 onChange={e => onChange(e)}
+                data-validator={validator}
             />
             <button type="button" className={styles[classNameBtnEl]} onClick={e => onClick(e)}>{btntext}</button>
         </div>
