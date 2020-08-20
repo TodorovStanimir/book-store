@@ -9,7 +9,7 @@ import { usernameValidator, emailValidator, phoneValidator, messageValidator } f
 import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
 import TextareaEl from '../../components/textarea-el';
-import messageService from '../../services/message-service';
+import dataService from '../../services/data-service';
 
 const ContactUs = (props) => {
 
@@ -33,7 +33,7 @@ const ContactUs = (props) => {
     const handleSubmitMessage = async (e) => {
         e.preventDefault();
 
-        const result = await messageService( 'post', 'create', { username, email, phone, message }, null);
+        const result = await dataService({ method: 'post', collectionUrl:'message', url: 'create', data: { username, email, phone, message } });
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification(result);

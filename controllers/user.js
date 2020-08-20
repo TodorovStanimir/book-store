@@ -73,8 +73,7 @@ module.exports = {
             console.log('-'.repeat(100));
             TokenBlackList.create({ token })
                 .then(() => {
-                    
-                    res.status(200).json({ 'message': 'Logout successfully!' });
+                    res.status(200).json({ 'msg': 'successful exit' });
                 })
                 .catch(next);
         },
@@ -107,8 +106,8 @@ module.exports = {
         }
         try {
             const id = req.params.id;
-            const { username, phone, occupation, imageUrl } = req.body;
-            const updatedUser = await User.updateOne({ _id: id }, { username, phone, occupation, imageUrl });
+            const { email, phone, occupation, imageUrl } = req.body;
+            const updatedUser = await User.updateOne({ _id: id }, { email, phone, occupation, imageUrl });
             res.status(200).json(updatedUser)
         } catch (error) {
             next(error)

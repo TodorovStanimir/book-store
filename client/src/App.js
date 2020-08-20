@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { UserContext, NotificationContext, LoaderContext, LanguageContext } from './Context';
 import getCookie from './utils/getCookie';
-import userService from './services/user-service';
+import dataService from './services/data-service';
 import Notification from './components/notification';
 import Loader from './components/loader';
 import axios from 'axios';
@@ -64,8 +64,9 @@ class App extends Component {
         const token = getCookie('x-auth-token');
 
         try {
+            let result = '';
             if (token) {
-                await userService.logoutUser(token);
+                result = await dataService({ method: 'post', collectionUrl: 'user', url: 'logout', token });
             }
 
             document.cookie = 'x-auth-token=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
@@ -75,11 +76,11 @@ class App extends Component {
                 user: null
             })
 
+            if (result.msg)
+                this.showNotification(result.msg)
+
         } catch (error) {
-            this.setState({ message: error.status, show: true })
-            setTimeout(() => {
-                this.setState({ message: '', show: false })
-            }, 3000)
+            this.showNotification(error.status)
         }
     }
 

@@ -9,7 +9,7 @@ import TextareaEl from '../../components/textarea-el';
 import SubmitButton from '../../components/submit-button';
 import { titleValidator, authorValidator, descriptionValidator, genresValidator } from '../../utils/validators';
 import { yearValidator, publisherValidator, priceValidator, imageUrlValidator } from '../../utils/validators';
-import bookService from '../../services/book-service';
+import dataService from '../../services/data-service';
 import { NotificationContext, LoaderContext } from '../../Context';
 import getCookie from '../../utils/getCookie';
 import InputUploadEl from '../../components/input-upload-el';
@@ -53,7 +53,7 @@ const CreateBook = (props) => {
         const isEditingMode = inputData.isEditingMode;
         const fetchData = async () => {
             showLoader();
-            const book = await bookService({method: 'get'}, bookId);
+            const book = await dataService({ method: 'get', collectionUrl: 'book', url: bookId});
             setInputData({ ...inputData, book: { ...book }, isEditingMode: true });
         }
         if (bookId && !isEditingMode) { fetchData(); }
@@ -111,7 +111,7 @@ const CreateBook = (props) => {
         showLoader();
         const method = bookId ? 'put' : 'post';
         const book = inputData.book;
-        const result = await bookService({method}, bookId, book, token)
+        const result = await dataService({ method, collectionUrl: 'book', url: bookId, data: book, token })
 
         if (Array.isArray(result) || result.isAxiosError) {
             showNotification(result);

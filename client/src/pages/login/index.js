@@ -8,7 +8,7 @@ import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
 import LinkEl from '../../components/link-el';
 import { emailValidator, passwordValidator } from '../../utils/validators';
-import userService from '../../services/user-service';
+import dataService from '../../services/data-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 import InputPasswordEl from '../../components/input-password-el';
 
@@ -49,7 +49,7 @@ const Login = (props) => {
         event.preventDefault();
         loaderContext.showLoader()
 
-        const user = await userService.authenticate('login', inputData);
+        const user = await dataService({ method: 'post', collectionUrl: 'user', url: 'login', data: inputData });
         if (Array.isArray(user) || user.isAxiosError) {
             notificationContext.showNotification(user);
             return;

@@ -7,10 +7,9 @@ import InputEl from '../../components/input-el';
 import { emailValidator, phoneValidator, occupationValidator, imageUrlValidator } from '../../utils/validators';
 import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
-import userService from '../../services/user-service';
 import { UserContext, NotificationContext } from '../../Context';
 import getCookie from '../../utils/getCookie';
-import bookService from '../../services/book-service';
+import dataService from '../../services/data-service';
 import InputUploadEl from '../../components/input-upload-el';
 
 const Profile = (props) => {
@@ -33,7 +32,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         async function fetchUser() {
-            const user = await userService.getUser('get', userId);
+            const user = await dataService({ method: 'get', collectionUrl: 'user', url: userId });
 
             if (user.isAxiosError) {
                 notificationContext.showNotification(user);
@@ -51,18 +50,18 @@ const Profile = (props) => {
     const handleEditUser = async (e) => {
         e.preventDefault();
 
-        const result = await userService.getUser('put', userId, editedUser, token);
+        const result = await dataService({ method: 'put', collectionUrl: 'user', url: userId, data: editedUser, token });
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification(result);
         }
-
+        userContext.user = editedUser;
     }
 
     const handleDeleteBook = async (bookId) => {
         const token = getCookie('x-auth-token');
 
-        const result = await bookService({method: 'delete'}, bookId, null, token)
+        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token })
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);

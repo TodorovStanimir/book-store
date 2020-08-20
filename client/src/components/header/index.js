@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import logo from '../../images/logo.png';
 import { UserContext, LanguageContext } from '../../Context';
-import '../../services/languageService';
+import '../../services/language-service';
 import uk from '../../images/uk.png';
 import bg from '../../images/bg.png';
 

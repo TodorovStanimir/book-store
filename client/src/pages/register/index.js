@@ -11,7 +11,7 @@ import LinkEl from '../../components/link-el';
 import InputUploadEl from '../../components/input-upload-el';
 import { emailValidator, usernameValidator, phoneValidator, } from '../../utils/validators';
 import { occupationValidator, imageUrlValidator, passwordValidator } from '../../utils/validators';
-import userService from '../../services/user-service';
+import dataService from '../../services/data-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 
 const Register = (props) => {
@@ -77,7 +77,7 @@ const Register = (props) => {
         e.preventDefault();
         loaderContext.showLoader();
 
-        const registeredUser = await userService.authenticate('register', inputData);
+        const registeredUser = await dataService({ method: 'post', collectionUrl: 'user', url: 'register', data: inputData });
 
         if (Array.isArray(registeredUser) || registeredUser.isAxiosError) {
             notificationContext.showNotification(registeredUser);

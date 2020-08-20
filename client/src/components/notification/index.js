@@ -15,6 +15,7 @@ const Notification = ({ show, message }) => {
             'Error: Network Error': 'Internal Server Error! Please try again later!',
             'Error: Request failed with status code 500': 'Internal Server Error! Please try again later!',
             'TypeError: Failed to fetch': 'Failed to fetch data from server',
+            'successful exit': 'Logout successfully!',
             'undefined': 'Failed to fetch data from server'
         }[message]
         return (

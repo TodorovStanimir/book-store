@@ -3,7 +3,7 @@ import PageLayout from '../../components/page-layout';
 import styles from './index.module.css';
 import Book from '../../components/book';
 import getCookie from '../../utils/getCookie'
-import bookService from '../../services/book-service';
+import dataService from '../../services/data-service';
 import { NotificationContext, LoaderContext } from '../../Context';
 
 const Books = (props) => {
@@ -21,7 +21,7 @@ const Books = (props) => {
 
     const getBooks = async (pageNumber, perPage) => {
         loaderContext.showLoader();
-        const data = await bookService({ method: 'get', pageNumber, perPage });
+        const data = await dataService({ method: 'get', pageNumber, perPage, collectionUrl: 'book' });
 
         if (Array.isArray(data) || data.isAxiosError) {
             notificationContext.showNotification(data);
@@ -46,7 +46,7 @@ const Books = (props) => {
 
         loaderContext.showLoader();
 
-        const result = await bookService({ method: 'delete' }, bookId, null, token)
+        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token})
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);
