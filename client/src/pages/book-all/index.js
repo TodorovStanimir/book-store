@@ -46,7 +46,7 @@ const Books = (props) => {
 
         loaderContext.showLoader();
 
-        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token})
+        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token })
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);
@@ -74,13 +74,14 @@ const Books = (props) => {
     return (
         <PageLayout>
             {books
-                ? <Fragment><div className={styles.pagination}>
-                    <span onClick={() => getBooks(1, perPage)}>&laquo;</span>
-                    <span onClick={() => getBooks(state.current_page > 1 ? state.current_page - 1 : pageNumbers.length, perPage)}>&lsaquo;</span>
-                    {renderPageNumbers}
-                    <span onClick={() => getBooks(state.current_page < pageNumbers.length ? state.current_page + 1 : 1, perPage)}>&rsaquo;</span>
-                    <span onClick={() => getBooks(pageNumbers.length, perPage)}>&raquo;</span>
-                </div>
+                ? <Fragment>
+                    <div className={styles.pagination}>
+                        <span onClick={() => getBooks(1, perPage)}>&laquo;</span>
+                        <span onClick={() => getBooks(state.current_page > 1 ? state.current_page - 1 : pageNumbers.length, perPage)}>&lsaquo;</span>
+                        {renderPageNumbers}
+                        <span onClick={() => getBooks(state.current_page < pageNumbers.length ? state.current_page + 1 : 1, perPage)}>&rsaquo;</span>
+                        <span onClick={() => getBooks(pageNumbers.length, perPage)}>&raquo;</span>
+                    </div>
                     <div className={styles['grid-container']}>
                         <div className={styles.grid}>
                             {books}
