@@ -5,15 +5,14 @@ const basicUrl = {
     comment: '/api/comment/',
     message: '/api/message/'
 };
-const dataService = async ({ method, pageNumber = '', perPage = '', collectionUrl, url = '', data = '', token = '' }) => {
+const dataService = async ({ method, pageNumber = '', perPage = '', collectionUrl, url = '', data = '' }) => {
     try {
-        const promise = (data || token)
+        const promise = data
             ? await axios({
                 url: `${basicUrl[collectionUrl]}${url}`,
                 method: method,
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `token ${token}`
+                    'Content-Type': 'application/json'
                 },
                 data: { ...data }
             })
@@ -31,10 +30,6 @@ const dataService = async ({ method, pageNumber = '', perPage = '', collectionUr
             throw result.errors;
         }
 
-        if ((url === 'login' || url === 'register') &&
-            result.username && promise.headers.authorization) {
-            document.cookie = `x-auth-token=${promise.headers.authorization}`
-        }
         return result;
     } catch (error) {
         return error;

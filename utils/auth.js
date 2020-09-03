@@ -1,12 +1,11 @@
 const jwt = require('./jwt');
-const config = require('../config/config');
 const models = require('../models');
 
 function auth(redirectUnauthenticated = true) {
 
     return async function (req, res, next) {
         try {
-            const token = req.header('Authorization').split(' ')[1] || '';
+            const token = req.cookies['x-auth-token'];
             const decodetToken = jwt.verifyToken(token);
             const blacklistedToken = await models.TokenBlackList.findOne({ token });
 
@@ -22,6 +21,7 @@ function auth(redirectUnauthenticated = true) {
             if (!redirectUnauthenticated) { next(); return; }
 
             if (['token expired', 'blacklisted token', 'jwt must be provided', 'jwt expired', 'invalid token'].includes(error.message)) {
+                res.clearCookie('x-auth-token');
                 res.status(401).send('UNAUTHORIZED!');
                 return;
             }

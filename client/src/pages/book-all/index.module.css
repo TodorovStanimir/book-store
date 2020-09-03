@@ -85,4 +85,9 @@
   .pagination {
     top: 45px;
   }
+
+  .pagination span {
+    padding: 2px 4px;
+  }
+
 }

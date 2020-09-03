@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect, Fragment } from 'react';
 import PageLayout from '../../components/page-layout';
 import styles from './index.module.css';
 import Book from '../../components/book';
-import getCookie from '../../utils/getCookie'
 import dataService from '../../services/data-service';
 import { NotificationContext, LoaderContext } from '../../Context';
 
@@ -42,11 +41,10 @@ const Books = (props) => {
     }, [state.current_page])
 
     const deleteBook = async (bookId) => {
-        const token = getCookie('x-auth-token');
 
         loaderContext.showLoader();
 
-        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token })
+        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId })
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);

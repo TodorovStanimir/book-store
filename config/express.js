@@ -5,9 +5,8 @@ const path = require('path');
 
 module.exports = (app) => {
     app.use(cors({
-        // origin: true,
-        // credentials: true,
-        exposedHeaders: 'Authorization'
+        origin: true,
+        credentials: true
     }));
 
     // Serve any static files

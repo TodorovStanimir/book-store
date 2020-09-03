@@ -8,7 +8,6 @@ import { emailValidator, phoneValidator, occupationValidator, imageUrlValidator 
 import ValidatorEl from '../../components/validator-el';
 import SubmitButton from '../../components/submit-button';
 import { UserContext, NotificationContext } from '../../Context';
-import getCookie from '../../utils/getCookie';
 import dataService from '../../services/data-service';
 import InputUploadEl from '../../components/input-upload-el';
 
@@ -16,7 +15,6 @@ const Profile = (props) => {
 
     const userContext = useContext(UserContext);
     const notificationContext = useContext(NotificationContext);
-    const token = getCookie('x-auth-token');
     const [editedUser, setState] = useState({ email: '', phone: '', occupation: '', imageUrl: '', books: [] });
 
     const userId = userContext.user._id;
@@ -50,7 +48,7 @@ const Profile = (props) => {
     const handleEditUser = async (e) => {
         e.preventDefault();
 
-        const result = await dataService({ method: 'put', collectionUrl: 'user', url: userId, data: editedUser, token });
+        const result = await dataService({ method: 'put', collectionUrl: 'user', url: userId, data: editedUser });
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification(result);
@@ -59,9 +57,8 @@ const Profile = (props) => {
     }
 
     const handleDeleteBook = async (bookId) => {
-        const token = getCookie('x-auth-token');
 
-        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token })
+        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId })
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);

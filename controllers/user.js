@@ -2,7 +2,6 @@ const { validationResult } = require('express-validator');
 
 const { User, TokenBlackList } = require('../models');
 const { jwt, sendWelcomeEmail, sendCancelationEmail } = require('../utils');
-const config = require('../config/config');
 
 module.exports = {
     get: async (req, res, next) => {
@@ -32,7 +31,8 @@ module.exports = {
 
                 const userForSend = user.toObject();
                 delete userForSend.password;
-                res.header("Authorization", token).json(userForSend);
+                res.cookie('x-auth-token', token, { httpOnly: true });
+                res.json(userForSend);
             } catch (err) {
                 next(err);
             }
@@ -60,19 +60,21 @@ module.exports = {
                 const userForSend = createdUser.toObject();
                 delete userForSend.password;
                 sendWelcomeEmail(email, username);
-                res.status(201).header("Authorization", token).json(userForSend);
+                res.cookie('x-auth-token', token, { httpOnly: true });
+                res.status(201).json(userForSend);
             } catch (err) {
                 next(err);
             }
         },
 
         logout: (req, res, next) => {
-            const token = req.header('Authorization').split(' ')[1];
+            const token = req.cookies['x-auth-token'];
             console.log('-'.repeat(100));
             console.log(token);
             console.log('-'.repeat(100));
             TokenBlackList.create({ token })
                 .then(() => {
+                    res.clearCookie('x-auth-token');
                     res.status(200).json({ 'msg': 'successful exit' });
                 })
                 .catch(next);
@@ -80,7 +82,7 @@ module.exports = {
 
         verifyLogin: async (req, res, next) => {
             try {
-                const token = req.header('Authorization').split(' ')[1] || '';
+                const token = req.cookies['x-auth-token'];
                 const decodetToken = jwt.verifyToken(token);
                 const blacklistedToken = await TokenBlackList.findOne({ token });
 

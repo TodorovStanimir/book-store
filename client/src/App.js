@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { UserContext, NotificationContext, LoaderContext, LanguageContext } from './Context';
-import getCookie from './utils/getCookie';
 import dataService from './services/data-service';
 import Notification from './components/notification';
 import Loader from './components/loader';
@@ -59,26 +58,18 @@ class App extends Component {
         })
     }
 
-    logOut = async () => {
-
-        const token = getCookie('x-auth-token');
+    logOut = async (message = null) => {
 
         try {
-            let result = '';
-            if (token) {
-                result = await dataService({ method: 'post', collectionUrl: 'user', url: 'logout', token });
-            }
+            const result = await dataService({ method: 'post', collectionUrl: 'user', url: 'logout' });
 
-            document.cookie = 'x-auth-token=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+            if (result.msg && this.state.isLoggedIn && message !== 'noNotification')
+                this.showNotification(result.msg)
 
             this.setState({
                 isLoggedIn: false,
                 user: null
             })
-
-            if (result.msg)
-                this.showNotification(result.msg)
-
         } catch (error) {
             this.showNotification(error.status)
         }
@@ -93,17 +84,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const token = getCookie('x-auth-token');
 
-        if (!token || token === '') {
-            this.logOut();
-            return
-        }
         axios('/api/user/verify', {
             method: 'post',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `token ${token}`
+                'Content-Type': 'application/json'
             }
         }).then(response => {
             if (response.data.status) {

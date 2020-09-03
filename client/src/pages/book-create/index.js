@@ -11,13 +11,11 @@ import { titleValidator, authorValidator, descriptionValidator, genresValidator 
 import { yearValidator, publisherValidator, priceValidator, imageUrlValidator } from '../../utils/validators';
 import dataService from '../../services/data-service';
 import { NotificationContext, LoaderContext } from '../../Context';
-import getCookie from '../../utils/getCookie';
 import InputUploadEl from '../../components/input-upload-el';
 
 const CreateBook = (props) => {
     const history = useHistory();
     const bookId = useParams().id;
-    const token = getCookie('x-auth-token');
 
     const { showNotification } = useContext(NotificationContext);
     const { showLoader } = useContext(LoaderContext);
@@ -111,7 +109,7 @@ const CreateBook = (props) => {
         showLoader();
         const method = bookId ? 'put' : 'post';
         const book = inputData.book;
-        const result = await dataService({ method, collectionUrl: 'book', url: bookId, data: book, token })
+        const result = await dataService({ method, collectionUrl: 'book', url: bookId, data: book })
 
         if (Array.isArray(result) || result.isAxiosError) {
             showNotification(result);

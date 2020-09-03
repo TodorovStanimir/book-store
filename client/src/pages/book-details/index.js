@@ -4,7 +4,6 @@ import styles from './index.module.css';
 import PageLayout from '../../components/page-layout';
 import CommentCreate from '../../components/comment-create';
 import CommentDetails from '../../components/comment-details'
-import getCookie from '../../utils/getCookie'
 import dataService from '../../services/data-service';
 import { UserContext, NotificationContext, LoaderContext } from '../../Context';
 import LinkButton from '../../components/link-button';
@@ -24,8 +23,6 @@ const BookDetails = (props) => {
     const match = useRouteMatch();
     const history = useHistory();
     const bookId = match.params && match.params.id;
-    const token = getCookie('x-auth-token');
-
 
     const fetchData = async () => {
         loaderContext.showLoader();
@@ -39,7 +36,7 @@ const BookDetails = (props) => {
     }, [])
 
     const handleDeleteBook = async (bookId) => {
-        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId, token });
+        const result = await dataService({ method: 'delete', collectionUrl: 'book', url: bookId });
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete book!` }]);
@@ -57,7 +54,7 @@ const BookDetails = (props) => {
         ratedBook[rate] = ratedBook[rate] + 1;
         loaderContext.showLoader();
 
-        const updatedBook = await dataService({ method: 'put', collectionUrl: 'book', url: bookId, data: ratedBook, token });
+        const updatedBook = await dataService({ method: 'put', collectionUrl: 'book', url: bookId, data: ratedBook });
 
         if (Array.isArray(updatedBook) || updatedBook.isAxiosError) {
             notificationContext.showNotification(updatedBook);
@@ -68,7 +65,7 @@ const BookDetails = (props) => {
 
     const createComment = async (book, newComment) => {
         loaderContext.showLoader();
-        const result = await dataService({ method: 'post', collectionUrl: 'comment', data: { 'subject': newComment, 'bookId': bookId }, token });
+        const result = await dataService({ method: 'post', collectionUrl: 'comment', data: { 'subject': newComment, 'bookId': bookId } });
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification(result);
@@ -83,7 +80,7 @@ const BookDetails = (props) => {
 
     const deleteComment = async (commentId, book) => {
         loaderContext.showLoader();
-        const result = await dataService({ method: 'delete', collectionUrl: 'comment', url: commentId, token });
+        const result = await dataService({ method: 'delete', collectionUrl: 'comment', url: commentId });
 
         if (Array.isArray(result) || result.isAxiosError) {
             notificationContext.showNotification([{ msg: `Could not delete comment!` }]);
