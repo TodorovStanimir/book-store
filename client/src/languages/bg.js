@@ -18,9 +18,9 @@ export default {
     userHaveAccount: 'Имате акаунт? Влезте в него',
     userEmailField: 'Имейла трябва да бъде валиден имейл адрес',
     userNameField: 'Името трябва да е във формат Xxxxx Xxxxx',
-    userPhoneField: 'Телефона трябва да съдържа кода на държавата и най-малко 7 цифри',
+    userPhoneField: 'Телефона трябва да е във формат код страна и >=7 цифри',
     userOccupationField: 'Професията трябва да съдържа само букви',
-    userPasswordField: 'Паролата трябва да съдържа между 3 и 16 знака: букви или цифри',
+    userPasswordField: 'Паролата трябва да съдържа между 3 и 16 букви и цифри',
     userRepeatPasswordField: 'Паролите не съвпадат',
     userImageUrlField: 'URL адресът трябва да започва с http:// или https://',
     //Login
